@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader } from './ui/card';
 import { Progress } from './ui/progress';
 import { Separator } from './ui/separator';
 import { Button } from './ui/button';
-import OrganizationAvatar from './organizationAvatar';
 import { Building2, UserIcon } from 'lucide-react';
+import OrganizationAvatar from './organizationAvatar';
 
 export default function InitiativeCard() {
   return (

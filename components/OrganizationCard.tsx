@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader } from './ui/card';
 import { Progress } from './ui/progress';
 import { Separator } from './ui/separator';
 import { Button } from './ui/button';
-import OrganizationAvatar from './organizationAvatar';
 import { Building2, DollarSign, Target, UserIcon } from 'lucide-react';
 
 export default function OrganizationCard() {
