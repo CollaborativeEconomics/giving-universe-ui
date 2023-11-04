@@ -15,10 +15,10 @@ export default function OrganizationAvatar(props: Props) {
         <AvatarFallback>OT</AvatarFallback>
       </Avatar>
       <div className="flex flex-col">
-        <h4 className="text-sm font-semibold uppercase text-white">
+        <h4 className="text-sm font-semibold uppercase text-black">
           Organization Name
         </h4>
-        <h5 className="text-xs text-white opacity-75">We do things</h5>
+        <h5 className="text-xs text-black opacity-75">We do things</h5>
       </div>
     </div>
   );
