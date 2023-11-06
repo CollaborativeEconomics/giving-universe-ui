@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Card, CardContent } from './ui/card';
 import { Progress } from './ui/progress';
 import { Separator } from './ui/separator';
-import { DateString } from './ui/date';
+import { DateDisplay, DateString } from './ui/date';
 import { Button } from './ui/button';
 import { CalendarDays } from 'lucide-react';
 import OrganizationAvatar from './OrganizationAvatar';
@@ -34,9 +34,9 @@ export default function InitiativeCardCompact() {
                         <h3 className="px-6 pt-2 text-xl font-semibold uppercase text-black">
                             {dummyTitle}
                         </h3>
-                        <div className="px-6 py-4 h-2 inline-flex gap-2 items-center text-slate-500">
+                        <DateDisplay className="py-4">
                             <CalendarDays size={17} /> <DateString timestamp={dummyCreatedTimestamp} />
-                        </div>
+                        </DateDisplay>
                         <div className="px-6 line-clamp-2">
                             {dummyDescription}
                             {dummyDescription}

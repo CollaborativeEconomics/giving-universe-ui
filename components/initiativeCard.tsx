@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { Progress } from './ui/progress';
 import { Separator } from './ui/separator';
-import { DateString } from './ui/date';
+import { DateDisplay, DateString } from './ui/date';
 import { Button } from './ui/button';
 import { Building2, UserIcon, CalendarDays, DollarSign } from 'lucide-react';
 import OrganizationAvatar from './OrganizationAvatar';
@@ -35,9 +35,9 @@ export default function InitiativeCard() {
         <h3 className="px-6 pt-2 text-xl font-semibold uppercase text-black">
           {dummyTitle}
         </h3>
-        <div className="px-6 h-2 inline-flex gap-2 items-center text-slate-500">
+        <DateDisplay>
           <CalendarDays size={17} /> <DateString timestamp={dummyCreatedTimestamp} />
-        </div>
+        </DateDisplay>  
         <p className="px-6">
           {dummyDescription}
         </p>
