@@ -68,6 +68,6 @@ export default function InitiativeCard() {
   );
 }
 
-function goalPercent(raiseGoal: number, currentRaised: number) {
+export function goalPercent(raiseGoal: number, currentRaised: number) {
   return currentRaised / raiseGoal * 100;
 };

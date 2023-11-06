@@ -6,6 +6,7 @@ import { DateDisplay, DateString } from './ui/date';
 import { Button } from './ui/button';
 import { CalendarDays } from 'lucide-react';
 import OrganizationAvatar from './OrganizationAvatar';
+import { goalPercent } from './initiativeCard';
 
 const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
 const dummyTitle: string = "Petting a dog";
@@ -59,7 +60,3 @@ export default function InitiativeCardCompact() {
         </Card>
     );
 }
-
-function goalPercent(raiseGoal: number, currentRaised: number) {
-    return currentRaised / raiseGoal * 100;
-};
