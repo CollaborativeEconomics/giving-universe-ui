@@ -19,8 +19,13 @@ function getGridDiv(images: string[] | undefined): React.ReactElement {
     if (!images) {
         return <div />
     }
-    let gridClass = "";
-    gridClass = "grid grid-cols-" + images.length.toString() + " gap-1";
+    // must contain at least three images to fill to width
+    let gridClass;
+    if (images.length <= 3) {
+        gridClass = "grid grid-cols-3 gap-1";
+    } else {
+        gridClass = "grid grid-cols-4 gap-1";
+    }
     return (
         <div className={gridClass}>
             {
