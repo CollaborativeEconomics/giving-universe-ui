@@ -2,11 +2,9 @@ import Image from 'next/image';
 import { Card, CardContent } from './ui/card';
 import { Progress } from './ui/progress';
 import { Separator } from './ui/separator';
-import { DateDisplay, DateString } from './ui/date';
+import { DateDisplay } from './ui/date-posted';
 import { Button } from './ui/button';
-import { CalendarDays } from 'lucide-react';
 import OrganizationAvatar from './OrganizationAvatar';
-import { goalPercent } from './initiativeCard';
 
 const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
 const dummyTitle: string = "Petting a dog";
@@ -32,12 +30,10 @@ export default function InitiativeCardCompact() {
                         height={200}
                     />
                     <div>
-                        <h3 className="px-6 pt-2 text-xl font-semibold uppercase text-black">
+                        <h3 className="px-6 pt-2 text-xl font-semibold uppercase">
                             {dummyTitle}
                         </h3>
-                        <DateDisplay className="py-4">
-                            <CalendarDays size={17} /> <DateString timestamp={dummyCreatedTimestamp} />
-                        </DateDisplay>
+                        <DateDisplay timestamp={dummyCreatedTimestamp} className="py-4" />
                         <div className="px-6 line-clamp-2">
                             {dummyDescription}
                             {dummyDescription}
@@ -46,7 +42,7 @@ export default function InitiativeCardCompact() {
                 </div>
                 <Separator />
                 <div className="px-6 pt-3">
-                    <Progress value={goalPercent(dummyStats.amountTarget, dummyStats.amountRaised)} />
+                    <Progress value={dummyStats.amountRaised / dummyStats.amountTarget * 100} />
                 </div>
                 <div className="px-6 pb-2 -mt-2 text-sm font-semibold">
                     ${dummyStats.amountRaised.toLocaleString()} of ${dummyStats.amountTarget.toLocaleString()} raised this month
