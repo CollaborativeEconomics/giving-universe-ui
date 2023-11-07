@@ -48,9 +48,9 @@ export default function InitiativeCardCompact() {
                     ${dummyStats.amountRaised.toLocaleString()} of ${dummyStats.amountTarget.toLocaleString()} raised this month
                 </div>
                 <Separator />
-                <div className="px-6 pt-6 inline-flex justify-between text-black">
+                <div className="px-6 pt-6 inline-flex justify-between">
                     <OrganizationAvatar />
-                    <Button className="mx-6 bg-transparent text-black outline outline-slate-300 outline-1">Donate</Button>
+                    <Button className="mx-6 bg-transparent text-black dark:text-white outline outline-slate-300 outline-1">Donate</Button>
                 </div>
             </CardContent>
         </Card>
