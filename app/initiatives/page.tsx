@@ -13,7 +13,7 @@ import InitiativeCard from '@/components/initiativeCard';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-stretch container pt-24">
+    <main className="flex min-h-screen flex-col items-stretch px-20 pt-24">
       {/* <Tabs> */}
       <Card className="flex">
         <SearchBar />
