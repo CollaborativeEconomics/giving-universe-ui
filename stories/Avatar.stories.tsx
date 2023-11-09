@@ -3,7 +3,7 @@ import OrganizationAvatar from '@/components/OrganizationAvatar';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof OrganizationAvatar> = {
-  title: 'ui/Avatar',
+  title: 'organization/Avatar',
   component: OrganizationAvatar,
 };
 
