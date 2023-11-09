@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Header from './header';
 import Providers from './providers';
-import StoryCard from '@/components/StoryCard';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,8 +30,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <div className="pt-60" />
-          <StoryCard />
           {children}
         </Providers>
       </body>

@@ -19,7 +19,7 @@ function getGridDiv(images: string[] | undefined): React.ReactElement {
     if (!images) {
         return <div />
     }
-    // must contain at least three images to fill to width
+    // must contain at least three images to fill to width, overflows to new row after 4
     let gridClass;
     if (images.length <= 3) {
         gridClass = "grid grid-cols-3 gap-1";
