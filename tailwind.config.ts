@@ -6,6 +6,7 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './node_modules/flowbite/**/*.js',
   ],
   theme: {
     container: {
@@ -17,6 +18,12 @@ module.exports = {
         lg: '976px',
         xl: '1440px',
       },
+    },
+    screens: {
+      sm: '480px',
+      md: '800px',
+      lg: '1200px',
+      xl: '1600px',
     },
     extend: {
       colors: {
@@ -75,5 +82,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("flowbite/plugin"),
+  ],
 }
