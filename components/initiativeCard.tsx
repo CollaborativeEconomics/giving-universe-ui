@@ -35,7 +35,7 @@ export default function InitiativeCard() {
         <h3 className="px-6 pt-2 text-xl font-semibold uppercase">
           {dummyTitle}
         </h3>
-        <DateDisplay timestamp={dummyCreatedTimestamp} /> 
+        <DateDisplay timestamp={dummyCreatedTimestamp} className="px-6" /> 
         <p className="px-6">
           {dummyDescription}
         </p>

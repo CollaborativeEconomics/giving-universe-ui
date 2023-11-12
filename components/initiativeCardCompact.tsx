@@ -15,7 +15,7 @@ const dummyStats = {
     amountRaised: 1000,
     donorCount: 35,
     institutionalDonorCount: 3,
-}
+};
 
 export default function InitiativeCardCompact() {
     return (
@@ -33,7 +33,7 @@ export default function InitiativeCardCompact() {
                         <h3 className="px-6 pt-2 text-xl font-semibold uppercase">
                             {dummyTitle}
                         </h3>
-                        <DateDisplay timestamp={dummyCreatedTimestamp} className="py-4" />
+                        <DateDisplay timestamp={dummyCreatedTimestamp} className="px-6 py-4" />
                         <div className="px-6 line-clamp-2">
                             {dummyDescription}
                             {dummyDescription}

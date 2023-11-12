@@ -23,7 +23,7 @@ const DateStyle = React.forwardRef<
 >(({ className, ...props }, ref) => (
     <div
         ref={ref}
-        className={cn("px-6 h-2 inline-flex gap-2 items-center text-slate-500", className)}
+        className={cn("h-2 inline-flex gap-2 items-center text-slate-500", className)}
         {...props}
     />
 ))
