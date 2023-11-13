@@ -6,6 +6,7 @@ import { DateDisplay } from './ui/date-posted';
 import { Button } from './ui/button';
 import OrganizationAvatar from './OrganizationAvatar';
 
+const dummyName: string = "Food not bombs"
 const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
 const dummyTitle: string = "Petting a dog";
 const dummyCreatedTimestamp: number = Date.now();
@@ -49,7 +50,7 @@ export default function InitiativeCardCompact() {
                 </div>
                 <Separator />
                 <div className="px-6 pt-6 inline-flex justify-between">
-                    <OrganizationAvatar />
+                    <OrganizationAvatar avatarProps={{ title: dummyName }} />
                     <Button className="mx-6 bg-transparent text-black dark:text-white outline outline-slate-300 outline-1">Donate</Button>
                 </div>
             </CardContent>

@@ -6,7 +6,9 @@ import { DateDisplay } from './ui/date-posted';
 import { Button } from './ui/button';
 import { Building2, UserIcon, DollarSign } from 'lucide-react';
 import OrganizationAvatar from './OrganizationAvatar';
+import { ListObject } from './ui/list-object';
 
+const dummyName: string = "Food not bombs";
 const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
 const dummyTitle: string = "Petting a dog";
 const dummyCreatedTimestamp: number = Date.now();
@@ -35,7 +37,7 @@ export default function InitiativeCard() {
         <h3 className="px-6 pt-2 text-xl font-semibold uppercase">
           {dummyTitle}
         </h3>
-        <DateDisplay timestamp={dummyCreatedTimestamp} /> 
+        <DateDisplay timestamp={dummyCreatedTimestamp} />
         <p className="px-6">
           {dummyDescription}
         </p>
@@ -45,20 +47,14 @@ export default function InitiativeCard() {
         </div>
         <div className="px-6">
           <ul className="px-3 flex flex-col gap-2">
-            <li className="inline-flex gap-3 text-sm font-semibold">
-              <DollarSign size={17} /> ${dummyStats.amountRaised.toLocaleString()} of ${dummyStats.amountTarget.toLocaleString()} raised this month
-            </li>
-            <li className="inline-flex gap-3 text-sm font-semibold">
-              <UserIcon size={17} /> {dummyStats.donorCount} Donors
-            </li>
-            <li className="inline-flex gap-3 text-sm font-semibold">
-              <Building2 size={17} /> {dummyStats.institutionalDonorCount} Institutional Donors
-            </li>
+            <ListObject Icon={DollarSign} text={"$" + dummyStats.amountRaised.toLocaleString() + " of $ " + dummyStats.amountTarget.toLocaleString() + " raised this month"} />
+            <ListObject Icon={UserIcon} text={dummyStats.donorCount + " Donors"} />
+            <ListObject Icon={Building2} text={dummyStats.institutionalDonorCount + " Institutional Donors"} />
           </ul>
         </div>
         <Separator />
         <div className="px-6 pt-6 inline-flex justify-between">
-          <OrganizationAvatar />
+          <OrganizationAvatar avatarProps={{ title: dummyName }} />
           <Button className="mx-6 bg-transparent text-black dark:text-white outline outline-slate-300 outline-1">Donate</Button>
         </div>
       </CardContent>

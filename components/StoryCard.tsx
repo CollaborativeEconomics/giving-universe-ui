@@ -6,6 +6,7 @@ import OrganizationAvatar from './OrganizationAvatar';
 
 const dummyInitiative = {
   name: "Food for Pakistan",
+  orgName: "Food not bombs",
   description: "These siblings have been displaced, oh no! One is in the pacific, and the other in the atlantic. Alas! How can we rectify this? Leave it to us! Your donations go towards this heart-warming reunion.",
   images: [
     "https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg",
@@ -23,7 +24,7 @@ export default function StoryCard() {
   return (
     <Card className="flex flex-col overflow-hidden">
       <CardHeader>
-        <OrganizationAvatar />
+      <OrganizationAvatar avatarProps={{ title: dummyInitiative.orgName }} />
         <p className="text-sm font-semibold">
           in <span className="underline"><a href={dummyInitiative.address}>{dummyInitiative.name}</a></span>
         </p>
