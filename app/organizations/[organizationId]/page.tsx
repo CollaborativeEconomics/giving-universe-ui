@@ -16,7 +16,6 @@ const dummyOrganization = {
     address: "www.google.com",
     twitterAddress: "www.twitter.com",
     facebookAddress: "www.facebook.com",
-    description: "At Food Not Bombs, our mission is to combat hunger and nourish communities through grassroots, direct action. We believe that access to nutritious food is a fundamental human right, and we are committed to addressing the root causes of hunger by repurposing wasted resources. Guided by the principles of social justice, environmental sustainability, and community empowerment, Food Not Bombs strives to create a world where no one goes to bed hungry. We envision a society that values people over profit, prioritizes the well-being of the marginalized, and promotes a sustainable and equitable food system. Our dedicated volunteers work tirelessly to rescue surplus food that would otherwise go to waste and redistribute it to those in need. By transforming surplus into sustenance, we challenge the wasteful practices of our current food system and advocate for systemic change.",
     stats: {
         amountRaised: "10000",
         amountTarget: "8000",
@@ -83,7 +82,6 @@ export default function Home() {
                             <TabsTrigger value="stats" className="font-semibold text-md">Stats</TabsTrigger>
                         </TabsList>
                         <div className="mt-4 py-5 px-7 rounded-md bg-white text-black gap-3">
-                            {/* <TabsContent value="about">{dummyOrganization.description}</TabsContent> */}
                             <TabsContent value="about">{documentToReactComponents(dummyOrganization.descriptionJsonRtf as Document)}</TabsContent>
                             <TabsContent value="stats">
                                 <div className="px-6">
