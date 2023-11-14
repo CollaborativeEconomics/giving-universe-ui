@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import Image from 'next/image';
 import React from 'react';
 import { NavMenu } from './navigation-menu';
@@ -27,14 +28,16 @@ export default function Header() {
       }`}
     >
       <div className="flex justify-between container">
-        <Image
-          src="/GivingUniverseLogoV1.svg"
-          alt="Giving Universe"
-          className="dark:invert"
-          width={300}
-          height={60}
-          priority
-        />
+        <Link href="/">
+          <Image
+            src="/GivingUniverseLogoV1.svg"
+            alt="Giving Universe"
+            className="dark:invert"
+            width={300}
+            height={60}
+            priority
+          />
+        </Link>
         <div className="flex flex-row items-center">
           <NavMenu />
         </div>
