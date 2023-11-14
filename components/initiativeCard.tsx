@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { Progress } from './ui/progress';
@@ -18,12 +19,20 @@ const dummyStats = {
   institutionalDonorCount: 3,
 }
 
-export default function InitiativeCard() {
+export default function InitiativeCard({...props}) {
+  //console.log('ITEM', props?.data)
+  const item = props?.data || {}
+  let image = dummyImgSrc
+  if(item?.imageUri){
+    image = item?.imageUri.startsWith('ipfs') ? 'https://ipfs.filebase.io/ipfs/'+item.imageUri.substr(5) : item.imageUri
+  }
+  const startDate = new Date(item?.start).getTime()
+
   return (
     <Card className="flex flex-col overflow-hidden h-auto">
       <CardHeader className="relative h-72">
         <Image
-          src={dummyImgSrc}
+          src={image}
           alt="IMG BG"
           fill style={{
             objectFit: 'cover',
@@ -33,11 +42,11 @@ export default function InitiativeCard() {
 
       <CardContent className="flex flex-col pb-8 pt-3 gap-3 px-0">
         <h3 className="px-6 pt-2 text-xl font-semibold uppercase">
-          {dummyTitle}
+          {item.title}
         </h3>
-        <DateDisplay timestamp={dummyCreatedTimestamp} className="px-6" /> 
+        <DateDisplay timestamp={startDate} /> 
         <p className="px-6">
-          {dummyDescription}
+          {item.description}
         </p>
         <Separator />
         <div className="px-6 pt-3">
