@@ -1,10 +1,4 @@
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { CategorySelect } from '@/components/search';
-import LocationSelect from '@/components/search/LocationSelect';
+import { Card } from '@/components/ui/card';
 import SearchBar from '@/components/search/SearchBar';
 import OrganizationCard from '@/components/OrganizationCard';
 
