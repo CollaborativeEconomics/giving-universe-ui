@@ -77,6 +77,7 @@ export const getOrganizationById = (id: string) => fetchRegistry(`organizations/
 export const getOrganizationsByCategory = (categorySlug: string) => fetchRegistry(`organizations?category=${categorySlug}`)
 export const getOrganizationsByWallet = (walletAddress: string) => fetchRegistry(`organizations?wallet=${walletAddress}`)
 export const getFeaturedOrganization = () => fetchRegistry(`organizations?featured=true`)
+export const searchOrganizations = (q) => fetchRegistry(`organizations?search=${q}`)
 
 export const getCategories = () => fetchRegistry('categories')
 
@@ -85,6 +86,7 @@ export const getInitiativeById = (id: string) => fetchRegistry(`initiatives/${id
 export const getInitiativeByTag = (tag: string) => fetchRegistry(`initiatives?tag=${tag}`)
 export const getInitiatives = () => fetchRegistry('initiatives')
 export const getInitiativesByOrganization = (id: string) => fetchRegistry(`initiatives?orgid=${id}`)
+export const searchInitiatives = (q) => fetchRegistry(`initiatives?search=${q}`)
 
 export const newProvider = (body: Dictionary) => postRegistry('providers', body)
 export const getProviderById = (id: string) => fetchRegistry(`providers/${id}`)

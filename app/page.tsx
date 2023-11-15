@@ -3,7 +3,9 @@ import Main from '@/components/ui/main'
 import { Card } from '@/components/ui/card'
 import SearchBar from '@/components/search/SearchBar'
 
-export default function Handler() {
+export default function Handler(props:any) {
+  const query = props?.searchParams?.search || ''
+  console.log('SEARCH', query)
   return (
     <Main>
       <Card className="flex">
