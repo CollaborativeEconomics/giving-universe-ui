@@ -1,8 +1,8 @@
-import { ReactChild } from 'react';
+import { ReactNode } from 'react';
 
 interface MainProps {
-  children?: ReactChild;
   className?: string;
+  children?: ReactNode;
 }
 
 const Main = ({ className, children }: MainProps) => {

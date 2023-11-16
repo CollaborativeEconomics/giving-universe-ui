@@ -8,10 +8,12 @@ import { CategorySelect } from '@/components/search';
 import LocationSelect from '@/components/search/LocationSelect';
 import SearchBar from '@/components/search/SearchBar';
 import OrganizationCard from '@/components/OrganizationCard';
-import { getOrganizations } from '@/lib/utils/registry';
+import { searchOrganizations } from '@/lib/utils/registry';
 
-export default async function Organizations() {
-  const data = await getOrganizations() || []
+export default async function Organizations(props:any) {
+  const query = props?.searchParams?.search || ''
+  console.log('SEARCH', query)
+  const data = await searchOrganizations(query) || []
   console.log('ORGS', data.length)
 
   return (
@@ -20,7 +22,7 @@ export default async function Organizations() {
         <SearchBar />
       </Card>
       <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 pt-10">
-        { data?.length>0 ? data.map((item) => (
+        { data?.length>0 ? data.map((item:any) => (
           <OrganizationCard key={item.id} data={item} />
         )) : (
           <h1 className="m-4">No organizations found</h1>
