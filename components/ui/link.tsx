@@ -10,7 +10,7 @@ export interface LinkProps
 }
 
 const Link = React.forwardRef<HTMLElement, LinkProps>(
-    ({ className, label, address, ...props }, ref) => {
+    ({ className, label, address, ...props }) => {
         return (
             <p
                 className={cn("underline",

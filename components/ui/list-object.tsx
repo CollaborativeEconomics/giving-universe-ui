@@ -4,13 +4,13 @@ import { cn } from "@/lib/shadCnUtil"
 import { LucideIcon } from "lucide-react"
 
 export interface ListObjectProps
-    extends React.HTMLAttributes<HTMLElement> {
+    extends React.HTMLAttributes<HTMLLIElement> {
     Icon: LucideIcon,
     text: string,
 }
 
-const ListObject = React.forwardRef<HTMLElement, ListObjectProps>(
-    ({ className, Icon, text, ...props }, ref) => {
+const ListObject = React.forwardRef<HTMLLIElement, ListObjectProps>(
+    ({ className, Icon, text, ...props }) => {
         return (
             <li
                 className={cn(

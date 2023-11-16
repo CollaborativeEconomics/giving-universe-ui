@@ -5,9 +5,8 @@ import { Progress } from './ui/progress';
 import { Separator } from './ui/separator';
 import { DateDisplay } from './ui/date-posted';
 import { Button } from './ui/button';
-import { Building2, UserIcon, DollarSign } from 'lucide-react';
 import OrganizationAvatar from './OrganizationAvatar';
-import { ListObject } from './ui/list-object';
+import { OrgStats } from './ui/org-stats';
 
 const dummyName: string = "Food not bombs";
 const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
@@ -18,12 +17,11 @@ const dummyStats = {
   institutionalDonorCount: 3,
 }
 
-export default function InitiativeCard({...props}) {
-  //console.log('ITEM', props?.data)
+export default function InitiativeCard({ ...props }) {
   const item = props?.data || {}
   let image = dummyImgSrc
-  if(item?.imageUri){
-    image = item?.imageUri.startsWith('ipfs') ? 'https://ipfs.filebase.io/ipfs/'+item.imageUri.substr(5) : item.imageUri
+  if (item?.imageUri) {
+    image = item?.imageUri.startsWith('ipfs') ? 'https://ipfs.filebase.io/ipfs/' + item.imageUri.substr(5) : item.imageUri
   }
   const startDate = new Date(item?.start).getTime()
 
@@ -43,7 +41,7 @@ export default function InitiativeCard({...props}) {
         <h3 className="px-6 pt-2 text-xl font-semibold uppercase">
           {item.title}
         </h3>
-        <DateDisplay timestamp={startDate} />
+        <DateDisplay timestamp={startDate} className="px-6" />
         <p className="px-6">
           {item.description}
         </p>
@@ -51,13 +49,12 @@ export default function InitiativeCard({...props}) {
         <div className="px-6 pt-3">
           <Progress value={dummyStats.amountRaised / dummyStats.amountTarget * 100} />
         </div>
-        <div className="px-6">
-          <ul className="px-3 flex flex-col gap-2">
-            <ListObject Icon={DollarSign} text={"$" + dummyStats.amountRaised.toLocaleString() + " of $ " + dummyStats.amountTarget.toLocaleString() + " raised this month"} />
-            <ListObject Icon={UserIcon} text={dummyStats.donorCount + " Donors"} />
-            <ListObject Icon={Building2} text={dummyStats.institutionalDonorCount + " Institutional Donors"} />
-          </ul>
-        </div>
+        <OrgStats orgStatProps={{
+          amountRaised: dummyStats.amountRaised,
+          amountTarget: dummyStats.amountTarget,
+          donorCount: dummyStats.donorCount,
+          institutionalDonorCount: dummyStats.institutionalDonorCount,
+        }} />
         <Separator />
         <div className="px-6 pt-6 inline-flex justify-between">
           <OrganizationAvatar avatarProps={{ title: dummyName }} />

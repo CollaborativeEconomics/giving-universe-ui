@@ -4,11 +4,10 @@ import InitiativeCard from '@/components/initiativeCard';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { Document } from "@contentful/rich-text-types";
 import { Button } from '@/components/ui/button';
-import { Link } from '@/components/ui/link';
-import { ListObject } from '@/components/ui/list-object';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Building2, DollarSign, Facebook, Globe, ListIcon, Target, Twitter, UserIcon } from 'lucide-react';
 import Image from 'next/image';
+import { OrgStats } from '@/components/ui/org-stats';
+import { OrgSocials } from '@/components/ui/org-socials';
 
 const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
 const dummyOrganization = {
@@ -17,12 +16,12 @@ const dummyOrganization = {
     twitterAddress: "www.twitter.com",
     facebookAddress: "www.facebook.com",
     stats: {
-        amountRaised: "10000",
-        amountTarget: "8000",
+        amountRaised: 10000,
+        amountTarget: 8000,
         donorCount: 50,
         institutionalDonorCount: 1,
         initiativeCount: 2,
-        raisedThisMonth: "700",
+        raisedThisMonth: 700,
     },
     descriptionJsonRtf: {
         nodeType: 'document',
@@ -47,19 +46,21 @@ const dummyOrganization = {
 export default function Home() {
     return (
         <main className="w-full bg-gradient-to-t from-slate-200">
-            <div className="relative flex min-h-screen flex-col sm:px-[5%] lg:px-0 lg:container pt-24">
+            <div className="relative flex min-h-screen flex-col sm:px-[5%] lg:px-0 lg:container pt-24 lg:w-full">
 
-                <div className="relative h-96 brightness-80">
+                <div className="relative h-96">
                     <Image
+                        className="absolute -z-1"
                         src={dummyImgSrc}
                         alt="IMG BG"
                         fill style={{
                             objectFit: 'cover',
                         }}
                     />
+                    <div className="bg-gradient-to-t from-black to-white opacity-25 h-full w-full z-5" />
                 </div>
 
-                <div className="absolute flex items-center justify-between pt-60 pl-[5%] pr-[20%] w-full">
+                <div className="absolute flex flex-wrap lg:flex-nowrap gap-3 pt-48 lg:pt-60 items-center justify-between pl-[5%] pr-[20%] w-full">
                     <OrganizationAvatar avatarProps={{ size: "lg", title: dummyOrganization.name }} />
                     <div className="flex flex-col items-center pb-5">
                         <Button className="bg-white text-black w-48">Donate</Button>
@@ -69,11 +70,14 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="absolute flex flex-wrap pt-[25rem] ml-48 px-[10%] sm:gap-1 lg:gap-3">
-                    <Globe size={17} /> <Link className="text-sm font-semibold" label={dummyOrganization.address} address={dummyOrganization.address} />
-                    <Twitter size={17} /> <Link className="text-sm font-semibold" label={dummyOrganization.twitterAddress} address={dummyOrganization.twitterAddress} />
-                    <Facebook size={17} /> <Link className="text-sm font-semibold" label={dummyOrganization.facebookAddress} address={dummyOrganization.facebookAddress} />
-                </div>
+                <OrgSocials
+                    twitterLabel={dummyOrganization.twitterAddress}
+                    twitterAddress={dummyOrganization.twitterAddress}
+                    facebookLabel={dummyOrganization.facebookAddress}
+                    facebookAddress={dummyOrganization.facebookAddress}
+                    websiteLabel={dummyOrganization.address}
+                    websiteAddress={dummyOrganization.address}
+                />
 
                 <div className="pt-20">
                     <Tabs defaultValue="about">
@@ -85,13 +89,15 @@ export default function Home() {
                             <TabsContent value="about">{documentToReactComponents(dummyOrganization.descriptionJsonRtf as Document)}</TabsContent>
                             <TabsContent value="stats">
                                 <div className="px-6">
-                                    <ul className="px-3 flex flex-col gap-2">
-                                        <ListObject Icon={DollarSign} text={"$" + dummyOrganization.stats.amountRaised.toLocaleString() + " of $" + dummyOrganization.stats.amountTarget.toLocaleString() + " raised"} />
-                                        <ListObject Icon={DollarSign} text={"$ " + dummyOrganization.stats.raisedThisMonth.toLocaleString() + " this month"} />
-                                        <ListObject Icon={UserIcon} text={dummyOrganization.stats.donorCount + " Donors"} />
-                                        <ListObject Icon={Building2} text={dummyOrganization.stats.institutionalDonorCount + " Institutional Donors"} />
-                                        <ListObject Icon={Target} text={"Initiative count: " + dummyOrganization.stats.initiativeCount} />
-                                    </ul>
+                                    <OrgStats orgStatProps={{
+                                        amountRaised: dummyOrganization.stats.amountRaised,
+                                        amountTarget: dummyOrganization.stats.amountTarget,
+                                        raisedThisMonth: dummyOrganization.stats.raisedThisMonth,
+                                        donorCount: dummyOrganization.stats.donorCount,
+                                        institutionalDonorCount: dummyOrganization.stats.institutionalDonorCount,
+                                        initiativeCount: dummyOrganization.stats.initiativeCount,
+                                    }}
+                                    />
                                 </div>
                             </TabsContent>
                         </div>
@@ -119,7 +125,6 @@ export default function Home() {
                 </div>
 
             </div>
-
         </main>
     )
 }

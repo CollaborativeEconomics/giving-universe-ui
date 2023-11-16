@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader } from './ui/card';
-import { CalendarDays } from 'lucide-react';
 import { DateDisplay } from './ui/date-posted';
 import Gallery from './ui/gallery';
 import OrganizationAvatar from './OrganizationAvatar';
@@ -24,13 +23,11 @@ export default function StoryCard() {
   return (
     <Card className="flex flex-col overflow-hidden">
       <CardHeader>
-      <OrganizationAvatar avatarProps={{ title: dummyInitiative.orgName }} />
+        <OrganizationAvatar avatarProps={{ title: dummyInitiative.orgName }} />
         <p className="text-sm font-semibold">
           in <span className="underline"><a href={dummyInitiative.address}>{dummyInitiative.name}</a></span>
         </p>
-        <div className="pt-2 inline-flex gap-2 items-center text-slate-500">
-          <CalendarDays size={17} /> <DateDisplay timestamp={dummyInitiative.timestamp} />
-        </div>
+        <DateDisplay timestamp={dummyInitiative.timestamp} className="pt-6 pb-3" />
       </CardHeader>
       <div className="px-2 -mt-2">
         <Gallery images={dummyInitiative.images} />
