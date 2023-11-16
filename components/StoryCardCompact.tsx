@@ -18,35 +18,34 @@ const dummyStory = {
 
 export default function StoryCardCompact() {
   return (
-    <Card className="flex overflow-hidden h-auto">
-
-      <div className="relative min-w-[175px] max-w-[25%] w-full h-auto -mr-6">
-        <Image
-          className=""
-          src={dummyStory.images[0]}
-          alt="IMG BG"
-          fill style={{
-            objectFit: 'cover',
-          }}
-        />
-      </div>
-
-      <CardContent className="flex flex-col gap-3">
-
-        <div className="inline-flex items-top px-6 pt-4">
-          <OrganizationAvatar />
-          <p className="text-sm font-semibold px-6">
-            in <span className="underline"><a href={dummyStory.address}>{dummyStory.name}</a></span>
-          </p>
+      <Card className="flex overflow-hidden h-auto">
+        <div className="relative min-w-[175px] max-w-[25%] w-full h-auto -mr-6">
+          <Image
+            className=""
+            src={dummyStory.images[0]}
+            alt="IMG BG"
+            fill style={{
+              objectFit: 'cover',
+            }}
+          />
         </div>
 
-        <DateDisplay timestamp={dummyStory.timestamp} className="px-6" />
-        <div className="px-6 line-clamp-2">
-          {dummyStory.description}
-          {dummyStory.description}
-        </div>
+        <CardContent className="flex flex-col overflow-hidden gap-3">
 
-      </CardContent>
-    </Card>
+          <div className="inline-flex flex-wrap items-top px-6 pt-4">
+            <OrganizationAvatar />
+            <p className="text-sm font-semibold px-6">
+              in <span className="underline"><a href={dummyStory.address}>{dummyStory.name}</a></span>
+            </p>
+          </div>
+
+          <DateDisplay timestamp={dummyStory.timestamp} className="pl-6" />
+          <div className="pl-6 line-clamp-2">
+            {dummyStory.description}
+            {dummyStory.description}
+          </div>
+
+        </CardContent>
+      </Card>
   );
 }
