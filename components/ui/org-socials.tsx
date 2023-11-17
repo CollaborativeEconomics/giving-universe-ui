@@ -20,13 +20,19 @@ const OrgSocials = React.forwardRef<HTMLDivElement, OrgSocialsProps>(
         return (
             <div
                 ref={ref}
-                className={cn("absolute flex flex-wrap pt-[25rem] ml-48 px-[10%] sm:gap-1 lg:gap-3",
+                className={cn("absolute flex flex-wrap",
                     className,
                 )}
             >
-                <Globe size={17} /> <Link className="text-sm font-semibold" label={props.websiteLabel} address={props.websiteAddress} />
-                <Twitter size={17} /> <Link className="text-sm font-semibold" label={props.twitterAddress} address={props.twitterAddress} />
-                <Facebook size={17} /> <Link className="text-sm font-semibold" label={props.facebookAddress} address={props.facebookAddress} />
+                <div className="flex gap-x-1">
+                    <Globe size={17} /> <Link className="text-sm font-semibold" label={props.websiteLabel} address={props.websiteAddress} />
+                </div>
+                <div className="flex gap-x-1">
+                    <Twitter size={17} /> <Link className="text-sm font-semibold" label={props.twitterAddress} address={props.twitterAddress} />
+                </div>
+                <div className="flex gap-x-1">
+                    <Facebook size={17} /> <Link className="text-sm font-semibold" label={props.facebookAddress} address={props.facebookAddress} />
+                </div>
             </div>
         )
     }

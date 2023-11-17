@@ -36,18 +36,16 @@ function buildList(props: OrgStatsProps): Array<React.JSX.Element> {
 const OrgStats = React.forwardRef<HTMLUListElement, Props>(
     ({ className, orgStatProps, ...props }, ref) => {
         return (
-            <div className="px-6">
-                <ul
-                    ref={ref}
-                    className={cn(
-                        "px-3 flex flex-col gap-2",
-                        className
-                    )}
-                    {...props}
-                >
-                    {buildList(orgStatProps).map((item) => {return <div key={Math.random()}>{item}</div>})}
-                </ul>
-            </div>
+            <ul
+                ref={ref}
+                className={cn(
+                    "px-3 flex flex-col gap-2",
+                    className
+                )}
+                {...props}
+            >
+                {buildList(orgStatProps).map((item) => { return <div key={Math.random()}>{item}</div> })}
+            </ul>
         )
     }
 )

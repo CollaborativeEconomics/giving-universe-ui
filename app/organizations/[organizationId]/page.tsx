@@ -46,7 +46,7 @@ const dummyOrganization = {
 export default function Home() {
     return (
         <main className="w-full bg-gradient-to-t from-slate-200">
-            <div className="relative flex min-h-screen flex-col sm:px-[5%] lg:px-0 md:container pt-24 lg:w-full">
+            <div className="relative flex flex-col sm:px-[5%] lg:px-0 md:container pt-24 lg:w-full h-full">
 
                 <div className="relative h-96">
                     <Image
@@ -57,20 +57,25 @@ export default function Home() {
                             objectFit: 'cover',
                         }}
                     />
-                    <div className="bg-gradient-to-t from-black to-transparent opacity-50 h-full w-full z-5" />
-                </div>
-
-                <div className="absolute flex flex-wrap md:flex-nowrap gap-3 pt-24 md:pt-60 items-center justify-between pl-[5%] pr-[20%] w-full">
-                    <OrganizationAvatar avatarProps={{ size: "lg", title: dummyOrganization.name }} />
-                    <div className="flex flex-col items-center pb-5">
-                        <Button className="bg-white text-black w-48">Donate</Button>
-                        <p className="text-sm font-semibold text-white">
-                            in <span className="underline"><a href={dummyOrganization.address}>{dummyOrganization.name}</a></span>
-                        </p>
+                    <div className="bg-gradient-to-t from-slate-800 to-transparent opacity-50 h-full w-full z-5" />
+                    <div className="absolute flex flex-wrap items-center justify-between gap-y-5 w-full px-[5%] -translate-y-[97%] lg:-translate-y-[80%]">
+                        <div className="flex flex-wrap items-center">
+                            <OrganizationAvatar avatarProps={{ size: "lg" }} />
+                            <span className="text-5xl font-semibold pb-5 text-white">
+                                {dummyOrganization.name}
+                            </span>
+                        </div>
+                        <div className="flex flex-col items-center pb-5">
+                            <Button className="bg-white text-black w-48">Donate</Button>
+                            <p className="text-sm font-semibold text-white">
+                                in <span className="underline"><a href={dummyOrganization.address}>{dummyOrganization.name}</a></span>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
                 <OrgSocials
+                    className="pt-[25rem] lg:ml-60 pl-[5%] gap-1 lg:gap-3"
                     twitterLabel={dummyOrganization.twitterAddress}
                     twitterAddress={dummyOrganization.twitterAddress}
                     facebookLabel={dummyOrganization.facebookAddress}
@@ -88,25 +93,23 @@ export default function Home() {
                         <div className="mt-4 py-5 px-7 rounded-md bg-white text-black gap-3">
                             <TabsContent value="about">{documentToReactComponents(dummyOrganization.descriptionJsonRtf as Document)}</TabsContent>
                             <TabsContent value="stats">
-                                <div className="px-6">
-                                    <OrgStats orgStatProps={{
-                                        amountRaised: dummyOrganization.stats.amountRaised,
-                                        amountTarget: dummyOrganization.stats.amountTarget,
-                                        raisedThisMonth: dummyOrganization.stats.raisedThisMonth,
-                                        donorCount: dummyOrganization.stats.donorCount,
-                                        institutionalDonorCount: dummyOrganization.stats.institutionalDonorCount,
-                                        initiativeCount: dummyOrganization.stats.initiativeCount,
-                                    }}
-                                    />
-                                </div>
+                                <OrgStats orgStatProps={{
+                                    amountRaised: dummyOrganization.stats.amountRaised,
+                                    amountTarget: dummyOrganization.stats.amountTarget,
+                                    raisedThisMonth: dummyOrganization.stats.raisedThisMonth,
+                                    donorCount: dummyOrganization.stats.donorCount,
+                                    institutionalDonorCount: dummyOrganization.stats.institutionalDonorCount,
+                                    initiativeCount: dummyOrganization.stats.initiativeCount,
+                                }}
+                                />
                             </TabsContent>
                         </div>
                     </Tabs>
                 </div>
 
                 <div className="pt-10 flex justify-center w-full">
-                    <div className="flex gap-9 lg:max-w-screen-lg">
-                        <div className="flex flex-col gap-5 w-2/6">
+                    <div className="flex flex-wrap md:flex-nowrap justify-center gap-9 lg:max-w-screen-lg">
+                    <div className="flex flex-col gap-5 w-full md:w-2/6">
                             <p className="text-3xl font-semibold">Initiatives</p>
                             <InitiativeCard />
                             <InitiativeCard />
@@ -114,7 +117,7 @@ export default function Home() {
                             <InitiativeCard />
                             <InitiativeCard />
                         </div>
-                        <div className="flex flex-col gap-5 w-4/6">
+                        <div className="flex flex-col gap-5 md:w-4/6">
                             <p className="text-3xl font-semibold">Stories</p>
                             <StoryCard />
                             <StoryCard />
@@ -124,6 +127,7 @@ export default function Home() {
                             <StoryCard />
                         </div>
                     </div>
+
                 </div>
             </div>
         </main>
