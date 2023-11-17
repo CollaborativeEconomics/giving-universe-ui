@@ -57,7 +57,7 @@ export default function Home() {
                             objectFit: 'cover',
                         }}
                     />
-                    <div className="bg-gradient-to-t from-black to-white opacity-25 h-full w-full z-5" />
+                    <div className="bg-gradient-to-t from-black to-transparent opacity-50 h-full w-full z-5" />
                 </div>
 
                 <div className="absolute flex flex-wrap lg:flex-nowrap gap-3 pt-48 lg:pt-60 items-center justify-between pl-[5%] pr-[20%] w-full">
