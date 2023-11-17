@@ -8,7 +8,7 @@ import { Building2, DollarSign, Target, UserIcon } from 'lucide-react';
 
 export default function OrganizationCard({ ...props }) {
   //console.log('ITEM', props?.data)
-  const item  = props?.data || {}
+  const item = props?.data || {}
   const count = item?.initiative?.length || 0
 
   return (
@@ -17,8 +17,7 @@ export default function OrganizationCard({ ...props }) {
         <Image
           src={item.image}
           alt="IMG BG"
-          fill
-          style={{
+          fill style={{
             objectFit: 'cover',
           }}
         />
@@ -32,7 +31,7 @@ export default function OrganizationCard({ ...props }) {
             <DollarSign size={17} /> $21,030 raised this month
           </li>
           <li className="inline-flex gap-2 text-sm">
-            <Target size={17} /> {count} Initiative{count==1?'':'s'}
+            <Target size={17} /> {count} Initiative{count == 1 ? '' : 's'}
           </li>
           <li className="inline-flex gap-2 text-sm">
             <UserIcon size={17} /> 35 Donors

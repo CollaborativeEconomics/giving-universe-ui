@@ -14,7 +14,7 @@ export interface OrgStatsProps {
 }
 
 export interface Props
-    extends React.HTMLAttributes<HTMLElement> {
+    extends React.HTMLAttributes<HTMLUListElement> {
     className?: string,
     orgStatProps: OrgStatsProps,
 }
@@ -33,18 +33,19 @@ function buildList(props: OrgStatsProps): Array<React.JSX.Element> {
     return items;
 }
 
-const OrgStats = React.forwardRef<HTMLElement, Props>(
-    ({ className, orgStatProps, ...props }) => {
+const OrgStats = React.forwardRef<HTMLUListElement, Props>(
+    ({ className, orgStatProps, ...props }, ref) => {
         return (
             <div className="px-6">
                 <ul
+                    ref={ref}
                     className={cn(
                         "px-3 flex flex-col gap-2",
                         className
                     )}
                     {...props}
                 >
-                    {...buildList(orgStatProps)}
+                    {buildList(orgStatProps).map((item) => {return <div key={Math.random()}>{item}</div>})}
                 </ul>
             </div>
         )

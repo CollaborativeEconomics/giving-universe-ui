@@ -10,9 +10,11 @@ export interface ListObjectProps
 }
 
 const ListObject = React.forwardRef<HTMLLIElement, ListObjectProps>(
-    ({ className, Icon, text, ...props }) => {
+    ({ className, Icon, text, ...props }, ref) => {
         return (
             <li
+                key={text}
+                ref={ref}
                 className={cn(
                     "inline-flex gap-3 text-sm font-semibold",
                     className

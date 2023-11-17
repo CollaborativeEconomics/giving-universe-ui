@@ -5,7 +5,7 @@ import { Globe, Twitter, Facebook } from "lucide-react"
 import { Link } from "./link"
 
 export interface OrgSocialsProps
-    extends React.HTMLAttributes<HTMLElement> {
+    extends React.HTMLAttributes<HTMLDivElement> {
     className?: string,
     twitterLabel: string,
     twitterAddress: string,
@@ -15,10 +15,11 @@ export interface OrgSocialsProps
     websiteAddress: string,
 }
 
-const OrgSocials = React.forwardRef<HTMLElement, OrgSocialsProps>(
-    ({ className, ...props }) => {
+const OrgSocials = React.forwardRef<HTMLDivElement, OrgSocialsProps>(
+    ({ className, ...props }, ref) => {
         return (
             <div
+                ref={ref}
                 className={cn("absolute flex flex-wrap pt-[25rem] ml-48 px-[10%] sm:gap-1 lg:gap-3",
                     className,
                 )}
