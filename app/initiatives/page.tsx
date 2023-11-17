@@ -3,10 +3,12 @@ import SearchBar from '@/components/search/SearchBar';
 import InitiativeCard from '@/components/initiativeCard';
 import { searchInitiatives } from '@/lib/utils/registry';
 
-export default async function Home(props: any) {
-  const query = props?.searchParams?.search || ''
-  console.log('SEARCH', query)
-  const data = await searchInitiatives(query) || []
+export default async function Initiatives(props:any) {
+  const query    = props?.searchParams?.query || ''
+  const category = props?.searchParams?.category || ''
+  const location = props?.searchParams?.location || ''
+  console.log('SEARCH', query, category, location)
+  const data = await searchInitiatives(query, category, location) || []
   console.log('INITS', data.length)
 
   return (
