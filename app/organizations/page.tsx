@@ -11,9 +11,11 @@ import OrganizationCard from '@/components/OrganizationCard';
 import { searchOrganizations } from '@/lib/utils/registry';
 
 export default async function Organizations(props:any) {
-  const query = props?.searchParams?.search || ''
-  console.log('SEARCH', query)
-  const data = await searchOrganizations(query) || []
+  const query    = props?.searchParams?.query || ''
+  const category = props?.searchParams?.category || ''
+  const location = props?.searchParams?.location || ''
+  console.log('SEARCH', query, category, location)
+  const data = await searchOrganizations(query, category, location) || []
   console.log('ORGS', data.length)
 
   return (
