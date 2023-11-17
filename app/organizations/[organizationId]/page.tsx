@@ -46,7 +46,7 @@ const dummyOrganization = {
 export default function Home() {
     return (
         <main className="w-full bg-gradient-to-t from-slate-200">
-            <div className="relative flex min-h-screen flex-col sm:px-[5%] lg:px-0 lg:container pt-24 lg:w-full">
+            <div className="relative flex min-h-screen flex-col sm:px-[5%] lg:px-0 md:container pt-24 lg:w-full">
 
                 <div className="relative h-96">
                     <Image
@@ -60,7 +60,7 @@ export default function Home() {
                     <div className="bg-gradient-to-t from-black to-transparent opacity-50 h-full w-full z-5" />
                 </div>
 
-                <div className="absolute flex flex-wrap lg:flex-nowrap gap-3 pt-24 lg:pt-60 items-center justify-between pl-[5%] pr-[20%] w-full">
+                <div className="absolute flex flex-wrap md:flex-nowrap gap-3 pt-24 md:pt-60 items-center justify-between pl-[5%] pr-[20%] w-full">
                     <OrganizationAvatar avatarProps={{ size: "lg", title: dummyOrganization.name }} />
                     <div className="flex flex-col items-center pb-5">
                         <Button className="bg-white text-black w-48">Donate</Button>
@@ -104,26 +104,27 @@ export default function Home() {
                     </Tabs>
                 </div>
 
-                <div className="pt-10 flex gap-9 w-full">
-                    <div className="flex flex-col gap-5 w-2/6">
-                        <p className="text-3xl font-semibold">Initiatives</p>
-                        <InitiativeCard />
-                        <InitiativeCard />
-                        <InitiativeCard />
-                        <InitiativeCard />
-                        <InitiativeCard />
-                    </div>
-                    <div className="flex flex-col gap-5 w-4/6">
-                        <p className="text-3xl font-semibold">Stories</p>
-                        <StoryCard />
-                        <StoryCard />
-                        <StoryCard />
-                        <StoryCard />
-                        <StoryCard />
-                        <StoryCard />
+                <div className="pt-10 flex justify-center w-full">
+                    <div className="flex gap-9 lg:max-w-screen-lg">
+                        <div className="flex flex-col gap-5 w-2/6">
+                            <p className="text-3xl font-semibold">Initiatives</p>
+                            <InitiativeCard />
+                            <InitiativeCard />
+                            <InitiativeCard />
+                            <InitiativeCard />
+                            <InitiativeCard />
+                        </div>
+                        <div className="flex flex-col gap-5 w-4/6">
+                            <p className="text-3xl font-semibold">Stories</p>
+                            <StoryCard />
+                            <StoryCard />
+                            <StoryCard />
+                            <StoryCard />
+                            <StoryCard />
+                            <StoryCard />
+                        </div>
                     </div>
                 </div>
-
             </div>
         </main>
     )
