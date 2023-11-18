@@ -19,7 +19,7 @@ const dummyStory = {
 export default function StoryCardCompact() {
   return (
       <Card className="flex overflow-hidden h-auto">
-        <div className="relative min-w-[175px] max-w-[25%] w-full h-auto -mr-6">
+        <div className="relative min-w-[150px] max-w-[25%] w-full h-auto -mr-6">
           <Image
             className=""
             src={dummyStory.images[0]}
@@ -32,9 +32,9 @@ export default function StoryCardCompact() {
 
         <CardContent className="flex flex-col overflow-hidden gap-3">
 
-          <div className="inline-flex flex-wrap items-top px-6 pt-4">
+          <div className="inline-flex flex-wrap items-top pl-6 gap-x-4 pt-4">
             <OrganizationAvatar />
-            <p className="text-sm font-semibold px-6">
+            <p className="text-sm font-semibold truncate">
               in <span className="underline"><a href={dummyStory.address}>{dummyStory.name}</a></span>
             </p>
           </div>
