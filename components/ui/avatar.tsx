@@ -12,7 +12,7 @@ const avatarImageVariants = cva(
     variants: {
       size: {
         default: "h-10 w-10",
-        lg: "h-48 w-48",
+        lg: "h-48 w-48 mr-5",
       }
     },
     defaultVariants: {
@@ -27,7 +27,7 @@ const avatarTitleVariants = cva(
     variants: {
       size: {
         default: "text-sm font-semibold",
-        lg: "text-5xl text-white font-medium pb-10 pl-8",
+        lg: "text-5xl text-white font-medium",
       }
     },
     defaultVariants: {

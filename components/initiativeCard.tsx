@@ -5,8 +5,8 @@ import { Progress } from './ui/progress';
 import { Separator } from './ui/separator';
 import { DateDisplay } from './ui/date-posted';
 import { Button } from './ui/button';
-import OrganizationAvatar from './OrganizationAvatar';
 import { OrgStats } from './ui/org-stats';
+import { OrganizationAvatar } from './OrganizationAvatar';
 
 const dummyName: string = "Food not bombs";
 const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";

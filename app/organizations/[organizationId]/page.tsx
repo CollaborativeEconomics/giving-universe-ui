@@ -1,4 +1,3 @@
-import OrganizationAvatar from '@/components/OrganizationAvatar';
 import StoryCard from '@/components/StoryCard';
 import InitiativeCard from '@/components/initiativeCard';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -8,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Image from 'next/image';
 import { OrgStats } from '@/components/ui/org-stats';
 import { OrgSocials } from '@/components/ui/org-socials';
+import { OrganizationAvatar } from '@/components/OrganizationAvatar';
 
 const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
 const dummyOrganization = {
@@ -46,7 +46,7 @@ const dummyOrganization = {
 export default function Home() {
     return (
         <main className="w-full bg-gradient-to-t from-slate-200">
-            <div className="relative flex flex-col sm:px-[5%] lg:px-0 md:container pt-24 lg:w-full h-full">
+            <div className="relative flex flex-col px-[5%] md:container pt-24 w-full h-full">
 
                 <div className="relative h-96">
                     <Image
@@ -60,10 +60,7 @@ export default function Home() {
                     <div className="bg-gradient-to-t from-slate-800 to-transparent opacity-50 h-full w-full z-5" />
                     <div className="absolute flex flex-wrap items-center justify-between gap-y-5 w-full px-[5%] -translate-y-[97%] lg:-translate-y-[80%]">
                         <div className="flex flex-wrap items-center">
-                            <OrganizationAvatar avatarProps={{ size: "lg" }} />
-                            <span className="text-5xl font-semibold pb-5 text-white">
-                                {dummyOrganization.name}
-                            </span>
+                            <OrganizationAvatar className="flex-wrap" avatarProps={{ size: "lg", title:dummyOrganization.name }} />
                         </div>
                         <div className="flex flex-col items-center pb-5">
                             <Button className="bg-white text-black w-48">Donate</Button>
@@ -109,7 +106,7 @@ export default function Home() {
 
                 <div className="pt-10 flex justify-center w-full">
                     <div className="flex flex-wrap md:flex-nowrap justify-center gap-9 lg:max-w-screen-lg">
-                    <div className="flex flex-col gap-5 w-full md:w-2/6">
+                        <div className="flex flex-col gap-5 w-full md:w-2/6">
                             <p className="text-3xl font-semibold">Initiatives</p>
                             <InitiativeCard />
                             <InitiativeCard />

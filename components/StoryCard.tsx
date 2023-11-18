@@ -1,7 +1,7 @@
+import { OrganizationAvatar } from './OrganizationAvatar';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { DateDisplay } from './ui/date-posted';
 import Gallery from './ui/gallery';
-import OrganizationAvatar from './OrganizationAvatar';
 
 const dummyInitiative = {
   name: "Food for Pakistan",
