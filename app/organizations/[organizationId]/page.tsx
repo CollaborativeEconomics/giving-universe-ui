@@ -11,7 +11,7 @@ import { OrganizationAvatar } from '@/components/OrganizationAvatar';
 
 const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
 const dummyOrganization = {
-    name: "Food not bombs",
+    name: "Food not bombs is good",
     address: "www.google.com",
     twitterAddress: "www.twitter.com",
     facebookAddress: "www.facebook.com",
@@ -58,11 +58,11 @@ export default function Home() {
                         }}
                     />
                     <div className="bg-gradient-to-t from-slate-800 to-transparent opacity-50 h-full w-full z-5" />
-                    <div className="absolute flex flex-wrap items-center justify-between gap-y-5 w-full px-[5%] -translate-y-[97%] lg:-translate-y-[80%]">
+                    <div className="absolute flex flex-wrap lg:flex-row items-center justify-between gap-y-5 w-full px-[5%] -translate-y-[92%]">
                         <div className="flex flex-wrap items-center">
-                            <OrganizationAvatar className="flex-wrap" avatarProps={{ size: "lg", title:dummyOrganization.name }} />
+                            <OrganizationAvatar className="flex-wrap" avatarProps={{ size: "lg", title: dummyOrganization.name }} />
                         </div>
-                        <div className="flex flex-col items-center pb-5">
+                        <div className="flex flex-col items-center pb-10">
                             <Button className="bg-white text-black w-48">Donate</Button>
                             <p className="text-sm font-semibold text-white">
                                 in <span className="underline"><a href={dummyOrganization.address}>{dummyOrganization.name}</a></span>

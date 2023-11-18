@@ -27,7 +27,7 @@ const avatarTitleVariants = cva(
     variants: {
       size: {
         default: "text-sm font-semibold",
-        lg: "text-5xl text-white font-medium",
+        lg: "text-5xl text-white font-medium pb-10",
       }
     },
     defaultVariants: {
