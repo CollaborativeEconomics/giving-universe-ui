@@ -16,11 +16,13 @@ export default function SearchBar(props:any) {
   const [query, setQuery] = useState(text)
   const [category, setCategory] = useState('')
   const [location, setLocation] = useState('')
+
   function checkEnter(evt:KeyboardEvent){
     if(evt.keyCode==13){
       search()
     }
   }
+
   function search(){
     console.log('SEARCHBAR', query, category, location)
     const params = {query, category, location}
@@ -33,6 +35,7 @@ export default function SearchBar(props:any) {
       router.push('?')
     }
   }
+
   return (
     <CardContent className="p-3 w-full">
       <div className="flex w-full space-x-2">
