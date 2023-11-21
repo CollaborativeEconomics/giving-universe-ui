@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { cn } from "@/lib/shadCnUtil"
 import { Globe, Twitter, Facebook } from "lucide-react"
-import { Link } from "./link"
+import Link from "next/link"
 
 export interface OrgSocialsProps
     extends React.HTMLAttributes<HTMLDivElement> {
@@ -25,13 +25,13 @@ const OrgSocials = React.forwardRef<HTMLDivElement, OrgSocialsProps>(
                 )}
             >
                 <div className="flex gap-x-1">
-                    <Globe size={17} /> <Link className="text-sm font-semibold" label={props.websiteLabel} address={props.websiteAddress} />
+                    <Globe size={17} /> <Link href={props.websiteAddress} className="text-sm font-semibold">{props.websiteLabel}</Link>
                 </div>
                 <div className="flex gap-x-1">
-                    <Twitter size={17} /> <Link className="text-sm font-semibold" label={props.twitterAddress} address={props.twitterAddress} />
+                    <Twitter size={17} /> <Link href={props.twitterAddress} className="text-sm font-semibold">{props.twitterAddress}</Link>
                 </div>
                 <div className="flex gap-x-1">
-                    <Facebook size={17} /> <Link className="text-sm font-semibold" label={props.facebookAddress} address={props.facebookAddress} />
+                    <Facebook size={17} /> <Link href={props.facebookAddress} className="text-sm font-semibold">{props.facebookAddress}</Link>
                 </div>
             </div>
         )

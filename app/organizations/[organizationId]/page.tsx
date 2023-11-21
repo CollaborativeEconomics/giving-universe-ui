@@ -8,6 +8,8 @@ import Image from 'next/image';
 import { OrgStats } from '@/components/ui/org-stats';
 import { OrgSocials } from '@/components/ui/org-socials';
 import { OrganizationAvatar } from '@/components/OrganizationAvatar';
+import Link from 'next/link';
+import { getOrganizationById } from '@/lib/utils/registry'
 
 const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
 const dummyOrganization = {
@@ -43,7 +45,12 @@ const dummyOrganization = {
     }
 }
 
-export default function Home() {
+export default async function Home(props:any) {
+    console.log('PROPS', props)
+    const orgid = props?.params?.id || null
+    const data = await getOrganizationById(orgid) || {}
+    console.log('ORG', data)
+
     return (
         <main className="w-full bg-gradient-to-t from-slate-200">
             <div className="relative flex flex-col px-[5%] container pt-24 w-full h-full">
@@ -63,14 +70,14 @@ export default function Home() {
                         <div className="flex flex-col items-center pb-5 ml-4">
                             <Button className="bg-white text-black w-48">Donate</Button>
                             <p className="text-sm font-semibold text-white text-center">
-                                in <span className="underline"><a href={dummyOrganization.address}>{dummyOrganization.name}</a></span>
+                                in <span className="underline"><Link href={dummyOrganization.address}>{dummyOrganization.name}</Link></span>
                             </p>
                         </div>
                     </div>
                 </div>
 
                 <OrgSocials
-                    className="pt-[25rem] ml-60 pl-[5%] gap-1 lg:gap-3"
+                    className="pt-[25rem] ml-56 pl-[5%] gap-1 lg:gap-3"
                     twitterLabel={dummyOrganization.twitterAddress}
                     twitterAddress={dummyOrganization.twitterAddress}
                     facebookLabel={dummyOrganization.facebookAddress}
