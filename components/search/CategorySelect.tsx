@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/shadCnUtil';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,6 +17,7 @@ import {
 } from '@/components/ui/popover';
 import { CheckCircledIcon, ChevronDownIcon } from '@radix-ui/react-icons';
 
+/*
 const categories = [
   { value: 'poverty', label: 'No Poverty' },
   { value: 'hunger', label: 'Zero Hunger' },
@@ -37,11 +37,35 @@ const categories = [
   { value: 'peace_justice', label: 'Peace, Justice, and Strong Institutions' },
   { value: 'partnerships', label: 'Partnerships for the Goals' },
 ];
+*/
+
+type CategoryType = {
+  value:string,
+  label:string
+}
 
 export default function CategorySelect(props:any) {
   const onChange = props?.onChange;
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
+  const [categories, setCategories] = useState([]);
+  // TODO: get from properties
+  const distinct = 'initiatives' // organizations
+
+  useEffect(() => {
+    async function loadCategories(){
+      const res = await fetch('/api/categories?distinct='+distinct)
+      const list = await res.json()
+      setCategories(list)
+      console.log('CATS', list)
+    }
+    loadCategories()
+  },[])
+
+  function findCategory(value:string){
+    const found = categories.find((item:CategoryType) => item?.value === value)
+    return found ? found['label'] : ''
+  }
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -53,7 +77,7 @@ export default function CategorySelect(props:any) {
           className="w-[200px] justify-between"
         >
           {value
-            ? categories.find(item => item.value === value)?.label
+            ? findCategory(value)
             : 'Select category...'}
           <ChevronDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -63,23 +87,23 @@ export default function CategorySelect(props:any) {
           <CommandInput placeholder="Search category..." />
           <CommandEmpty>No category found.</CommandEmpty>
           <CommandGroup>
-            {categories.map(item => (
+            {categories.map((item:CategoryType) => (
               <CommandItem
-                key={item.value}
-                onSelect={currentValue => {
+                key={item?.value}
+                onSelect={(currentValue) => {
                   console.log('CAT', currentValue, 'OLD', value)
-                  setValue(item.value);
-                  onChange(item.value);
+                  setValue(item?.value);
+                  onChange(item?.value);
                   setOpen(false);
                 }}
               >
                 <CheckCircledIcon
                   className={cn(
                     'mr-2 h-4 w-4',
-                    value === item.value ? 'opacity-100' : 'opacity-0',
+                    value === item?.value ? 'opacity-100' : 'opacity-0',
                   )}
                 />
-                {item.label}
+                {item?.label}
               </CommandItem>
             ))}
           </CommandGroup>

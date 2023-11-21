@@ -80,6 +80,7 @@ export const getFeaturedOrganization = () => fetchRegistry(`organizations?featur
 export const searchOrganizations = (q:string, c:string, l:string) => fetchRegistry(`organizations?search=${q}&category=${c}&location=${l}`)
 
 export const getCategories = () => fetchRegistry('categories')
+export const getCategoriesDistinct = (val) => fetchRegistry('categories?distinct='+val)
 
 export const newInitiative = (body: Dictionary) => postRegistry('initiatives', body)
 export const getInitiativeById = (id: string) => fetchRegistry(`initiatives/${id}`)
