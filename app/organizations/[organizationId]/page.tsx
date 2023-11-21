@@ -45,7 +45,7 @@ const dummyOrganization = {
     }
 }
 
-export default async function Home(props:any) {
+export default async function Home(props: any) {
     console.log('PROPS', props)
     const orgid = props?.params?.id || null
     const data = await getOrganizationById(orgid) || {}
@@ -113,7 +113,6 @@ export default async function Home(props:any) {
                     <div className="flex flex-wrap md:flex-nowrap justify-center gap-9 lg:max-w-screen-lg">
                         <div className="flex flex-col gap-5 w-full md:w-2/6 min-w-[350px]">
                             <p className="text-3xl font-semibold">Initiatives</p>
-                            <InitiativeCard />
                             <InitiativeCard />
                             <InitiativeCard />
                             <InitiativeCard />

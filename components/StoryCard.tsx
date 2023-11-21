@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { OrganizationAvatar } from './OrganizationAvatar';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { DateDisplay } from './ui/date-posted';
@@ -25,7 +26,7 @@ export default function StoryCard() {
       <CardHeader>
         <OrganizationAvatar avatarProps={{ title: dummyInitiative.orgName }} />
         <p className="text-sm font-semibold">
-          in <span className="underline"><a href={dummyInitiative.address}>{dummyInitiative.name}</a></span>
+          in <span className="underline"><Link href={dummyInitiative.address}>{dummyInitiative.name}</Link></span>
         </p>
         <DateDisplay timestamp={dummyInitiative.timestamp} className="pt-6 pb-3" />
       </CardHeader>

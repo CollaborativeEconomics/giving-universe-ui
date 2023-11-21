@@ -46,7 +46,7 @@ export default function InitiativeCard({ ...props }) {
             {item.title}
           </h3>
         </Link>
-        <DateDisplay timestamp={startDate} /> 
+        <DateDisplay className="pl-5" timestamp={startDate} /> 
         <p className="px-6">
           {item.description}
         </p>
