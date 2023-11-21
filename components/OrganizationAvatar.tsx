@@ -14,7 +14,7 @@ const OrganizationAvatar = React.forwardRef<HTMLDivElement, Props>(
     return (
       <div
         ref={ref}
-        className={cn("flex flex-row items-center gap-3",
+        className={cn("flex flex-row items-center overflow-hidden gap-3",
           className
         )}
         {...props}
@@ -26,9 +26,7 @@ const OrganizationAvatar = React.forwardRef<HTMLDivElement, Props>(
           />
           <AvatarFallback>OT</AvatarFallback>
         </Avatar>
-        <div className="flex flex-col">
-          <AvatarTitle size={avatarProps?.size} title={avatarProps?.title} />
-        </div>
+        <AvatarTitle size={avatarProps?.size} title={avatarProps?.title} />
       </div>
     )
   }

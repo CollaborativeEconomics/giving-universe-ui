@@ -27,7 +27,7 @@ const avatarTitleVariants = cva(
     variants: {
       size: {
         default: "text-sm font-semibold",
-        lg: "text-5xl text-white font-medium pb-10",
+        lg: "text-5xl text-white font-medium line-clamp-2 pb-1 border-b-[16px]border-transparent",
       }
     },
     defaultVariants: {
@@ -84,20 +84,18 @@ const AvatarFallback = React.forwardRef<
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
 
 const AvatarTitle = React.forwardRef<
-  HTMLDivElement,
+  HTMLParagraphElement,
   AvatarProps
 >(({ className, title, size, ...props }, ref) => (
-  <div
+  <p
     ref={ref}
     className={cn(avatarTitleVariants({ size, className }))}
     {...props}
   >
     {title}
-  </div>
+  </p>
 ))
 AvatarTitle.displayName = "avatarTitle"
 
-
 export { Avatar, AvatarImage, AvatarFallback, AvatarTitle };
 export type { AvatarProps }
-
