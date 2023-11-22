@@ -50,7 +50,7 @@ export default function InitiativeCardCompact() {
                 </div>
                 <Separator />
                 <div className="px-6 pt-6 inline-flex justify-between">
-                    <OrganizationAvatar avatarProps={{ title: dummyName }} />
+                    <OrganizationAvatar name={dummyName} image={dummyImgSrc} avatarProps={{ title: dummyName }} />
                     <Button className="mx-6 bg-transparent text-black dark:text-white outline outline-slate-300 outline-1">Donate</Button>
                 </div>
             </CardContent>

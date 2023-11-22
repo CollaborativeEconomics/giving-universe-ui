@@ -1,8 +1,9 @@
 import * as React from "react"
 
 import { cn } from "@/lib/shadCnUtil"
-import { Building2, DollarSign, LucideIcon, Target, UserIcon } from "lucide-react"
+import { Building2, DollarSign, Target, UserIcon } from "lucide-react"
 import { ListObject } from "./list-object"
+import money from '@/lib/utils/money'
 
 export interface OrgStatsProps {
     amountRaised: number,
@@ -21,7 +22,7 @@ export interface Props
 
 function buildList(props: OrgStatsProps): Array<React.JSX.Element> {
     var items = new Array<React.JSX.Element>();
-    items.push(<ListObject Icon={DollarSign} text={"$" + props.amountRaised.toLocaleString() + " of $" + props.amountTarget.toLocaleString() + " raised"} />);
+    items.push(<ListObject Icon={DollarSign} text={"$" + money(props.amountRaised) + " of $" + money(props.amountTarget) + " raised"} />);
     if (props.raisedThisMonth) {
         items.push(<ListObject Icon={DollarSign} text={"$ " + props.raisedThisMonth.toLocaleString() + " this month"} />);
     }
