@@ -6,11 +6,14 @@ interface Props
   extends React.HTMLAttributes<HTMLDivElement> {
   className?: string,
   organizationId?: string; // eventually required
+  name: string;
+  image: string;
+  size?: AvatarProps;
   avatarProps?: AvatarProps;
 }
 
 const OrganizationAvatar = React.forwardRef<HTMLDivElement, Props>(
-  ({ className, avatarProps, ...props }, ref) => {
+  ({ className, image, name, avatarProps, ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -21,12 +24,12 @@ const OrganizationAvatar = React.forwardRef<HTMLDivElement, Props>(
       >
         <Avatar size={avatarProps?.size}>
           <AvatarImage
-            src="https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75"
-            alt="Organization Name"
+            src={image}
+            alt={name}
           />
           <AvatarFallback>OT</AvatarFallback>
         </Avatar>
-        <AvatarTitle size={avatarProps?.size} title={avatarProps?.title} />
+        <AvatarTitle size={avatarProps?.size} title={name} />
       </div>
     )
   }

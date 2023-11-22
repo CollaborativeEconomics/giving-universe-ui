@@ -9,14 +9,7 @@ import { Button } from './ui/button';
 import { OrgStats } from './ui/org-stats';
 import { OrganizationAvatar } from './OrganizationAvatar';
 
-const dummyName: string = "Food not bombs";
 const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
-const dummyStats = {
-  amountTarget: 5000,
-  amountRaised: 1000,
-  donorCount: 35,
-  institutionalDonorCount: 3,
-}
 
 export default function InitiativeCard({ ...props }) {
   const item = props?.data || {}
@@ -26,6 +19,7 @@ export default function InitiativeCard({ ...props }) {
     image = item?.imageUri.startsWith('ipfs') ? 'https://ipfs.filebase.io/ipfs/' + item.imageUri.substr(5) : item.imageUri
   }
   const startDate = new Date(item?.start).getTime()
+  const progress = item.donations / item.goal * 100
 
   return (
     <Card className="flex flex-col overflow-hidden h-auto">
@@ -42,7 +36,7 @@ export default function InitiativeCard({ ...props }) {
       </CardHeader>
       <CardContent className="flex flex-col pb-8 pt-3 gap-3 px-0">
         <Link href={initurl}>
-          <h3 className="px-6 pt-2 text-xl font-semibold uppercase">
+          <h3 className="h-[4rem] min-h-[4rem] px-6 pt-2 text-xl font-semibold uppercase text-ellipsis overflow-scroll">
             {item.title}
           </h3>
         </Link>
@@ -52,17 +46,17 @@ export default function InitiativeCard({ ...props }) {
         </p>
         <Separator />
         <div className="px-6 pt-3">
-          <Progress value={dummyStats.amountRaised / dummyStats.amountTarget * 100} />
+          <Progress value={progress} />
         </div>
         <OrgStats orgStatProps={{
-          amountRaised: dummyStats.amountRaised,
-          amountTarget: dummyStats.amountTarget,
-          donorCount: dummyStats.donorCount,
-          institutionalDonorCount: dummyStats.institutionalDonorCount,
+          amountRaised: item.lastmonth,
+          amountTarget: item.goal,
+          donorCount: item.donors,
+          institutionalDonorCount: item.institutions,
         }} />
         <Separator />
         <div className="px-6 pt-6 inline-flex justify-between">
-          <OrganizationAvatar avatarProps={{ title: dummyName }} />
+          <OrganizationAvatar name={item?.organization?.name} image={item?.organization?.image} avatarProps={{ title: item?.organization?.name }} />
           <Button className="mx-6 bg-transparent text-black dark:text-white outline outline-slate-300 outline-1">Donate</Button>
         </div>
       </CardContent>

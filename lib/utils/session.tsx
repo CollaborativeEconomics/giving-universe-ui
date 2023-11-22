@@ -98,17 +98,13 @@ async function createUser(token, chain, address){
 }
 
 async function Session(){
-  //console.log('GET Session...')
   const session = {..._session}
   const token = getCookieString('token')
-  //const token = '7d133cc6-427f-4e09-a64d-f07aab70f4f6'
-  //console.log('Session Token', token)
   if(!token){ return session }
   const req = await fetch('api/session?token='+token)
   const res = await req.json()
   if(res?.error){ return session }
   if(res?.success){
-    //const state = res.data
     session.chain    = getCookieString('chain')     //state.chain
     session.chainid  = ''
     session.network  = getCookieString('network')   //state.network
@@ -120,27 +116,17 @@ async function Session(){
     session.topic    = ''
     session.user     = await getUserByAddress(session.address)
   }
-  //console.log('Session', session?.chain)
   return session
 }
 
-
-//const SessionContext = createContext({session:{signed:false}})
-//const SessionContext = createContext<SessionData>([{}, ()=>{}])
-//const SessionContext = createContext([_session, (arg)=>{}])
 const SessionContext = createContext([])
  
 function SessionProvider({children}) {
   const [session, setSession] = useState(_session)
-  //const [session, setSession] = useState()
-  //const session = await Session()
-  //console.log('Session provider...')
   useEffect(() => {
-    //console.log('Session provider effect...')
     async function getSession(){
       const state = await Session()
       setSession(state)
-      //console.log('Session context', state)
     }
     getSession()
   },[setSession])
@@ -153,12 +139,6 @@ function SessionProvider({children}) {
 }
 
 //const session = SessionManager()
-// session.signIn(wallet)
-// session.signOut()
-// session.get()
-// session.set(newState)
-// session.getValue('key')
-// session.setValue('key', 'val')
 const SessionManager = ()=>{
   const [session, setSession] = useContext(SessionContext)
   //console.log('Session Manager', session)
@@ -178,18 +158,14 @@ const SessionManager = ()=>{
     if(!state.user.id){
       const created = await createUser(state.token, state.chain, state.address)
       state.user = created
-      //console.log('NEW USER', state.user)
     }
-    //console.log('SESSION SIGNIN', state)
     setCookie('wallet',   state.wallet)
     setCookie('address',  state.address)
     setCookie('chain',    state.chain)
     setCookie('currency', state.currency)
     setCookie('network',  state.network)
     setCookie('token',    state.token)
-    //console.log('SESSION USER', state.user)
     const saved = await createSession(state.token, state.user.id)
-    //console.log('SESSION SAVED', saved)
     setSession(state)
     return state
   }
@@ -212,7 +188,6 @@ const SessionManager = ()=>{
     state.token    = ''
     state.topic    = ''
     state.user     = null
-    //console.log('SESSION SIGNOUT', state)
     setSession(state)
     // TODO: delete state in db
     return state
