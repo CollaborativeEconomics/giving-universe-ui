@@ -14,6 +14,7 @@ import { getOrganizationById } from '@/lib/utils/registry'
 const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
 const dummyOrganization = {
     name: "Food not bombs is good so so good",
+    imgSrc: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.IOGGKcmJMYKPkMuimQDLnwHaHv%26pid%3DApi%26h%3D160&f=1&ipt=944cafc6104e904b7776f748ee311ce1318b52ab6ec349dddbdc9f85850f4890&ipo=images",
     address: "www.google.com",
     twitterAddress: "www.twitter.com",
     facebookAddress: "www.facebook.com",
@@ -66,7 +67,7 @@ export default async function Home(props: any) {
                     />
                     <div className="bg-gradient-to-t from-slate-800 to-transparent opacity-50 h-full w-full z-5" />
                     <div className="absolute flex flex-row items-center justify-between gap-y-5 w-full w-max-full px-[5%] -translate-y-[80%]">
-                        <OrganizationAvatar avatarProps={{ size: "lg", title: dummyOrganization.name }} />
+                        <OrganizationAvatar name={dummyOrganization.name} image={dummyOrganization.imgSrc} avatarProps={{ size: "lg", title: dummyOrganization.name }} />
                         <div className="flex flex-col items-center pb-5 ml-4">
                             <Button className="bg-white text-black w-48">Donate</Button>
                             <p className="text-sm font-semibold text-white text-center">
