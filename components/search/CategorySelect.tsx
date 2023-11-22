@@ -1,7 +1,6 @@
 'use client';
 
-import * as React from 'react';
-
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/shadCnUtil';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,44 +17,55 @@ import {
 } from '@/components/ui/popover';
 import { CheckCircledIcon, ChevronDownIcon } from '@radix-ui/react-icons';
 
+/*
 const categories = [
-  { value: 'noPoverty', label: 'No Poverty' },
-  { value: 'zeroHunger', label: 'Zero Hunger' },
-  { value: 'goodHealthAndWellBeing', label: 'Good Health and Well-being' },
-  { value: 'qualityEducation', label: 'Quality Education' },
-  { value: 'genderEquality', label: 'Gender Equality' },
-  { value: 'cleanWaterAndSanitation', label: 'Clean Water and Sanitation' },
-  { value: 'affordableAndCleanEnergy', label: 'Affordable and Clean Energy' },
-  {
-    value: 'decentWorkAndEconomicGrowth',
-    label: 'Decent Work and Economic Growth',
-  },
-  {
-    value: 'industryInnovationAndInfrastructure',
-    label: 'Industry, Innovation, and Infrastructure',
-  },
-  { value: 'reducedInequality', label: 'Reduced Inequality' },
-  {
-    value: 'sustainableCitiesAndCommunities',
-    label: 'Sustainable Cities and Communities',
-  },
-  {
-    value: 'responsibleConsumptionAndProduction',
-    label: 'Responsible Consumption and Production',
-  },
-  { value: 'climateAction', label: 'Climate Action' },
-  { value: 'lifeBelowWater', label: 'Life Below Water' },
-  { value: 'lifeOnLand', label: 'Life on Land' },
-  {
-    value: 'peaceJusticeAndStrongInstitutions',
-    label: 'Peace, Justice, and Strong Institutions',
-  },
-  { value: 'partnershipsForTheGoals', label: 'Partnerships for the Goals' },
+  { value: 'poverty', label: 'No Poverty' },
+  { value: 'hunger', label: 'Zero Hunger' },
+  { value: 'health_well_being', label: 'Good Health and Well-being' },
+  { value: 'education', label: 'Quality Education' },
+  { value: 'gender_equality', label: 'Gender Equality' },
+  { value: 'water', label: 'Clean Water and Sanitation' },
+  { value: 'clean_energy', label: 'Affordable and Clean Energy' },
+  { value: 'economic_growth', label: 'Decent Work and Economic Growth' },
+  { value: 'innovation', label: 'Industry, Innovation, and Infrastructure' },
+  { value: 'reduced_inequality', label: 'Reduced Inequality' },
+  { value: 'sustainable_communities', label: 'Sustainable Cities and Communities' },
+  { value: 'responsible_consumption', label: 'Responsible Consumption and Production' },
+  { value: 'climate_action', label: 'Climate Action' },
+  { value: 'life_below_water', label: 'Life Below Water' },
+  { value: 'life_on_land', label: 'Life on Land' },
+  { value: 'peace_justice', label: 'Peace, Justice, and Strong Institutions' },
+  { value: 'partnerships', label: 'Partnerships for the Goals' },
 ];
+*/
 
-export default function CategorySelect() {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState('');
+type CategoryType = {
+  value:string,
+  label:string
+}
+
+export default function CategorySelect(props:any) {
+  const onChange = props?.onChange;
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
+  const [categories, setCategories] = useState([]);
+  // TODO: get from properties
+  const distinct = 'initiatives' // organizations
+
+  useEffect(() => {
+    async function loadCategories(){
+      const res = await fetch('/api/categories?distinct='+distinct)
+      const list = await res.json()
+      setCategories(list)
+      console.log('CATS', list)
+    }
+    loadCategories()
+  },[])
+
+  function findCategory(value:string){
+    const found = categories.find((item:CategoryType) => item?.value === value)
+    return found ? found['label'] : ''
+  }
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -67,31 +77,33 @@ export default function CategorySelect() {
           className="w-[200px] justify-between"
         >
           {value
-            ? categories.find(framework => framework.value === value)?.label
+            ? findCategory(value)
             : 'Select category...'}
           <ChevronDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." />
-          <CommandEmpty>No framework found.</CommandEmpty>
+          <CommandInput placeholder="Search category..." />
+          <CommandEmpty>No category found.</CommandEmpty>
           <CommandGroup>
-            {categories.map(framework => (
+            {categories.map((item:CategoryType) => (
               <CommandItem
-                key={framework.value}
-                onSelect={currentValue => {
-                  setValue(currentValue === value ? '' : currentValue);
+                key={item?.value}
+                onSelect={(currentValue) => {
+                  console.log('CAT', currentValue, 'OLD', value)
+                  setValue(item?.value);
+                  onChange(item?.value);
                   setOpen(false);
                 }}
               >
                 <CheckCircledIcon
                   className={cn(
                     'mr-2 h-4 w-4',
-                    value === framework.value ? 'opacity-100' : 'opacity-0',
+                    value === item?.value ? 'opacity-100' : 'opacity-0',
                   )}
                 />
-                {framework.label}
+                {item?.label}
               </CommandItem>
             ))}
           </CommandGroup>

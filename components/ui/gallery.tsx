@@ -37,8 +37,8 @@ function getGridDiv(images: string[] | undefined): React.ReactElement {
 
 function getImageDiv(image: string): React.ReactElement {
     return (
-        <div>
-            <img className="h-auto max-w-full" src={image} alt="" />
+        <div key={image}>
+            <img className="h-auto max-w-full" src={image} alt=""/>
         </div>
     )
 }

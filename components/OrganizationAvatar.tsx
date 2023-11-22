@@ -1,25 +1,39 @@
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { cn } from '@/lib/shadCnUtil';
+import { Avatar, AvatarFallback, AvatarImage, AvatarProps, AvatarTitle } from './ui/avatar';
+import React from 'react';
 
-interface Props {
+interface Props
+  extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string,
   organizationId?: string; // eventually required
+  name: string;
+  image: string;
+  size?: AvatarProps;
+  avatarProps?: AvatarProps;
 }
 
-export default function OrganizationAvatar(props: Props) {
-  return (
-    <div className="flex flex-row items-center gap-3">
-      <Avatar>
-        <AvatarImage
-          src="https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75"
-          alt="Organization Name"
-        />
-        <AvatarFallback>OT</AvatarFallback>
-      </Avatar>
-      <div className="flex flex-col">
-        <h4 className="text-sm font-semibold uppercase">
-          Organization Name
-        </h4>
-        <h5 className="text-xs opacity-75">We do things</h5>
+const OrganizationAvatar = React.forwardRef<HTMLDivElement, Props>(
+  ({ className, image, name, avatarProps, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn("flex flex-row items-center overflow-hidden gap-3",
+          className
+        )}
+        {...props}
+      >
+        <Avatar size={avatarProps?.size}>
+          <AvatarImage
+            src={image}
+            alt={name}
+          />
+          <AvatarFallback>OT</AvatarFallback>
+        </Avatar>
+        <AvatarTitle size={avatarProps?.size} title={name} />
       </div>
-    </div>
-  );
-}
+    )
+  }
+)
+OrganizationAvatar.displayName = "OrganizationAvatar"
+
+export { OrganizationAvatar }

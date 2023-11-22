@@ -1,48 +1,64 @@
 "use client"
 import Image from 'next/image';
+import Link from 'next/link';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { Progress } from './ui/progress';
 import { Separator } from './ui/separator';
+import { DateDisplay } from './ui/date-posted';
 import { Button } from './ui/button';
-import { Building2, DollarSign, Target, UserIcon } from 'lucide-react';
+import { OrgStats } from './ui/org-stats';
+import { OrganizationAvatar } from './OrganizationAvatar';
 
-export default function OrganizationCard({ ...props }) {
-  //console.log('ITEM', props?.data)
-  const item  = props?.data || {}
-  const count = item?.initiative?.length || 0
+const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
+
+export default function InitiativeCard({ ...props }) {
+  const item = props?.data || {}
+  const initurl = '/initiatives/'+(item?.id || 0)
+  let image = dummyImgSrc
+  if (item?.imageUri) {
+    image = item?.imageUri.startsWith('ipfs') ? 'https://ipfs.filebase.io/ipfs/' + item.imageUri.substr(5) : item.imageUri
+  }
+  const startDate = new Date(item?.start).getTime()
+  const progress = item.donations / item.goal * 100
 
   return (
-    <Card className="flex flex-col overflow-hidden">
-      <CardHeader className="relative h-40 p-3">
-        <Image
-          src={item.image}
-          alt="IMG BG"
-          fill
-          style={{
-            objectFit: 'cover',
-          }}
-        />
+    <Card className="flex flex-col overflow-hidden h-auto">
+      <CardHeader className="relative h-72">
+        <Link href={initurl}>
+          <Image
+            src={image}
+            alt="IMG BG"
+            fill style={{
+              objectFit: 'cover',
+            }}
+          />
+        </Link>
       </CardHeader>
-      <CardContent className="flex flex-col p-6 pt-3 gap-3">
-        <h3 className="text-2xl font-semibold uppercase">{item.name}</h3>
+      <CardContent className="flex flex-col pb-8 pt-3 gap-3 px-0">
+        <Link href={initurl}>
+          <h3 className="h-[4rem] min-h-[4rem] px-6 pt-2 text-xl font-semibold uppercase text-ellipsis overflow-scroll">
+            {item.title}
+          </h3>
+        </Link>
+        <DateDisplay className="pl-5" timestamp={startDate} /> 
+        <p className="px-6">
+          {item.description}
+        </p>
         <Separator />
-        <p>{item.description}</p>
-        <ul className="px-3 flex flex-col gap-2">
-          <li className="inline-flex gap-2 text-sm">
-            <DollarSign size={17} /> $21,030 raised this month
-          </li>
-          <li className="inline-flex gap-2 text-sm">
-            <Target size={17} /> {count} Initiative{count==1?'':'s'}
-          </li>
-          <li className="inline-flex gap-2 text-sm">
-            <UserIcon size={17} /> 35 Donors
-          </li>
-          <li className="inline-flex gap-2 text-sm">
-            <Building2 size={17} /> 3 Institutional Donors
-          </li>
-        </ul>
+        <div className="px-6 pt-3">
+          <Progress value={progress} />
+        </div>
+        <OrgStats orgStatProps={{
+          amountRaised: item.lastmonth,
+          amountTarget: item.goal,
+          donorCount: item.donors,
+          institutionalDonorCount: item.institutions,
+        }} />
         <Separator />
-        <Button>Donate</Button>
+        <div className="px-6 pt-6 inline-flex justify-between">
+          <OrganizationAvatar name={item?.organization?.name} image={item?.organization?.image} avatarProps={{ title: item?.organization?.name }} />
+          <Button className="mx-6 bg-transparent text-black dark:text-white outline outline-slate-300 outline-1">Donate</Button>
+        </div>
       </CardContent>
     </Card>
   );

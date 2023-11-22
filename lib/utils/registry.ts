@@ -77,16 +77,17 @@ export const getOrganizationById = (id: string) => fetchRegistry(`organizations/
 export const getOrganizationsByCategory = (categorySlug: string) => fetchRegistry(`organizations?category=${categorySlug}`)
 export const getOrganizationsByWallet = (walletAddress: string) => fetchRegistry(`organizations?wallet=${walletAddress}`)
 export const getFeaturedOrganization = () => fetchRegistry(`organizations?featured=true`)
-export const searchOrganizations = (q) => fetchRegistry(`organizations?search=${q}`)
+export const searchOrganizations = (q:string, c:string, l:string) => fetchRegistry(`organizations?search=${q}&category=${c}&location=${l}`)
 
 export const getCategories = () => fetchRegistry('categories')
+export const getCategoriesDistinct = (val) => fetchRegistry('categories?distinct='+val)
 
 export const newInitiative = (body: Dictionary) => postRegistry('initiatives', body)
 export const getInitiativeById = (id: string) => fetchRegistry(`initiatives/${id}`)
 export const getInitiativeByTag = (tag: string) => fetchRegistry(`initiatives?tag=${tag}`)
 export const getInitiatives = () => fetchRegistry('initiatives')
 export const getInitiativesByOrganization = (id: string) => fetchRegistry(`initiatives?orgid=${id}`)
-export const searchInitiatives = (q) => fetchRegistry(`initiatives?search=${q}`)
+export const searchInitiatives = (q:string, c:string, l:string) => fetchRegistry(`initiatives?search=${q}&category=${c}&location=${l}`)
 
 export const newProvider = (body: Dictionary) => postRegistry('providers', body)
 export const getProviderById = (id: string) => fetchRegistry(`providers/${id}`)
@@ -121,4 +122,5 @@ export const newSession = (body: Dictionary) => postRegistry('session', body)
 export const getSession = (id: string) => fetchRegistry('session?token='+id)
 export const deleteSession = (id: string) => deleteRegistry('session?token='+id)
 
+export const getLocations = () => fetchRegistry('locations')
 // END
