@@ -12,7 +12,7 @@ interface Props {
 export default function DateDisplay(props: Props) {
     return (
         <DateStyle className={props.className}>
-            <CalendarDays size={17} /> {convertTimestampToDateString(props.timestamp)}
+            <CalendarDays size={17} /> <p className="truncate">{convertTimestampToDateString(props.timestamp)}</p>
         </DateStyle>
     )
 }

@@ -16,7 +16,7 @@ const dummyStats = {
     amountRaised: 1000,
     donorCount: 35,
     institutionalDonorCount: 3,
-}
+};
 
 export default function InitiativeCardCompact() {
     return (
