@@ -4,8 +4,15 @@ import money from '@/lib/utils/money'
 import { ReceiptStatus } from './ui/receipt-status'
 import { ClaimButton } from './ui/button'
 
+const Status = {
+  pending: 'Pending',
+  minted: 'Minted',
+  minting: 'Minting',
+  failed: 'Failed',
+}
+
 const dummyProps = {
-  status: ['pending', 'minting', 'minted', 'failed'],
+  status: Status,
   image:
     'https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75',
   organization: {
@@ -24,7 +31,7 @@ const dummyProps = {
 }
 
 export default function NFTReceipt({ ...props }) {
-  const receiptStatus = dummyProps.status[2]
+  const receiptStatus = dummyProps.status.minting
   return (
     <div className="relative z-10">
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
@@ -111,3 +118,5 @@ export default function NFTReceipt({ ...props }) {
     </div>
   )
 }
+
+export { Status }
