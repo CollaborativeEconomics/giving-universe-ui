@@ -2,29 +2,29 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-    './node_modules/flowbite/**/*.js',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
     container: {
       center: true,
       padding: "2rem",
       screens: {
-        sm: '480px',
-        md: '800px',
-        lg: '976px',
-        xl: '1200px',
-        xxl: '1440px',
+        sm: "480px",
+        md: "800px",
+        lg: "976px",
+        xl: "1200px",
+        xxl: "1440px",
       },
     },
     screens: {
-      sm: '480px',
-      md: '800px',
-      lg: '1200px',
-      xl: '1600px',
+      sm: "480px",
+      md: "800px",
+      lg: "1200px",
+      xl: "1600px",
     },
     extend: {
       colors: {
@@ -83,8 +83,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require("flowbite/plugin"),
-  ],
-}
+  plugins: [require("tailwindcss-animate"), require("flowbite/plugin")],
+};
