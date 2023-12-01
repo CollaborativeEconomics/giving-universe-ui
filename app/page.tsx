@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Main from "@/components/ui/main";
 import { Card } from "@/components/ui/card";
 import SearchBar from "@/components/search/SearchBar";
@@ -9,6 +8,7 @@ export default function Handler(props: any) {
   const category = props?.searchParams?.category || "";
   const location = props?.searchParams?.location || "";
   console.log("SEARCH", query, category, location);
+
   return (
     <Main>
       <Card className="flex">
