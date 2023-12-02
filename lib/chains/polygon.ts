@@ -1,52 +1,53 @@
-import Wallet from 'wallets/metamask'
+import Wallet from '../wallets/metamask'
 
-type Dictionary = { [key:string]:any }
-type Callback = (data:Dictionary)=>void
+type Dictionary = { [key: string]: any }
+type Callback = (data: Dictionary) => void
 
-class PolygonSDK{
-  chain   = 'Polygon'
-  symbol  = 'MATIC'
+class PolygonSDK {
+  chain = 'Polygon'
+  symbol = 'MATIC'
   mainnet = {
     id: 137,
     explorer: 'https://polygonscan.com',
     rpcurl: 'https://polygon-rpc.com',
-    wssurl: ''
+    wssurl: '',
   }
   testnet = {
     id: 80001,
     explorer: 'https://mumbai.polygonscan.com',
     rpcurl: 'https://matic-mumbai.chainstacklabs.com',
-    wssurl: ''
+    wssurl: '',
   }
   wallet = new Wallet()
 
-  async connect(callback:Callback){
+  async connect(callback: Callback) {
     console.log('MATIC Connecting...')
     const result = await this.wallet.init(window)
     console.log('Metamask session:', result)
-    if(result){
+    if (result) {
       const address = result.address
-      const network = (result.network =='mainnet' ? 'mainnet' : 'testnet')
-      const chainid = (result.network =='mainnet' ? this.mainnet.id : this.testnet.id)
+      const network = result.network == 'mainnet' ? 'mainnet' : 'testnet'
+      const chainid =
+        result.network == 'mainnet' ? this.mainnet.id : this.testnet.id
       const data = {
-        wallet:   'metamask',
-        address:  address,
-        chain:    this.chain,
+        wallet: 'metamask',
+        address: address,
+        chain: this.chain,
         chaindid: chainid,
         currency: this.symbol,
-        network:  network,
-        token:    '',
-        topic:    ''
+        network: network,
+        token: '',
+        topic: '',
       }
       callback(data)
     }
   }
 
-  sendPayment(){
+  sendPayment() {
     console.log('MATIC Sending payment...')
   }
 
-  mintNFT(){
+  mintNFT() {
     console.log('MATIC Minting NFT...')
   }
 }

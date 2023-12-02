@@ -1,52 +1,53 @@
-import Wallet from 'wallets/metamask'
+import Wallet from '../wallets/metamask'
 
-type Dictionary = { [key:string]:any }
-type Callback = (data:Dictionary)=>void
+type Dictionary = { [key: string]: any }
+type Callback = (data: Dictionary) => void
 
-class XinfinSDK{
-  chain   = 'XinFin'
-  symbol  = 'XDC'
+class XinfinSDK {
+  chain = 'XinFin'
+  symbol = 'XDC'
   mainnet = {
     id: 50,
     explorer: 'https://explorer.xinfin.network',
     rpcurl: 'https://rpc.xinfin.network',
-    wssurl: ''
+    wssurl: '',
   }
   testnet = {
     id: 51,
     explorer: 'https://explorer.apothem.network',
     rpcurl: 'https://rpc.apothem.network',
-    wssurl: ''
+    wssurl: '',
   }
   wallet = new Wallet()
 
-  async connect(callback:Callback){
+  async connect(callback: Callback) {
     console.log('XDC Connecting...')
     const result = await this.wallet.init(window)
     console.log('Metamask session:', result)
-    if(result){
+    if (result) {
       const address = result.address
-      const network = (result.network =='mainnet' ? 'mainnet' : 'testnet')
-      const chainid = (result.network =='mainnet' ? this.mainnet.id : this.testnet.id)
+      const network = result.network == 'mainnet' ? 'mainnet' : 'testnet'
+      const chainid =
+        result.network == 'mainnet' ? this.mainnet.id : this.testnet.id
       const data = {
-        wallet:   'metamask',
-        address:  address,
-        chain:    this.chain,
+        wallet: 'metamask',
+        address: address,
+        chain: this.chain,
         chaindid: chainid,
         currency: this.symbol,
-        network:  network,
-        token:    '',
-        topic:    ''
+        network: network,
+        token: '',
+        topic: '',
       }
       callback(data)
     }
   }
 
-  sendPayment(){
+  sendPayment() {
     console.log('XDC Sending payment...')
   }
 
-  mintNFT(){
+  mintNFT() {
     console.log('XDC Minting NFT...')
   }
 }
