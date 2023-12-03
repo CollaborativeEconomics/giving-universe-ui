@@ -27,8 +27,6 @@ export default function NFTReceipt({ ...props }) {
   const [currentWallet, setCurrentWallet] = useState(wallets[0])
   const amountInputRef = useRef(null)
 
-  console.log(currentChain)
-
   return (
     <div className="relative z-10">
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
