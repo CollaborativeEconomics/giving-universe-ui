@@ -6,6 +6,7 @@ type Callback = (data: Dictionary) => void
 class BinanceSDK {
   chain = 'Binance'
   symbol = 'BNB'
+  logo = '/bnb-logo.png'
   mainnet = {
     id: 56,
     explorer: 'https://bscscan.com',

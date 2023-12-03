@@ -6,6 +6,7 @@ type Callback = (data: Dictionary) => void
 class XinfinSDK {
   chain = 'XinFin'
   symbol = 'XDC'
+  logo = 'xdc-logo.png'
   mainnet = {
     id: 50,
     explorer: 'https://explorer.xinfin.network',

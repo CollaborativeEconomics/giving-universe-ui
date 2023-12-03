@@ -6,6 +6,7 @@ type Callback = (data: Dictionary) => void
 class CeloSDK {
   chain = 'Celo'
   symbol = 'CELO'
+  logo = '/celo-logo.png'
   mainnet = {
     id: 42220,
     explorer: 'https://explorer.celo.org',

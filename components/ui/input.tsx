@@ -13,17 +13,54 @@ export interface CheckboxProps extends InputProps {
   text: string
 }
 
+export interface SwitchProps extends InputProps {
+  valueBasis: boolean
+  handleToggle: any
+}
+
 export interface SelectInputProps extends InputProps {
+  currentOption: { value: string; image: string; symbol?: string }
+  handleChange: any
   options: {
     value: string
-    // image: string
+    image: string
+    symbol?: string
   }[]
 }
 
 interface Option {
   value: string
+  symbol?: string
   label: React.JSX.Element
 }
+
+const Switch = React.forwardRef<HTMLDivElement, SwitchProps>(
+  ({ className, valueBasis, handleToggle, id }, ref) => {
+    return (
+      <div className={cn('inline-flex items-center px-4', className)} ref={ref}>
+        <div className="relative inline-block w-8 h-4 rounded-full cursor-pointer">
+          <input
+            id={id}
+            type="checkbox"
+            checked={valueBasis}
+            onChange={handleToggle}
+            className="absolute w-8 h-4 transition-colors duration-300 rounded-full appearance-none cursor-pointer peer bg-blue-gray-100 checked:bg-blue-500 peer-checked:border-gray-900 peer-checked:before:bg-gray-900"
+          />
+          <label
+            htmlFor={id}
+            className="before:content[''] absolute top-2/4 -left-1 h-5 w-5 -translate-y-2/4 cursor-pointer rounded-full border border-blue-gray-100 bg-white shadow-md transition-all duration-300 before:absolute before:top-2/4 before:left-2/4 before:block before:h-10 before:w-10 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity hover:before:opacity-10 peer-checked:translate-x-full peer-checked:border-gray-100 peer-checked:before:bg-gray-100"
+          >
+            <div
+              className="inline-block p-5 rounded-full top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4"
+              data-ripple-dark="true"
+            ></div>
+          </label>
+        </div>
+      </div>
+    )
+  }
+)
+Switch.displayName = 'switch'
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, id, type, ...props }, ref) => {
@@ -32,7 +69,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         id={id}
         className={cn(
-          'flex h-10 w-full rounded-full border border-input border-2 border-slate-300 bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+          'flex h-10 text-lg w-full rounded-full border border-input border-2 border-slate-300 bg-background px-3 py-2 ring-offset-background',
           className
         )}
         ref={ref}
@@ -47,15 +84,15 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   ({ className, text, id, type, ...props }, ref) => {
     return (
       <div
-        className={cn('flex flex-row gap-4', className)}
+        className={cn('flex flex-row align-middle gap-4', className)}
         ref={ref}
         {...props}
       >
-        <div className="align-middle">
-          <input type="checkbox" className="align-middle" id={id} />
+        <div>
+          <input type="checkbox" id={id} />
         </div>
-        <div className="align-middle">
-          <ModalText text={text} />
+        <div>
+          <ModalText className="pb-2" text={text} />
         </div>
       </div>
     )
@@ -64,12 +101,22 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 Checkbox.displayName = 'checkbox'
 
 const SelectInput = React.forwardRef<HTMLInputElement, SelectInputProps>(
-  ({ className, options, type, ...props }, ref) => {
+  ({ className, options, currentOption, handleChange, ...props }, ref) => {
     return (
-      <div>
+      <div className={cn('', className)}>
         <Select
-          className="pl-6 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          instanceId={options[0].value}
+          styles={{
+            control: (baseStyles) => ({
+              ...baseStyles,
+              borderRadius: '20px',
+              borderWidth: '2px',
+              borderColor: 'rgb(203 213 225)', //slate-300
+            }),
+          }}
+          isSearchable={false}
           options={buildOptions(options)}
+          onChange={handleChange}
         />
       </div>
     )
@@ -78,33 +125,24 @@ const SelectInput = React.forwardRef<HTMLInputElement, SelectInputProps>(
 SelectInput.displayName = 'select'
 
 function buildOptions(
-  selectOptions: {
-    value: string
-    // image: string
-  }[]
+  selectOptions: SelectInputProps['options']
 ): Array<Option> {
-  let options = new Array<Option>()
-  options.push(
-    ...selectOptions.map((option) => {
-      return makeOption(
-        option.value,
-        'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Forig04.deviantart.net%2F2c94%2Ff%2F2015%2F125%2Fb%2F1%2Fcandy_the_cat___50x50_icon_by_dahooplerzman-d8sc0bt.png&f=1&nofb=1&ipt=4bc7a9de2fe9ee963c2a86fc77bda31143278d23ee7dafc12b9cbe81d725863c&ipo=images'
-      )
-    })
-  )
-  return options
+  return selectOptions.map((option) => {
+    return makeOption(option.value, option.image, option.symbol)
+  })
 }
 
-function makeOption(value: string, image: string): Option {
+function makeOption(value: string, image: string, symbol?: string): Option {
   return {
     value: value,
+    symbol: symbol || '',
     label: (
-      <div>
-        <img src={image} />
-        {value}
+      <div className="flex flex-row gap-3">
+        <img src={image} width="25px" />
+        <div className="my-auto">{value}</div>
       </div>
     ),
   }
 }
 
-export { Input, Checkbox, SelectInput as Select }
+export { Switch, Input, Checkbox, SelectInput as Select }

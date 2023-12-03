@@ -6,6 +6,7 @@ type Callback = (data: Dictionary) => void
 class PolygonSDK {
   chain = 'Polygon'
   symbol = 'MATIC'
+  logo = '/matic-logo.png'
   mainnet = {
     id: 137,
     explorer: 'https://polygonscan.com',

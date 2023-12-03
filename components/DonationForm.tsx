@@ -1,56 +1,32 @@
+'use client'
+
 import { ModalText } from './ui/modal'
-import { Checkbox, Input, Select } from './ui/input'
+import { Checkbox, Input, Select, Switch } from './ui/input'
 import { Button } from './ui/button'
-import Chains from '@/lib/chains/apis'
-
-const Status = {
-  pending: 'Pending',
-  minted: 'Minted',
-  minting: 'Minting',
-  failed: 'Failed',
-}
-
-const currencies = [
-  {
-    value: 'a',
-    image:
-      'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Forig04.deviantart.net%2F2c94%2Ff%2F2015%2F125%2Fb%2F1%2Fcandy_the_cat___50x50_icon_by_dahooplerzman-d8sc0bt.png&f=1&nofb=1&ipt=4bc7a9de2fe9ee963c2a86fc77bda31143278d23ee7dafc12b9cbe81d725863c&ipo=images',
-  },
-  {
-    value: 'b',
-    image:
-      'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Forig04.deviantart.net%2F2c94%2Ff%2F2015%2F125%2Fb%2F1%2Fcandy_the_cat___50x50_icon_by_dahooplerzman-d8sc0bt.png&f=1&nofb=1&ipt=4bc7a9de2fe9ee963c2a86fc77bda31143278d23ee7dafc12b9cbe81d725863c&ipo=images',
-  },
-  {
-    value: 'c',
-    image:
-      'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Forig04.deviantart.net%2F2c94%2Ff%2F2015%2F125%2Fb%2F1%2Fcandy_the_cat___50x50_icon_by_dahooplerzman-d8sc0bt.png&f=1&nofb=1&ipt=4bc7a9de2fe9ee963c2a86fc77bda31143278d23ee7dafc12b9cbe81d725863c&ipo=images',
-  },
-]
-
-const dummyProps = {
-  status: Status,
-  image:
-    'https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75',
-  organization: {
-    name: 'Food not bombs',
-    ein: '45-5yu62340u',
-    address: '123 Fake St \nBuffalo, NZ 12345',
-  },
-  date: 123456, //timestamp
-  amount: 233.6,
-  ticker: ['XRP', 'XDC'],
-  amountFiat: 112.3,
-  fiatCurrencyCode: 'USD',
-  donor: {
-    name: 'Evan Hudson',
-  },
-}
+import { Chains, Wallets, Dictionary } from '@/lib/chains/apis'
+import { useState } from 'react'
 
 export default function NFTReceipt({ ...props }) {
   const chains = Object.values(Chains).map((chain) => {
-    chain.chain
-  }) as unknown as string[]
+    return {
+      value: chain.chain,
+      image: chain.logo || '/test.png',
+      symbol: chain.symbol,
+    }
+  })
+
+  const wallets = Object.values(Wallets).map((wallet: Dictionary) => {
+    return {
+      value: wallet.name,
+      image: wallet.image || '/test.png',
+    }
+  })
+
+  const [valueBasis, setValue] = useState(false)
+  const [currentChain, setCurrentChain] = useState(chains[0])
+  const [currentWallet, setCurrentWallet] = useState(wallets[0])
+
+  console.log(currentChain)
 
   return (
     <div className="relative z-10">
@@ -59,30 +35,68 @@ export default function NFTReceipt({ ...props }) {
         <div className="flex min-h-full items-center justify-center p-0">
           <div className="relative bg-white p-6 shadow-xl my-8 h-auto w-[50%] max-w-xl rounded-md">
             <div className="pb-4">
-              <ModalText text="Currency" />
+              <ModalText className="pb-2" text="Currency" />
               <Select
-                options={chains.map((chain) => {
-                  return {
-                    value: chain,
-                  }
-                })}
+                options={chains}
+                currentOption={currentChain}
+                handleChange={(chain: {
+                  value: string
+                  image: string
+                  symbol: string
+                }) => setCurrentChain(chain)}
               />
             </div>
             <div className="pb-4">
-              <ModalText text="Wallet" />
-              <Select options={currencies} />
+              <ModalText className="pb-2" text="Wallet" />
+              <Select
+                options={wallets}
+                currentOption={currentWallet}
+                handleChange={(wallet: { value: string; image: string }) =>
+                  setCurrentWallet(wallet)
+                }
+              />
             </div>
             <div className="py-4">
               <div className="flex flex-wrap border-solid border-y-2 border-gray-300 w-full">
-                <div className="py-4 w-full">
-                  <ModalText text="Amount" />
-                  <Input type="text" className="mb-2" id="amount" />
+                <div className="py-4 w-full mb-2">
+                  <div className="flex flex-row justify-between">
+                    <div className="my-auto">
+                      <ModalText className="pb-2" text="Amount" />{' '}
+                    </div>
+                    <div className="flex flex-wrap">
+                      <ModalText className="my-auto" text="USD" />
+                      <Switch
+                        id="value_basis"
+                        valueBasis={valueBasis}
+                        handleToggle={() => {
+                          setValue(!valueBasis)
+                        }}
+                      />
+                      <ModalText
+                        className="my-auto"
+                        text={currentChain.symbol}
+                      />
+                    </div>
+                  </div>
+                  <div className="my-auto">
+                    <Input
+                      className="text-right pr-20"
+                      type="text"
+                      id="amount"
+                    />
+                    <div className="absolute right-7 -translate-y-[100%]">
+                      <ModalText
+                        className="font-normal text-slate-500 mb-[.35em] mr-2"
+                        text={valueBasis ? '| ' + currentChain.symbol : '| USD'}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <ModalText text="Name (optional)" />
+            <ModalText className="pb-2" text="Name (optional)" />
             <Input type="text" className="mb-4" id="name" />
-            <ModalText text="Email address (optional)" />
+            <ModalText className="pb-2" text="Email address (optional)" />
             <Input type="text" className="mb-4" id="email" />
             <Checkbox
               text="I'd like to receive an email receipt"
