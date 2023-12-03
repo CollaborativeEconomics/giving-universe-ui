@@ -106,7 +106,7 @@ export default function NFTReceipt({ ...props }) {
             />
             <div className="flex flex-col pt-4 border-solid border-t-2 border-gray-300 w-full">
               <div className="inline-flex justify-center py-2">
-                <Button className="mx-6 w-[250px] h-[50px] bg-blue-600 text-white text-lg outline outline-slate-300 outline-1">
+                <Button className="mx-6 w-[250px] h-[50px] bg-blue-600 text-white text-lg outline outline-slate-300 outline-1 hover:bg-blue-700 hover:shadow-inner">
                   Donate
                 </Button>
               </div>
