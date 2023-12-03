@@ -5,6 +5,7 @@ import * as React from 'react'
 import { cn } from '@/lib/shadCnUtil'
 import { ModalText } from './modal'
 import Select from 'react-select'
+import { useEffect } from 'react'
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
@@ -16,6 +17,11 @@ export interface CheckboxProps extends InputProps {
 export interface SwitchProps extends InputProps {
   valueBasis: boolean
   handleToggle: any
+}
+
+export interface InputWithContentProps extends InputProps {
+  text: string
+  divRef: any
 }
 
 export interface SelectInputProps extends InputProps {
@@ -62,6 +68,29 @@ const Switch = React.forwardRef<HTMLDivElement, SwitchProps>(
 )
 Switch.displayName = 'switch'
 
+const InputWithContent = React.forwardRef<
+  HTMLInputElement,
+  InputWithContentProps
+>(({ className, id, type, text, divRef, ...props }, ref) => {
+  return (
+    <div className="flex flex-row h-10 text-lg w-full rounded-full border border-2 border-slate-300 bg-white ring-offset-background focus-within:border-blue-700 focus-within:ring-1">
+      <input
+        type={type}
+        id={id}
+        className={cn(
+          'flex h-9 text-lg text-black w-full rounded-full bg-white px-2 py-2 border-0 focus:border-0 focus:outline-0 focus:ring-0',
+          className
+        )}
+        {...props}
+      />
+      <div className="my-auto pr-3 whitespace-nowrap text-slate-400">
+        {text}
+      </div>
+    </div>
+  )
+})
+InputWithContent.displayName = 'input-with-content'
+
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, id, type, ...props }, ref) => {
     return (
@@ -69,7 +98,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         id={id}
         className={cn(
-          'flex h-10 text-lg w-full rounded-full border border-input border-2 border-slate-300 bg-background px-3 py-2 ring-offset-background',
+          'flex h-10 text-lg text-black w-full rounded-full border border-input border-2 border-slate-300 bg-white px-3 py-2 ring-offset-background',
           className
         )}
         ref={ref}
@@ -113,6 +142,10 @@ const SelectInput = React.forwardRef<HTMLInputElement, SelectInputProps>(
               borderWidth: '2px',
               borderColor: 'rgb(203 213 225)', //slate-300
             }),
+            option: (baseStyles) => ({
+              ...baseStyles,
+              color: 'black',
+            }),
           }}
           isSearchable={false}
           options={buildOptions(options)}
@@ -145,4 +178,4 @@ function makeOption(value: string, image: string, symbol?: string): Option {
   }
 }
 
-export { Switch, Input, Checkbox, SelectInput as Select }
+export { Switch, Input, InputWithContent, Checkbox, SelectInput as Select }

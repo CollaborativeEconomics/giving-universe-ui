@@ -1,10 +1,10 @@
 'use client'
 
 import { ModalText } from './ui/modal'
-import { Checkbox, Input, Select, Switch } from './ui/input'
+import { Checkbox, Input, InputWithContent, Select, Switch } from './ui/input'
 import { Button } from './ui/button'
 import { Chains, Wallets, Dictionary } from '@/lib/chains/apis'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 export default function NFTReceipt({ ...props }) {
   const chains = Object.values(Chains).map((chain) => {
@@ -25,6 +25,7 @@ export default function NFTReceipt({ ...props }) {
   const [valueBasis, setValue] = useState(false)
   const [currentChain, setCurrentChain] = useState(chains[0])
   const [currentWallet, setCurrentWallet] = useState(wallets[0])
+  const amountInputRef = useRef(null)
 
   console.log(currentChain)
 
@@ -33,7 +34,7 @@ export default function NFTReceipt({ ...props }) {
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-0">
-          <div className="relative bg-white p-6 shadow-xl my-8 h-auto w-[50%] max-w-xl rounded-md">
+          <div className="relative bg-white p-6 shadow-xl my-8 h-auto w-[50%] max-w-xl rounded-md dark:bg-slate-500">
             <div className="pb-4">
               <ModalText className="pb-2" text="Currency" />
               <Select
@@ -79,17 +80,13 @@ export default function NFTReceipt({ ...props }) {
                     </div>
                   </div>
                   <div className="my-auto">
-                    <Input
-                      className="text-right pr-20"
+                    <InputWithContent
+                      className="text-right"
                       type="text"
                       id="amount"
+                      text={valueBasis ? '| ' + currentChain.symbol : '| USD'}
+                      divRef={amountInputRef}
                     />
-                    <div className="absolute right-7 -translate-y-[100%]">
-                      <ModalText
-                        className="font-normal text-slate-500 mb-[.35em] mr-2"
-                        text={valueBasis ? '| ' + currentChain.symbol : '| USD'}
-                      />
-                    </div>
                   </div>
                 </div>
               </div>
