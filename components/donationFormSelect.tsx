@@ -31,7 +31,6 @@ const DonationFormSelect = React.forwardRef<HTMLInputElement, SelectInputProps>(
     },
     ref
   ) => {
-    console.log(currentOption)
     return (
       <Select onValueChange={handleChange}>
         <SelectTrigger className="h-10 text-lg w-full rounded-full border border-2 border-slate-300 bg-white ring-offset-background focus-within:border-blue-700 focus-within:ring-1">

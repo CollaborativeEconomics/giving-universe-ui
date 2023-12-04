@@ -15,14 +15,14 @@ export function getChainName(chain: string) {
 }
 
 export function getChainWallets(chain: string) {
-  const name = Wallets[chain] || 'None'
-  return name
+  const result = Wallets[chain.toLowerCase()]
+  return result ? result : []
 }
 
 const Wallets: Dictionary = {
-  bnb: { name: 'Metamask', image: '/bnb-wallet-logo.png' },
-  xlm: { name: 'Lobstr', image: '/xlm-wallet-logo.png' },
-  xrp: { name: 'Xumm', image: '/xrp-wallet-logo.png' },
+  bnb: [{ value: 'Metamask', image: '/bnb-wallet-logo.png' }],
+  xlm: [{ value: 'Lobstr', image: '/xlm-wallet-logo.png' }],
+  xrp: [{ value: 'Xumm', image: '/xrp-wallet-logo.png' }],
 }
 
 const Chains: Dictionary = {

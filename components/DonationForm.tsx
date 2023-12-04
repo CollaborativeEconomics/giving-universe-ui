@@ -3,7 +3,7 @@
 import { ModalText } from './ui/modal'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import { Chains, Wallets, Dictionary } from '@/lib/chains/apis'
+import { Chains, Dictionary, getChainWallets } from '@/lib/chains/apis'
 import { useRef, useState } from 'react'
 import { InputWithContent } from './ui/input-with-content'
 import { Switch } from './ui/switch'
@@ -21,15 +21,9 @@ export default function NFTReceipt({ ...props }) {
     }
   })
 
-  const wallets = Object.values(Wallets).map((wallet: Dictionary) => {
-    return {
-      value: wallet.name,
-      image: wallet.image || '/test.png',
-    }
-  })
-
   const [showUSD, toggleShowUSD] = useState(false)
   const [currentChain, setCurrentChain] = useState(chains[0].value)
+  const [wallets, setWallets] = useState(getChainWallets(chains[0].symbol))
   const [currentWallet, setCurrentWallet] = useState(wallets[0])
   const amountInputRef = useRef(null)
 
@@ -44,11 +38,10 @@ export default function NFTReceipt({ ...props }) {
               <DonationFormSelect
                 options={chains}
                 currentOption={currentChain.symbol}
-                handleChange={(chain: {
-                  value: string
-                  image: string
-                  symbol: string
-                }) => setCurrentChain(chain)}
+                handleChange={(chain: string) => {
+                  setCurrentChain(chain)
+                  setWallets(getChainWallets(chainLookup[chain].symbol))
+                }}
                 placeHolderText="...select a cryptocurrency"
               />
             </div>
