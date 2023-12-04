@@ -14,7 +14,7 @@ export function getChainName(chain: string) {
   return name
 }
 
-export function getChainWallet(chain: string) {
+export function getChainWallets(chain: string) {
   const name = Wallets[chain] || 'None'
   return name
 }
