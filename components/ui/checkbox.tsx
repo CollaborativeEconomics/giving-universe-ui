@@ -25,7 +25,7 @@ const Checkbox = React.forwardRef<
   >
     <CheckboxPrimitive.Indicator
       className={cn(
-        'flex items-center justify-center text-black bg-white outline-none'
+        'flex items-center justify-center text-black font-black bg-white outline-none'
       )}
     >
       <Check className="h-auto w-auto" />
@@ -44,10 +44,10 @@ const CheckboxWithText = React.forwardRef<
       ref={ref}
       {...props}
     >
-      <div className="flex pt-[6px]">
-        <Checkbox />
-      </div>
-      <label>
+      <label className="flex flex-row gap-3">
+        <div className="flex pt-[6px]">
+          <Checkbox />
+        </div>
         <ModalText className="pb-1" text={text} />
       </label>
     </div>

@@ -15,14 +15,19 @@ export function getChainName(chain: string) {
 }
 
 export function getChainWallets(chain: string) {
-  const result = Wallets[chain.toLowerCase()]
-  return result ? result : []
+  return chainWallets[chain.toLowerCase()] ?? []
 }
 
-const Wallets: Dictionary = {
-  bnb: [{ value: 'Metamask', image: '/bnb-wallet-logo.png' }],
-  xlm: [{ value: 'Lobstr', image: '/xlm-wallet-logo.png' }],
-  xrp: [{ value: 'Xumm', image: '/xrp-wallet-logo.png' }],
+const wallets: Dictionary = {
+  metamask: { value: 'Metamask', image: '/bnb-wallet-logo.png' },
+  lobstr: { value: 'Lobstr', image: '/xlm-wallet-logo.png' },
+  xumm: { value: 'Xumm', image: '/xrp-wallet-logo.png' },
+}
+
+const chainWallets: Dictionary = {
+  bnb: [wallets['metamask']],
+  xlm: [wallets['lobstr']],
+  xrp: [wallets['xumm']],
 }
 
 const Chains: Dictionary = {
@@ -35,5 +40,5 @@ const Chains: Dictionary = {
   xrp: Ripple,
 }
 
-export { Chains, Wallets }
+export { Chains }
 export type { Dictionary }

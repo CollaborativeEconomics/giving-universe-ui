@@ -49,7 +49,7 @@ export default function NFTReceipt({ ...props }) {
               <ModalText className="pb-2" text="Wallet" />
               <DonationFormSelect
                 options={wallets}
-                currentOption={currentWallet}
+                currentOption={currentWallet ?? wallets[0]}
                 handleChange={(wallet: { value: string; image: string }) =>
                   setCurrentWallet(wallet)
                 }

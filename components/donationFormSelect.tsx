@@ -42,6 +42,7 @@ const DonationFormSelect = React.forwardRef<HTMLInputElement, SelectInputProps>(
 
         <SelectContent className="bg-white">
           {options.map((option) => {
+            console.log(option)
             return (
               <SelectItem
                 className="bg-white text-black"
