@@ -6,7 +6,7 @@ type Callback = (data: Dictionary) => void
 class StellarSDK {
   chain = 'Stellar'
   symbol = 'XLM'
-  logo = 'xlm-logo.png'
+  logo = '/xlm-logo.png'
   wallet = new Wallet()
   rpcurl = ''
   wssurl = ''
