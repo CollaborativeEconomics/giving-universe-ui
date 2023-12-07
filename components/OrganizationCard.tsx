@@ -12,22 +12,22 @@ import { OrganizationAvatar } from './OrganizationAvatar'
 const dummyImgSrc: string =
   'https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75'
 
-export default function InitiativeCard({ ...props }) {
+export default function OrganizationCard({ ...props }) {
   const item = props?.data || {}
-  const initurl = '/initiatives/' + (item?.id || 0)
+  const orgurl = '/organizations/' + (item?.id || 0)
   let image = dummyImgSrc
-  if (item?.imageUri) {
-    image = item?.imageUri.startsWith('ipfs')
-      ? 'https://ipfs.filebase.io/ipfs/' + item.imageUri.substr(5)
-      : item.imageUri
+  if (item?.image) {
+    image = item?.image.startsWith('ipfs')
+      ? 'https://ipfs.filebase.io/ipfs/' + item.image.substr(5)
+      : item.image
   }
-  const startDate = new Date(item?.start).getTime()
+  //const startDate = new Date(item?.start).getTime()
   const progress = (item.donations / item.goal) * 100
 
   return (
     <Card className="flex flex-col overflow-hidden h-auto">
-      <CardHeader className="relative h-72">
-        <Link href={initurl}>
+      <CardHeader className="relative h-36">
+        <Link href={orgurl}>
           <Image
             src={image}
             alt="IMG BG"
@@ -39,33 +39,28 @@ export default function InitiativeCard({ ...props }) {
         </Link>
       </CardHeader>
       <CardContent className="flex flex-col pb-8 pt-3 gap-3 px-0">
-        <Link href={initurl}>
-          <h3 className="h-[4rem] min-h-[4rem] px-6 pt-2 text-xl font-semibold uppercase text-ellipsis overflow-scroll">
-            {item.title}
+        <Link href={orgurl}>
+          <h3 className="h-[2rem] min-h-[2rem] px-6 pt-2 text-xl font-semibold uppercase text-ellipsis whitespace-nowrap overflow-hidden">
+            {item.name}
           </h3>
         </Link>
-        <DateDisplay className="pl-5" timestamp={startDate} />
-        <p className="px-6">{item.description}</p>
+        <p className="block h-[8-rem] min-h-[8rem] max-h-[8rem] px-6 py-2 text-ellipsis overflow-scroll">{item.description}</p>
         <Separator />
         <div className="px-6 pt-3">
-          <Progress value={progress} />
-        </div>
-        <OrgStats
-          orgStatProps={{
-            amountRaised: item.lastmonth,
-            amountTarget: item.goal,
-            donorCount: item.donors,
-            institutionalDonorCount: item.institutions,
-          }}
-        />
-        <Separator />
-        <div className="px-6 pt-6 inline-flex justify-between">
-          <OrganizationAvatar
-            name={item?.organization?.name}
-            image={item?.organization?.image}
-            avatarProps={{ title: item?.organization?.name }}
+          <OrgStats
+            orgStatProps={{
+              amountTarget: item?.goal || 0,
+              amountRaised: item.donations,
+              raisedThisMonth: item.lastmonth,
+              initiativeCount: item.initiative?.length || 0,
+              donorCount: item.donors,
+              institutionalDonorCount: item.institutions,
+            }}
           />
-          <Button className="mx-6 bg-transparent text-black dark:text-white outline outline-slate-300 outline-1">
+        </div>
+        <Separator />
+        <div className="px-2 pt-4 inline-flex justify-between">
+          <Button className="mx-4 py-6 w-full bg-blue-600 text-white text-lg rounded-lg outline outline-slate-300 outline-1 hover:bg-blue-700 hover:shadow-inner">
             Donate
           </Button>
         </div>

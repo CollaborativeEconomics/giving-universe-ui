@@ -20,7 +20,7 @@ export default async function Organizations(props:any) {
         { data?.length>0 ? data.map((item:any) => (
           <OrganizationCard key={item.id} data={item} />
         )) : (
-          <h1 className="m-4">No initiatives found</h1>
+          <h1 className="m-4">No organizations found</h1>
         )}
       </div>
     </main>
