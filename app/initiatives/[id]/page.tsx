@@ -164,7 +164,7 @@ export default async function Home(props: any) {
 
         <div className="pt-10 flex justify-center w-full">
           <div className="flex flex-wrap md:flex-nowrap justify-center gap-9 xl:max-w-screen-xl">
-            <div className="flex flex-col gap-5 w-full md:w-2/6 min-w-[450px]">
+            <div className="flex flex-col gap-5 w-full md:w-2/6 min-w-[400px]">
               <p className="text-3xl font-semibold">Initiatives</p>
               {initiatives?.length > 0 ? (
                 initiatives.map((item: any) => (
