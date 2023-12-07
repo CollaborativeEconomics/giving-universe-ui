@@ -1,11 +1,10 @@
 import StoryCard from '@/components/StoryCard'
-import InitiativeCard from '@/components/initiativeCard'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Document } from '@contentful/rich-text-types'
 import Image from 'next/image'
 import { OrganizationAvatar } from '@/components/OrganizationAvatar'
 import Link from 'next/link'
-import { getOrganizationById } from '@/lib/utils/registry'
+import { getInitiativeById } from '@/lib/utils/registry'
 import NFTReceipt, { Status } from '@/components/NFTReceipt'
 import DonationForm from '@/components/DonationForm'
 import InitiativeCardCompact from '@/components/initiativeCardCompact'
@@ -110,9 +109,9 @@ const dummyOrganization = {
 
 export default async function Home(props: any) {
   console.log('PROPS', props)
-  const orgid = props?.params?.id || null
-  const data = (await getOrganizationById(orgid)) || {}
-  console.log('ORG', data)
+  const initid = props?.params?.id || null
+  const data = (await getInitiativeById(initid)) || {}
+  console.log('INIT', data)
 
   return (
     <main className="w-full bg-gradient-to-t from-slate-200">
