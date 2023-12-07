@@ -155,9 +155,11 @@ export default async function Home(props: any) {
           </div>
         </div>
 
-        <div className="flex flex-wrap md:flex-nowrap gap-5 items-start lg:max-w-screen-lg">
-          <DonationForm className="w-full" />
-          <NFTReceipt className="w-auto" data={dummyNFTReceiptProps} />
+        <div className="md:flex md:flex-wrap md:flex-col items-center">
+          <div className="flex flex-wrap mlg:flex-nowrap gap-5 items-start lg:max-w-screen-lg">
+            <DonationForm />
+            <NFTReceipt data={dummyNFTReceiptProps} />
+          </div>
         </div>
 
         <div className="pt-10 flex justify-center w-full">
