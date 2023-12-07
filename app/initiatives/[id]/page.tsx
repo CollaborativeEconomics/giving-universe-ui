@@ -116,7 +116,7 @@ export default async function Home(props: any) {
   return (
     <main className="w-full bg-gradient-to-t from-slate-200">
       <div className="relative flex flex-col px-[5%] container pt-24 w-full h-full">
-        <div className="flex flex-row h-[300px] h-max-[300px] overflow-hidden">
+        <div className="flex flex-row h-[300px] h-max-[300px] overflow-hidden mb-4 ">
           <div className="relative w-[45%] h-[300px]">
             <Image
               className=""
@@ -156,14 +156,14 @@ export default async function Home(props: any) {
         </div>
 
         <div className="md:flex md:flex-wrap md:flex-col items-center">
-          <div className="flex flex-wrap mlg:flex-nowrap gap-5 items-start lg:max-w-screen-lg">
+          <div className="flex flex-wrap lg:flex-nowrap gap-5 items-start xl:max-w-screen-xl">
             <DonationForm />
             <NFTReceipt data={dummyNFTReceiptProps} />
           </div>
         </div>
 
         <div className="pt-10 flex justify-center w-full">
-          <div className="flex flex-wrap md:flex-nowrap justify-center gap-9 lg:max-w-screen-lg">
+          <div className="flex flex-wrap md:flex-nowrap justify-center gap-9 xl:max-w-screen-xl">
             <div className="flex flex-col gap-5 w-full md:w-2/6 min-w-[450px]">
               <p className="text-3xl font-semibold">Initiatives</p>
               {initiatives?.length > 0 ? (

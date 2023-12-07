@@ -14,8 +14,8 @@ const Status = {
 
 export default function NFTReceipt({ ...props }) {
   return (
-    <div className="flex min-h-full items-center justify-center p-0">
-      <div className="relative bg-white dark:bg-slate-500 p-6 shadow-xl my-8 h-auto">
+    <div className="flex min-h-full w-full">
+      <div className="relative bg-white dark:bg-slate-500 p-6 shadow-xl my-4 h-auto">
         <div className="border-dotted border-t-2 border-b-2 border-gray-300 p-2">
           <h3 className="text-3xl font-semibold uppercase text-center text-gray-500 dark:text-white">
             NFT Receipt
@@ -52,7 +52,7 @@ export default function NFTReceipt({ ...props }) {
               {props.data.amount} {props.data.ticker[0]}*
             </NFTReceiptText>
           </div>
-          <NFTReceiptText className="font-normal">
+          <NFTReceiptText className="font-normal whitespace-normal">
             *{props.data.ticker[0]} is a publicy traded crypto-currency with a
             direct monetary value
           </NFTReceiptText>

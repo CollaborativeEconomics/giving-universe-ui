@@ -16,7 +16,7 @@ export default async function Initiatives(props: any) {
       <Card className="flex">
         <SearchBar />
       </Card>
-      <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 pt-10">
+      <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 pt-10">
         {data?.length > 0 ? (
           data.map((item: any) => <InitiativeCard key={item.id} data={item} />)
         ) : (

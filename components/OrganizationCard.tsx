@@ -40,11 +40,11 @@ export default function InitiativeCard({ ...props }) {
       </CardHeader>
       <CardContent className="flex flex-col pb-8 pt-3 gap-3 px-0">
         <Link href={initurl}>
-          <h3 className="h-[4rem] min-h-[4rem] px-6 pt-2 text-xl font-semibold uppercase text-ellipsis overflow-scroll">
-            {item.title}
+          <h3 className="px-6 pt-2 text-xl font-semibold uppercase text-ellipsis overflow-scroll">
+            {item.title ?? 'no title'}
           </h3>
         </Link>
-        <DateDisplay className="pl-5" timestamp={startDate} />
+        <DateDisplay className="pl-6" timestamp={startDate} />
         <p className="px-6">{item.description}</p>
         <Separator />
         <div className="px-6 pt-3">

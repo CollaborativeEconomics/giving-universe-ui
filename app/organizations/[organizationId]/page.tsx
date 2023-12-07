@@ -90,7 +90,7 @@ export default async function Home(props: any) {
         </div>
 
         <OrgSocials
-          className="pt-[25rem] ml-56 pl-[5%] gap-1 lg:gap-3"
+          className="pt-[25rem] ml-56 pl-[5%] gap-1 xl:gap-3"
           twitterLabel={dummyOrganization.twitterAddress}
           twitterAddress={dummyOrganization.twitterAddress}
           facebookLabel={dummyOrganization.facebookAddress}
@@ -133,7 +133,7 @@ export default async function Home(props: any) {
         </div>
 
         <div className="pt-10 flex justify-center w-full">
-          <div className="flex flex-wrap md:flex-nowrap justify-center gap-9 lg:max-w-screen-lg">
+          <div className="flex flex-wrap md:flex-nowrap justify-center gap-9 xl:max-w-screen-xl">
             <div className="flex flex-col gap-5 w-full md:w-2/6 min-w-[350px]">
               <p className="text-3xl font-semibold">Initiatives</p>
               <InitiativeCard />
