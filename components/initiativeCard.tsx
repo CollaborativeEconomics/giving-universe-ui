@@ -38,14 +38,14 @@ export default function InitiativeCard({ ...props }) {
           />
         </Link>
       </CardHeader>
-      <CardContent className="flex flex-col pt-3 gap-3 px-0">
+      <CardContent className="flex flex-col pb-8 pt-3 gap-3 px-0">
         <Link href={initurl}>
-          <h3 className="px-6 pt-2 text-xl font-semibold uppercase text-ellipsis overflow-scroll">
-            {item.title ?? 'empty'}
+          <h3 className="px-5 pt-2 text-xl font-semibold uppercase text-ellipsis overflow-scroll">
+            {item.title ?? 'no title'}
           </h3>
         </Link>
-        <DateDisplay className="pl-6" timestamp={startDate} />
-        <p className="px-6">{item.description}</p>
+        <DateDisplay className="pl-5" timestamp={startDate} />
+        <p className="px-6">{item.description ?? 'no description'}</p>
         <Separator />
         <div className="px-6 pt-3">
           <Progress value={progress} />
@@ -59,10 +59,11 @@ export default function InitiativeCard({ ...props }) {
           }}
         />
         <Separator />
-        <div className="px-6 pt-4 inline-flex justify-between">
+        <div className="px-6 pt-6 inline-flex justify-between">
           <OrganizationAvatar
             name={item?.organization?.name}
             image={item?.organization?.image}
+            avatarProps={{ title: item?.organization?.name }}
           />
           <Button className="mx-6 bg-transparent text-black dark:text-white outline outline-slate-300 outline-1">
             Donate

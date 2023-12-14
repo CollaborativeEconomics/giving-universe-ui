@@ -13,38 +13,30 @@ export default function InitiativeCardCompact({ ...props }) {
         <div className="inline-flex">
           <Image
             className="mt-3 ml-6"
-            src={props.data.imgSrc}
+            src={props.imgSrc}
             alt="IMG BG"
             width={200}
             height={200}
           />
           <div>
             <h3 className="px-6 pt-2 text-xl font-semibold uppercase">
-              {props.data.title}
+              {props.title}
             </h3>
-            <DateDisplay
-              timestamp={props.data.timestamp}
-              className="py-4 px-6"
-            />
-            <div className="px-6 line-clamp-2">{props.data.description}</div>
+            <DateDisplay timestamp={props.timestamp} className="py-4 px-6" />
+            <div className="px-6 line-clamp-2">{props.description}</div>
           </div>
         </div>
         <Separator />
         <div className="px-6 pt-3">
-          <Progress
-            value={(props.data.amountRaised / props.data.amountTarget) * 100}
-          />
+          <Progress value={(props.amountRaised / props.amountTarget) * 100} />
         </div>
         <div className="px-6 pb-2 -mt-2 text-sm font-semibold">
-          ${props.data.amountRaised.toLocaleString()} of $
-          {props.data.amountTarget.toLocaleString()} raised this month
+          ${props.amountRaised.toLocaleString()} of $
+          {props.amountTarget.toLocaleString()} raised this month
         </div>
         <Separator />
         <div className="px-6 pt-6 inline-flex justify-between">
-          <OrganizationAvatar
-            name={props.data.name}
-            image={props.data.avatarImg}
-          />
+          <OrganizationAvatar name={props.name} image={props.avatarImg} />
           <Button className="mx-6 bg-transparent text-black dark:text-white outline outline-slate-300 outline-1">
             Donate
           </Button>

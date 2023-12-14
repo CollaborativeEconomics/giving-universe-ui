@@ -78,7 +78,7 @@ const OrgStats = React.forwardRef<HTMLUListElement, Props>(
         {...props}
       >
         {buildList(orgStatProps).map((item) => {
-          return <div key={Math.random()}>{item}</div>
+          return <div key={item.key}>{item}</div>
         })}
       </ul>
     )

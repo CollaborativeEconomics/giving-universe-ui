@@ -25,6 +25,7 @@ const initiative = {
   name: 'fire starters',
   avatarImg:
     'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.IOGGKcmJMYKPkMuimQDLnwHaHv%26pid%3DApi%26h%3D160&f=1&ipt=944cafc6104e904b7776f748ee311ce1318b52ab6ec349dddbdc9f85850f4890&ipo=images',
+  key: Math.random(),
 }
 
 const initiatives = [initiative, initiative, initiative]
@@ -156,19 +157,31 @@ export default async function Home(props: any) {
         </div>
 
         <div className="md:flex md:flex-col items-center">
-          <div className="flex flex-wrap lg:flex-nowrap gap-5 items-start xl:max-w-screen-xl">
-            <DonationForm />
-            <NFTReceipt data={dummyNFTReceiptProps} />
+          <div className="flex flex-wrap lg:flex-nowrap gap-5 items-start">
+            <div className="w-full lg:w-[60%]">
+              <DonationForm />
+            </div>
+            <div className="lg:w-[40%]">
+              <NFTReceipt data={dummyNFTReceiptProps} />
+            </div>
           </div>
         </div>
 
         <div className="pt-10 flex justify-center w-full">
           <div className="flex flex-wrap md:flex-nowrap justify-center gap-9 xl:max-w-screen-xl">
             <div className="flex flex-col gap-5 w-full md:w-2/6 min-w-[400px]">
-              <p className="text-3xl font-semibold">Initiatives</p>
+              <p className="text-3xl font-semibold">Other Initiatives</p>
               {initiatives?.length > 0 ? (
                 initiatives.map((item: any) => (
-                  <InitiativeCardCompact key={Math.random()} data={item} />
+                  <InitiativeCardCompact
+                    key={item.key}
+                    imgSrc={item.imgSrc}
+                    title={item.title}
+                    description={item.description}
+                    amountRaised={item.amountRaised}
+                    amountTarget={item.amountTarget}
+                    avatarImg={item.avatarImg}
+                  />
                 ))
               ) : (
                 <h1 className="m-4">No initiatives found</h1>
@@ -183,7 +196,15 @@ export default async function Home(props: any) {
               <p className="text-3xl font-semibold">Stories</p>
               {stories?.length > 0 ? (
                 stories.map((item: any) => (
-                  <StoryCard key={Math.random()} data={item} />
+                  <StoryCard
+                    key={Math.random()}
+                    name={item.name}
+                    imgSrc={item.imgSrc}
+                    address={item.address}
+                    timestamp={item.timestamp}
+                    description={item.description}
+                    images={item.images}
+                  />
                 ))
               ) : (
                 <h1 className="m-4">No initiatives found</h1>

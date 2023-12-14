@@ -29,7 +29,7 @@ export default function NFTReceipt({ ...props }) {
 
   return (
     <div className="flex min-h-full w-full">
-      <div className="relative bg-white p-6 shadow-xl my-4 h-auto rounded-md dark:bg-slate-500 w-full">
+      <div className="relative bg-white p-6 my-4 h-auto rounded-md dark:bg-slate-500 w-full">
         <div className="pb-4">
           <ModalText className="pb-2" text="Currency" />
           <DonationFormSelect
