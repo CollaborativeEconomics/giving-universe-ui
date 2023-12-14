@@ -11,41 +11,6 @@ import { OrgSocials } from '@/components/ui/org-socials';
 import { OrganizationAvatar } from '@/components/OrganizationAvatar';
 import { getOrganizationById, getStoriesByOrganization } from '@/lib/utils/registry'
 
-const dummyImgSrc: string = "https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75";
-const dummyOrganization = {
-  name: "Food not bombs is good so so good",
-  imgSrc: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.IOGGKcmJMYKPkMuimQDLnwHaHv%26pid%3DApi%26h%3D160&f=1&ipt=944cafc6104e904b7776f748ee311ce1318b52ab6ec349dddbdc9f85850f4890&ipo=images",
-  address: "www.google.com",
-  twitterAddress: "www.twitter.com",
-  facebookAddress: "www.facebook.com",
-  stats: {
-    amountRaised: 10000,
-    amountTarget: 8000,
-    donorCount: 50,
-    institutionalDonorCount: 1,
-    initiativeCount: 2,
-    raisedThisMonth: 700,
-  },
-  descriptionJsonRtf: {
-    nodeType: 'document',
-    data: {},
-    content: [
-      {
-        nodeType: 'paragraph',
-        data: {},
-        content: [
-          {
-            nodeType: 'text',
-            value: "At Food Not Bombs, our mission is to combat hunger and nourish communities through grassroots, direct action. We believe that access to nutritious food is a fundamental human right, and we are committed to addressing the root causes of hunger by repurposing wasted resources. Guided by the principles of social justice, environmental sustainability, and community empowerment, Food Not Bombs strives to create a world where no one goes to bed hungry. We envision a society that values people over profit, prioritizes the well-being of the marginalized, and promotes a sustainable and equitable food system. Our dedicated volunteers work tirelessly to rescue surplus food that would otherwise go to waste and redistribute it to those in need. By transforming surplus into sustenance, we challenge the wasteful practices of our current food system and advocate for systemic change.",
-            marks: [],
-            data: {},
-          },
-        ],
-      },
-    ],
-  }
-}
-
 export default async function Home(props: any) {
   //console.log('PROPS', props)
   const orgid = props?.params?.organizationId || null
@@ -84,12 +49,12 @@ export default async function Home(props: any) {
 
         <OrgSocials
           className="pt-[25rem] ml-56 pl-[5%] gap-1 lg:gap-3"
-          twitterLabel={organization.twitter || 'twitter.com'}
-          twitterAddress={organization.twitter || 'twitter.com'}
-          facebookLabel={organization.facebook || 'facebook.com'}
-          facebookAddress={organization.facebook || 'facebook.com'}
-          websiteLabel={organization.url || 'example.com'}
-          websiteAddress={organization.url || 'example.com'}
+          twitterLabel={organization.twitter || ''}
+          twitterAddress={organization.twitter || ''}
+          facebookLabel={organization.facebook || ''}
+          facebookAddress={organization.facebook || ''}
+          websiteLabel={organization.url || ''}
+          websiteAddress={organization.url || ''}
         />
 
         <div className="pt-20">
