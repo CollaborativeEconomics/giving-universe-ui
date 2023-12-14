@@ -26,7 +26,7 @@ export default function OrganizationCard({ ...props }) {
 
   return (
     <Card className="flex flex-col overflow-hidden h-auto">
-      <CardHeader className="relative h-36">
+      <CardHeader className="relative h-48">
         <Link href={orgurl}>
           <Image
             src={image}
