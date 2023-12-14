@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import * as React from 'react';
+import * as React from 'react'
 
-import { cn } from '@/lib/shadCnUtil';
+import { cn } from '@/lib/shadCnUtil'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,9 +11,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
-import { Button } from '@/components/ui/button';
-import { HamburgerMenuIcon } from '@radix-ui/react-icons';
+} from '@/components/ui/navigation-menu'
+import { Button } from '@/components/ui/button'
+import { HamburgerMenuIcon } from '@radix-ui/react-icons'
 import {
   Sheet,
   SheetContent,
@@ -22,9 +22,9 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { DarkModeSwitcher } from './dark-mode-switcher';
-import Link from 'next/link';
+} from '@/components/ui/sheet'
+import { DarkModeSwitcher } from './dark-mode-switcher'
+import Link from 'next/link'
 
 export function NavMenu() {
   return (
@@ -35,11 +35,15 @@ export function NavMenu() {
             <NavigationMenuItem>
               <NavigationMenuTrigger>Partners</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                <ul className="grid gap-3 p-4 md:w-[400px] xl:w-[500px] xl:grid-cols-[.75fr_1fr]">
                   <ListItem href="/docs/installation" title="Sign In">
                     Access the partner portal
                   </ListItem>
-                  <ListItem href="/docs" title="Pricing" className="bg-primary text-primary-foreground">
+                  <ListItem
+                    href="/docs"
+                    title="Pricing"
+                    className="bg-primary text-primary-foreground"
+                  >
                     View our pricing plans
                   </ListItem>
                 </ul>
@@ -83,7 +87,7 @@ export function NavMenu() {
         </Sheet>
       </div>
     </>
-  );
+  )
 }
 
 const ListItem = React.forwardRef<
@@ -97,7 +101,7 @@ const ListItem = React.forwardRef<
           ref={ref}
           className={cn(
             'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-            className,
+            className
           )}
           {...props}
         >
@@ -108,6 +112,6 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  );
-});
-ListItem.displayName = 'ListItem';
+  )
+})
+ListItem.displayName = 'ListItem'
