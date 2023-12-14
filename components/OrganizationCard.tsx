@@ -51,7 +51,7 @@ export default function InitiativeCard({ ...props }) {
           <Progress value={progress} />
         </div>
         <OrgStats
-          orgStatProps={{
+          stats={{
             amountRaised: item.lastmonth,
             amountTarget: item.goal,
             donorCount: item.donors,

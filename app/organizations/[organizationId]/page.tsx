@@ -117,7 +117,7 @@ export default async function Home(props: any) {
               </TabsContent>
               <TabsContent value="stats">
                 <OrgStats
-                  orgStatProps={{
+                  stats={{
                     amountRaised: dummyOrganization.stats.amountRaised,
                     amountTarget: dummyOrganization.stats.amountTarget,
                     raisedThisMonth: dummyOrganization.stats.raisedThisMonth,
