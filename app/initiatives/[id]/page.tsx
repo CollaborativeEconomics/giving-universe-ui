@@ -8,6 +8,7 @@ import { getInitiativeById } from '@/lib/utils/registry'
 import NFTReceipt, { Status } from '@/components/NFTReceipt'
 import DonationForm from '@/components/DonationForm'
 import InitiativeCardCompact from '@/components/initiativeCardCompact'
+import { Separator } from '@/components/ui/separator'
 
 const initiative = {
   imgSrc:
@@ -117,10 +118,10 @@ export default async function Home(props: any) {
   return (
     <main className="w-full bg-gradient-to-t from-slate-200">
       <div className="relative flex flex-col px-[5%] container pt-24 w-full h-full">
-        <div className="flex flex-row h-[300px] h-max-[300px] overflow-hidden mb-4 ">
-          <div className="relative w-[45%] h-[300px]">
+        <div className="flex overflow-hidden mb-4 flex-col md:flex-row">
+          <div className="relative w-full md:w-[45%] h-[200px] md:h-[300px] mb-6 md:mb-0">
             <Image
-              className=""
+              className="h-[300px]"
               src={dummyOrganization.image}
               alt="IMG BG"
               fill
@@ -155,6 +156,8 @@ export default async function Home(props: any) {
             </Link>
           </div>
         </div>
+
+        <Separator className='mb-6' />
 
         <div className="md:flex md:flex-col items-center">
           <div className="flex flex-wrap lg:flex-nowrap gap-5 items-start">
