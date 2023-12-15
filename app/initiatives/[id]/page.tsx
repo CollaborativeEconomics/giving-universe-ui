@@ -160,7 +160,7 @@ export default async function Home(props: any) {
         <Separator className='mb-6' />
 
         <div className="md:flex md:flex-col items-center">
-          <div className="flex flex-wrap lg:flex-nowrap gap-5 items-start">
+          <div className="flex flex-wrap lg:flex-nowrap gap-12 items-start">
             <div className="w-full lg:w-[60%]">
               <DonationForm />
             </div>
