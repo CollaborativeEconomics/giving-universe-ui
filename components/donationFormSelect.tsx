@@ -9,6 +9,7 @@ import {
 } from './ui/select'
 
 export interface SelectInputProps extends InputProps {
+  className?: string
   currentOption: { value: string; image: string; symbol?: string }
   handleChange: any
   options: {
@@ -33,7 +34,9 @@ const DonationFormSelect = React.forwardRef<HTMLInputElement, SelectInputProps>(
   ) => {
     return (
       <Select onValueChange={handleChange}>
-        <SelectTrigger className="h-10 text-lg w-full rounded-full border border-2 border-slate-300 bg-white ring-offset-background focus-within:border-blue-700 focus-within:ring-1">
+        <SelectTrigger
+          className={`h-10 text-lg w-full rounded-full border border-2 border-slate-300 bg-white ring-offset-background focus-within:border-blue-700 focus-within:ring-1 ${className || ''}`}
+        >
           <SelectValue
             className="bg-white placeholder-gray-600"
             placeholder={placeHolderText}
