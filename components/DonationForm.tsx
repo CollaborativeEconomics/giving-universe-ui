@@ -1,6 +1,5 @@
 'use client'
 
-import { ModalText } from './ui/modal'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { Chains, Dictionary, getChainWallets } from '@/lib/chains/apis'
@@ -9,6 +8,9 @@ import { InputWithContent } from './ui/input-with-content'
 import { Switch } from './ui/switch'
 import { DonationFormSelect } from './donationFormSelect'
 import { CheckboxWithText } from './ui/checkbox'
+import { Card } from './ui/card'
+import { Separator } from './ui/separator'
+import { Label } from './ui/label'
 
 export default function NFTReceipt({ ...props }) {
   let chainLookup: Dictionary = {}
@@ -28,91 +30,90 @@ export default function NFTReceipt({ ...props }) {
   const amountInputRef = useRef(null)
 
   return (
-    <div className="relative z-10">
-      <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div className="flex min-h-full items-center justify-center p-0">
-          <div className="relative bg-white p-6 shadow-xl my-8 h-auto w-[50%] max-w-xl rounded-md dark:bg-slate-500">
-            <div className="pb-4">
-              <ModalText className="pb-2" text="Currency" />
-              <DonationFormSelect
-                options={chains}
-                currentOption={currentChain.symbol}
-                handleChange={(chain: string) => {
-                  setCurrentChain(chain)
-                  setWallets(getChainWallets(chainLookup[chain].symbol))
-                }}
-                placeHolderText="...select a cryptocurrency"
-              />
+    <div className="flex min-h-full w-full">
+      <Card className="py-6 w-full">
+        <div className="px-6">
+          <Label htmlFor="currency-select" className="mb-2">
+            Currency
+          </Label>
+          <DonationFormSelect
+            id="currency-select"
+            className="mb-6"
+            options={chains}
+            currentOption={currentChain.symbol}
+            handleChange={(chain: string) => {
+              setCurrentChain(chain)
+              setWallets(getChainWallets(chainLookup[chain].symbol))
+            }}
+            placeHolderText="...select a cryptocurrency"
+          />
+          <Label htmlFor="wallet-select" className="mb-2">
+            Wallet
+          </Label>
+          <DonationFormSelect
+            id="wallet-select"
+            className="mb-6"
+            options={wallets}
+            currentOption={currentWallet ?? wallets[0]}
+            handleChange={(wallet: { value: string; image: string }) =>
+              setCurrentWallet(wallet)
+            }
+            placeHolderText="...select a cryptowallet"
+          />
+        </div>
+        <Separator />
+        <div className="px-6">
+          <div className="w-full my-6">
+            <div className="flex flex-row justify-between items-center mb-2">
+              <Label>Amount</Label>{' '}
+              <div className="flex flex-wrap">
+                <Label htmlFor="show-usd-toggle">USD</Label>
+                <Switch
+                  id="show-usd-toggle"
+                  valueBasis={showUSD}
+                  handleToggle={() => {
+                    toggleShowUSD(!showUSD)
+                  }}
+                />
+                <Label>{chainLookup[currentChain].symbol}</Label>
+              </div>
             </div>
-            <div className="pb-4">
-              <ModalText className="pb-2" text="Wallet" />
-              <DonationFormSelect
-                options={wallets}
-                currentOption={currentWallet ?? wallets[0]}
-                handleChange={(wallet: { value: string; image: string }) =>
-                  setCurrentWallet(wallet)
+            <div className="my-auto">
+              <InputWithContent
+                className="text-right"
+                type="text"
+                id="amount"
+                text={
+                  showUSD ? '| ' + chainLookup[currentChain].symbol : '| USD'
                 }
-                placeHolderText="...select a cryptowallet"
+                divRef={amountInputRef}
               />
-            </div>
-            <div className="py-4">
-              <div className="flex flex-wrap border-solid border-y-2 border-gray-300 w-full">
-                <div className="py-4 w-full mb-2">
-                  <div className="flex flex-row justify-between">
-                    <div className="my-auto">
-                      <ModalText className="pb-2" text="Amount" />{' '}
-                    </div>
-                    <div className="flex flex-wrap">
-                      <ModalText className="my-auto" text="USD" />
-                      <Switch
-                        id="value_basis"
-                        valueBasis={showUSD}
-                        handleToggle={() => {
-                          toggleShowUSD(!showUSD)
-                        }}
-                      />
-                      <ModalText
-                        className="my-auto"
-                        text={chainLookup[currentChain].symbol}
-                      />
-                    </div>
-                  </div>
-                  <div className="my-auto">
-                    <InputWithContent
-                      className="text-right"
-                      type="text"
-                      id="amount"
-                      text={
-                        showUSD
-                          ? '| ' + chainLookup[currentChain].symbol
-                          : '| USD'
-                      }
-                      divRef={amountInputRef}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <ModalText className="pb-2" text="Name (optional)" />
-            <Input type="text" className="mb-4" id="name" />
-            <ModalText className="pb-2" text="Email address (optional)" />
-            <Input type="text" className="mb-4" id="email" />
-            <CheckboxWithText text="I'd like to receive an emailed receipt" />
-            <CheckboxWithText
-              className="pb-4"
-              text="I'd like to receive an NFT receipt"
-            />
-            <div className="flex flex-col pt-4 border-solid border-t-2 border-gray-300 w-full">
-              <div className="inline-flex justify-center py-2">
-                <Button className="mx-6 w-[250px] h-[50px] bg-blue-600 text-white text-lg outline outline-slate-300 outline-1 hover:bg-blue-700 hover:shadow-inner">
-                  Donate
-                </Button>
-              </div>
             </div>
           </div>
+          <Label htmlFor="name-input" className="mb-2">
+            Name (optional)
+          </Label>
+          <Input type="text" className="mb-6" id="name-input" />
+          <Label htmlFor="email-input" className="mb-2">
+            Email address (optional)
+          </Label>
+          <Input type="text" className="mb-6" id="email-input" />
+          <CheckboxWithText
+            text="I'd like to receive an emailed receipt"
+            className="mb-2"
+          />
+          <CheckboxWithText
+            text="I'd like to receive an NFT receipt"
+            className="mb-6"
+          />
         </div>
-      </div>
+        <Separator />
+        <div className="flex items-center justify-center">
+          <Button className="mt-6 mx-6 w-[250px] h-[50px] bg-blue-600 text-white text-lg outline outline-slate-300 outline-1 hover:bg-blue-700 hover:shadow-inner">
+            Donate
+          </Button>
+        </div>
+      </Card>
     </div>
   )
 }
