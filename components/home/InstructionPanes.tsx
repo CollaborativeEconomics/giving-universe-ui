@@ -1,15 +1,11 @@
 'use client'
-import Rive from '@rive-app/react-canvas'
 
-import { Button } from '../ui/button'
-import { ActionBarBox, ActionBarButton } from './ActionBarContent'
-import RiveAnimation from './RiveAnimation'
 import {
+  InstructionPaneSectionContent,
   InstructionPaneSectionImage,
   InstructionPaneSectionText,
   InstructionPaneSectionTitle,
 } from './InstructionPaneSection'
-import Image from 'next/image'
 import Link from 'next/link'
 
 export default function InstructionPanes() {
@@ -19,7 +15,7 @@ export default function InstructionPanes() {
       <div className="flex flex-row">
         {/* <RiveAnimation /> */}
         <p className="text-5xl mr-20">1</p>
-        <div className="relative flex flex-col w-full">
+        <InstructionPaneSectionContent>
           <InstructionPaneSectionTitle>
             Donate to community causes you care about
           </InstructionPaneSectionTitle>
@@ -34,13 +30,13 @@ export default function InstructionPanes() {
             that you care most about, and that are working in your community or
             a community you care about
           </InstructionPaneSectionText>
-        </div>
+        </InstructionPaneSectionContent>
       </div>
       <InstructionPaneSectionImage className='bg-[url("/DonateV2.jpg")]' />
       <div className="flex flex-row">
         {/* <RiveAnimation /> */}
         <p className="text-5xl mr-20">2</p>
-        <div className="relative flex flex-col w-full">
+        <InstructionPaneSectionContent>
           <InstructionPaneSectionTitle>
             Receive personalized, tax-deductible NFT Receipts
           </InstructionPaneSectionTitle>
@@ -48,13 +44,13 @@ export default function InstructionPanes() {
             Whenever you donate, you receive a personalzed tax-deductible NFT
             receipt.
           </InstructionPaneSectionText>
-        </div>
+        </InstructionPaneSectionContent>
       </div>
       <InstructionPaneSectionImage className="bg-[url('/NFTReceiptV2.jpg')]" />
       <div className="flex flex-row">
         {/* <RiveAnimation /> */}
         <p className="text-5xl mr-20">3</p>
-        <div className="relative flex flex-col w-full">
+        <InstructionPaneSectionContent>
           <InstructionPaneSectionTitle>
             NFTs tell the story of your impact
           </InstructionPaneSectionTitle>
@@ -62,7 +58,7 @@ export default function InstructionPanes() {
             Non-profits publish and distribute their progress as Story NFTs.
             Watch the impact from your donation unfold!
           </InstructionPaneSectionText>
-        </div>
+        </InstructionPaneSectionContent>
       </div>
       <InstructionPaneSectionImage className="bg-[url('/ReceiveNFTV2.jpg')]" />
     </div>

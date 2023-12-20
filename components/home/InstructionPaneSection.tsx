@@ -20,6 +20,17 @@ const InstructionPaneSectionText = ({
 )
 InstructionPaneSectionText.displayName = 'instruction-pane-section-text'
 
+const InstructionPaneSectionContent = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement>) => (
+  <div
+    className={cn('relative flex flex-col w-full pb-12', className)}
+    {...props}
+  />
+)
+InstructionPaneSectionContent.displayName = 'instruction-pane-section-content'
+
 const InstructionPaneSectionImage = ({
   className,
   ...props
@@ -38,4 +49,5 @@ export {
   InstructionPaneSectionTitle,
   InstructionPaneSectionText,
   InstructionPaneSectionImage,
+  InstructionPaneSectionContent,
 }
