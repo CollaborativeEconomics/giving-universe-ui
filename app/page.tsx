@@ -15,7 +15,6 @@ export default function Handler(props: any) {
         <SearchBar />
       </Card>
       <div className="m-4">Main stuff here...</div>
-      <DonationForm />
     </Main>
   )
 }

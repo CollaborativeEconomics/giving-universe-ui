@@ -12,7 +12,7 @@ const secret = process.env.XUMM_API_SECRET || ''
 class RippleSDK {
   chain = 'XRPL'
   symbol = 'XRP'
-  logo = 'xrp-logo.png'
+  logo = '/xrp-logo.png'
   wallet = new Xumm(apikey, secret)
   rpcurl = ''
   wssurl = ''

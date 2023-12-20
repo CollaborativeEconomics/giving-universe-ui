@@ -95,7 +95,6 @@ export default async function Home(props: any) {
               })}
             </div>
           </div>
-
         </div>
       </div>
     </main>
