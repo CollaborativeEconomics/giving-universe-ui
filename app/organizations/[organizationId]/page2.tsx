@@ -99,4 +99,8 @@ export default async function Home(props: any) {
       </div>
     </main>
   )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 86dff934edcf689a77068e6d4771c4448741e48a
