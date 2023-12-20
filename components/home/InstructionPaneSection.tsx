@@ -24,10 +24,7 @@ const InstructionPaneSectionContent = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLSpanElement>) => (
-  <div
-    className={cn('relative flex flex-col w-full pb-12', className)}
-    {...props}
-  />
+  <div className={cn('relative flex flex-col w-full', className)} {...props} />
 )
 InstructionPaneSectionContent.displayName = 'instruction-pane-section-content'
 
@@ -35,13 +32,16 @@ const InstructionPaneSectionImage = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      'flex items-center flex-col space-y-40  h-screen mb-12 bg-fixed bg-center bg-cover',
-      className
-    )}
-    {...props}
-  ></div>
+  <div className="flex h-screen my-12">
+    <div className="absolute hover:mix-blend-screen w-full h-screen bg-fixed bg-center bg-cover bg-[url('/ColorOverlay.png')]" />
+    <div
+      className={cn(
+        'absolute hover:mix-blend-screen w-full h-screen bg-fixed bg-center bg-cover',
+        className
+      )}
+      {...props}
+    />
+  </div>
 )
 InstructionPaneSectionImage.displayName = 'instruction-pane-section-image'
 
