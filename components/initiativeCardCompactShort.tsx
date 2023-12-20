@@ -8,7 +8,7 @@ import { OrganizationAvatar } from './OrganizationAvatar'
 
 export default function InitiativeCardCompact({ ...props }) {
   return (
-    <Card className="flex flex-col overflow-hidden">
+    <Card className="flex flex-col overflow-hidden h-56">
       <CardContent className="flex flex-col pb-8 pt-3 gap-3 px-0">
         <div className="inline-flex">
           <Image
@@ -25,21 +25,6 @@ export default function InitiativeCardCompact({ ...props }) {
             <DateDisplay timestamp={props.timestamp} className="py-4 px-6" />
             <div className="px-6 line-clamp-2">{props.description}</div>
           </div>
-        </div>
-        <Separator />
-        <div className="px-6 pt-3">
-          <Progress value={(props.amountRaised / props.amountTarget) * 100} />
-        </div>
-        <div className="px-6 pb-2 -mt-2 text-sm font-semibold">
-          ${props.amountRaised?.toLocaleString()} of $
-          {props.amountTarget?.toLocaleString()} raised this month
-        </div>
-        <Separator />
-        <div className="px-6 pt-6 inline-flex justify-between">
-          <OrganizationAvatar name={props.name} image={props.avatarImg} />
-          <Button className="mx-6 bg-transparent text-black dark:text-white outline outline-slate-300 outline-1">
-            Donate
-          </Button>
         </div>
       </CardContent>
     </Card>

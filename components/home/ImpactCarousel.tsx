@@ -1,23 +1,22 @@
-'use client';
+'use client'
 
-import { useEffect, useRef } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import InitiativeCardCompact from '../initiativeCardCompact';
+import { useEffect, useRef } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Pagination, Navigation, Autoplay } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+import InitiativeCardCompactShort from '../initiativeCardCompactShort'
 
 export default function ImpactCarousel() {
   return (
-    <div className="absolute bottom-0 left-0 right-0">
+    <div className="relative left-0 right-0">
       <Swiper
         slidesPerView={4}
         spaceBetween={30}
         pagination={{
           clickable: true,
         }}
-        modules={[Pagination]}
         className="impactCarousel"
         centeredSlides={true}
         navigation={true}
@@ -29,30 +28,30 @@ export default function ImpactCarousel() {
         loop
       >
         <SwiperSlide>
-          <InitiativeCardCompact />
+          <InitiativeCardCompactShort />
         </SwiperSlide>
         <SwiperSlide>
-          <InitiativeCardCompact />
+          <InitiativeCardCompactShort />
         </SwiperSlide>
         <SwiperSlide>
-          <InitiativeCardCompact />
+          <InitiativeCardCompactShort />
         </SwiperSlide>
         <SwiperSlide>
-          <InitiativeCardCompact />
+          <InitiativeCardCompactShort />
         </SwiperSlide>
         <SwiperSlide>
-          <InitiativeCardCompact />
+          <InitiativeCardCompactShort />
         </SwiperSlide>
         <SwiperSlide>
-          <InitiativeCardCompact />
+          <InitiativeCardCompactShort />
         </SwiperSlide>
         <SwiperSlide>
-          <InitiativeCardCompact />
+          <InitiativeCardCompactShort />
         </SwiperSlide>
         <SwiperSlide>
-          <InitiativeCardCompact />
+          <InitiativeCardCompactShort />
         </SwiperSlide>
       </Swiper>
     </div>
-  );
+  )
 }
