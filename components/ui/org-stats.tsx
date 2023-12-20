@@ -5,7 +5,7 @@ import { Building2, DollarSign, Target, UserIcon, Sprout } from 'lucide-react'
 import { ListObject } from './list-object'
 import money from '@/lib/utils/money'
 
-export interface OrgStatsProps {
+export interface Stats {
   amountRaised: number
   amountTarget: number
   raisedThisMonth?: number
@@ -16,10 +16,10 @@ export interface OrgStatsProps {
 
 export interface Props extends React.HTMLAttributes<HTMLUListElement> {
   className?: string
-  orgStatProps: OrgStatsProps
+  stats: Stats
 }
 
-function buildList(props: OrgStatsProps): Array<React.JSX.Element> {
+function buildList(props: Stats): Array<React.JSX.Element> {
   const items = new Array<React.JSX.Element>()
   if(props.amountTarget){
     items.push(
@@ -82,15 +82,15 @@ function buildList(props: OrgStatsProps): Array<React.JSX.Element> {
 }
 
 const OrgStats = React.forwardRef<HTMLUListElement, Props>(
-  ({ className, orgStatProps, ...props }, ref) => {
+  ({ className, stats, ...props }, ref) => {
     return (
       <ul
         ref={ref}
         className={cn('px-3 flex flex-col gap-2', className)}
         {...props}
       >
-        {buildList(orgStatProps).map((item) => {
-          return <div key={Math.random()}>{item}</div>
+        {buildList(stats).map((item) => {
+          return <div key={item.key}>{item}</div>
         })}
       </ul>
     )
