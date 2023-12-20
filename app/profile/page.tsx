@@ -1,3 +1,9 @@
+import Image from 'next/image'
+import { Image as Picture, Newspaper, LayoutList, Building2, DollarSign, Target, UserIcon } from 'lucide-react'
+import { ListObject } from '@/components/ui/list-object'
+import StoryCardCompactVert from '@/components/StoryCardCompactVert'
+import DonationsSwitch from '@/components/DonationsSwitch'
+import { getUserById, getNFTsByAccount, getDonationsByUser } from '@/lib/utils/registry'
 import {
   Table,
   TableCaption,
@@ -8,9 +14,6 @@ import {
   TableHead,
   TableCell
 } from "@/components/ui/table"
-import StoryCardCompact from '@/components/StoryCardCompact'
-import DonationsSwitch from '@/components/DonationsSwitch'
-import { getUserById, getNFTsByAccount} from '@/lib/utils/registry'
 
 // TODO: REMOVE WHEN READY
 const favorgs = [
@@ -33,6 +36,10 @@ const stories = [
   {"id":"72c491e6-b18f-4217-aafe-03fef8aac090","created":"2023-10-19T18:14:55.075Z","inactive":false,"organizationId":"066509a2-c40d-4f8b-863a-574a39a9953f","initiativeId":"1b773d96-b641-4c7d-a874-afda7f9742f0","name":"Creating shelter for the homeless","description":"Building housing for the disadvantaged with local sustainable practices","amount":0,"image":"https://ipfs.filebase.io/ipfs/QmT7xPsu7aoSRKDxBhoN4AoKTsmKHQkY5DC3cBGrUn66Rw","tokenId":"0x653172208829f3706b4ed049","metadata":"ipfs:QmTLpaeGUEoSeWtAyRUF6HbhMjeJ7ibPKTmce25DGn8c2w","organization":{"id":"066509a2-c40d-4f8b-863a-574a39a9953f","created":"2023-11-29T14:43:35.079Z","inactive":false,"slug":"barichara","EIN":"","country":"Colombia","description":"Our mission is to lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat","image":"https://ipfs.filebase.io/ipfs/QmTWVCp8NewcVfGYUbUaJUcPenKgoZGF8GqtFP948rEJwR","mailingAddress":"","name":"Barichara","phone":"","email":"test@gmail.com","url":"https://example.com/barichara","twitter":null,"facebook":null,"categoryId":"29fafb04-d8b9-4c8d-a3d8-c884c2e94e69","featured":false,"donors":4560,"institutions":35,"donations":45600,"lastmonth":10250,"goal":100000},"initiative":{"id":"1b773d96-b641-4c7d-a874-afda7f9742f0","created":"2023-11-29T15:30:07.574Z","inactive":false,"slug":"feed_indigenous_people","organizationId":"066509a2-c40d-4f8b-863a-574a39a9953f","chapterId":null,"categoryId":null,"title":"Feed indigenous people","description":"Feed indigenous people in the Barichara reservations","defaultAsset":"https://ipfs.filebase.io/ipfs/QmTWVCp8NewcVfGYUbUaJUcPenKgoZGF8GqtFP948rEJwR","imageUri":null,"start":"2023-10-19T00:00:00.000Z","finish":"2024-01-01T00:00:00.000Z","tag":66885521,"contract":"CDHGVKFRG7CFXVKTZGNM7VKEQWZDBLH733FD6AD3SN7JZIRZSHZM5Q2S","wallet":null,"country":"Colombia","donors":54,"institutions":2,"goal":120000,"donations":95000,"lastmonth":2450}},
 ]
 
+function localDate(sdate){
+  return new Date(sdate).toLocaleString()
+}
+
 function coinFromChain(chain){
   return {
     'Avalanche':'avax',
@@ -46,12 +53,12 @@ function coinFromChain(chain){
     'XinFin'   :'xdc',
   }[chain]
 }
+
 export default async function Profile(props: any) {
-  // TODO: Get from auth session
+  const search = props?.searchParams?.tab || 'receipts'
+  // TODO: Get from auth session or pass as url/id
   const userid = '910a21eb-d9b9-43a2-ada8-127069188d92'
   const user = await getUserById(userid)
-  const nfts = await getNFTsByAccount(userid) || []
-
   if(!user){
     return (
       <main className="flex min-h-screen flex-col items-stretch container py-24">
@@ -59,15 +66,17 @@ export default async function Profile(props: any) {
       </main>
     )
   }
+  const receipts  = await getNFTsByAccount(userid) || []
+  const donations = await getDonationsByUser(userid) || []
 
   return (
     <main className="flex min-h-screen flex-col items-stretch container py-24">
       <div className="flex flex-row justify-between">
 
         {/* Avatar */}
-        <div className="border rounded-md p-8 w-1/3">
+        <div className="border rounded-md p-8 w-1/3 bg-white">
           <div className="flex flex-row flex-start items-center rounded-full">
-            <img className="mr-8 rounded-full" src={user.image} width={100} height={100}></img>
+            <Image className="mr-8 rounded-full" src={user.image} width={100} height={100} alt="Avatar" />
             <h1 className="font-bold text-lg">{user.name}</h1>
           </div>
         </div>
@@ -76,20 +85,23 @@ export default async function Profile(props: any) {
         <div className="p-4 w-1/3">&nbsp;</div>
 
         {/* Chains */}
-        <div className="flex flex-col items-center border rounded-md p-4 w-1/3">
+        <div className="flex flex-col items-center border rounded-md p-4 w-1/3 bg-white">
           {user.wallets ? (
             <>
               <h1>Active Chains</h1>
-              <div className="mt-4">
-              {user.wallets.map(item=>{
-                return (
-                  <span key={item.id}>
-                    <img src={'/coins/' + (coinFromChain(item.chain)||'none') + '.png'} width={48} height={48} />
-                  </span>
-                )
-              })}
+              <div className="mt-4 pb-4 w-full border-b">
+                {user.wallets.map(item=>{
+                  return (
+                    <span key={item.id} className="inline-block border rounded-full p-1 mx-1">
+                      <Image src={'/coins/' + (coinFromChain(item.chain)||'none') + '.png'} width={48} height={48} alt="Chain" />
+                    </span>
+                  )
+                })}
+                <span key={0} className="inline-block border rounded-full p-1">
+                  <Image src={'/coins/newcoin.png'} width={48} height={48} alt="New chain" />
+                </span>
               </div>
-              <button className="block w-2/3 mt-4 mx-auto py-1 px-8 bg-red-400 text-white rounded-full">Connect Wallet</button>
+              <button className="block w-2/3 mt-4 mx-auto py-1 px-8 bg-red-400 text-white rounded-full">Log Out</button>
             </>
           ) : (
             <>
@@ -108,11 +120,11 @@ export default async function Profile(props: any) {
           
           {/* Fav Orgs */}
           <h1 className="text-2xl font-medium">Favorite Organizations</h1>
-          <div className="grid grid-cols-4 gap-2 mb-8">
+          <div className="grid grid-cols-2 gap-2 mb-8">
             {favorgs.map(item=>{
               return (
-                <div key={item.id} className="flex flex-col justify-start items-center content-center mt-4">
-                  <img className="rounded-full mb-1" src={item.image} width={64} height={64} />
+                <div key={item.id} className="flex flex-row justify-start items-center content-center mt-4">
+                  <Image className="rounded-full mr-1" src={item.image} width={64} height={64} alt="Organization" />
                   <h1 className="text-sm text-center">{item.name}</h1>
                 </div>
               )
@@ -123,7 +135,7 @@ export default async function Profile(props: any) {
           <h1 className="text-2xl font-medium mb-4">Badges</h1>
           <div className="grid grid-cols-4 gap-2 mb-8">
             {badges.map(item=>{
-              return (<img key={item.id} className="mr-1" src={item.image} width={72} height={72} />)
+              return (<Image key={item.id} className="mr-1" src={item.image} width={72} height={72} alt="Badge" />)
             })}
           </div>
 
@@ -133,7 +145,7 @@ export default async function Profile(props: any) {
             {stories.map(item=>{
               return (
                 <div className="my-4" key={item.id}>
-                  <StoryCardCompact />
+                  <StoryCardCompactVert />
                 </div>
               )
             })}
@@ -144,9 +156,18 @@ export default async function Profile(props: any) {
         {/* Table */}
         <div className="w-3/4">
           <h1 className="text-2xl font-medium mb-4">Donation Data</h1>
-          {/* TODO: nft/receipt buttons */} {/* TODO: view icons */}
-          <DonationsSwitch />
-          <div className="w-full border rounded-md p-10">
+          <div className="flex flex-row justify-between items-center">
+            <DonationsSwitch />  
+            {/* view icons */}
+            <div className="flex flex-row">
+              <Newspaper size={32} className="pr-2 cursor-pointer" />
+              <LayoutList size={32} className="pr-2 cursor-pointer" />
+              <Picture size={32} className="pr-2 cursor-pointer" />
+            </div>
+          </div>
+          <div className="w-full border rounded-md p-10 bg-white">
+          {search=='receipts' ?
+            (
             <Table className="w-full">
               <TableHeader>
                 <TableRow>
@@ -158,15 +179,44 @@ export default async function Profile(props: any) {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {nfts.length ? nfts.map(item=>{
+                {receipts.length ? receipts.map(item=>{
                   const image = item.imageUri.startsWith('ipfs') ? 'https://ipfs.filebase.io/ipfs/'+item.imageUri.substr(5) : item.imageUri
                   return (
                     <TableRow key={item.id}>
-                      <TableCell><img src={image} width={64} height={64} /></TableCell>
+                      <TableCell><Image src={image} width={64} height={64} alt="NFT" /></TableCell>
                       <TableCell>{item.initiative.title}</TableCell>
                       <TableCell>{item.organization.name}</TableCell>
                       <TableCell>{item.coinValue}</TableCell>
                       <TableCell>{item.coinSymbol}</TableCell>
+                    </TableRow>
+                  )
+                }) : (
+                  <TableRow>
+                    <TableCell className="col-span-5">No receipts found</TableCell>
+                  </TableRow>
+                )}  
+              </TableBody>
+            </Table>
+          ) : (
+            <Table className="w-full">
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Initiative</TableHead>
+                  <TableHead>Organization</TableHead>
+                  <TableHead>Amount</TableHead>
+                  <TableHead>Coin</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {donations.length ? donations.map(item=>{
+                  return (
+                    <TableRow key={item.id}>
+                      <TableCell>{localDate(item.created)}</TableCell>
+                      <TableCell>{item.initiative.title}</TableCell>
+                      <TableCell>{item.organization.name}</TableCell>
+                      <TableCell>{item.amount}</TableCell>
+                      <TableCell>{coinFromChain(item.chain).toUpperCase()}</TableCell>
                     </TableRow>
                   )
                 }) : (
@@ -176,6 +226,7 @@ export default async function Profile(props: any) {
                 )}  
               </TableBody>
             </Table>
+          )}
           </div>
         </div>
       </div>

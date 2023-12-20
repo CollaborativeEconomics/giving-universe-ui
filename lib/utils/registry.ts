@@ -123,4 +123,8 @@ export const getSession = (id: string) => fetchRegistry('session?token='+id)
 export const deleteSession = (id: string) => deleteRegistry('session?token='+id)
 
 export const getLocations = () => fetchRegistry('locations')
+
+export const getDonations = () => fetchRegistry('donations')
+export const getDonationsByUser = (id) => fetchRegistry('donations?userid='+id)
+
 // END
