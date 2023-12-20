@@ -20,11 +20,7 @@ export default function StoryCard({ ...props }) {
       </div>
       <CardContent className="flex flex-col pb-8 pt-3 gap-3 px-0">
         <p className="px-6">
-<<<<<<< HEAD
-          {item.description}
-=======
           {story.description}
->>>>>>> 86dff934edcf689a77068e6d4771c4448741e48a
         </p>
       </CardContent>
     </Card>
