@@ -1,9 +1,11 @@
 import Image from 'next/image'
 import { Image as Picture, Newspaper, LayoutList, Building2, DollarSign, Target, UserIcon } from 'lucide-react'
 import { ListObject } from '@/components/ui/list-object'
-import StoryCardCompactVert from '@/components/StoryCardCompactVert'
-import DonationsSwitch from '@/components/DonationsSwitch'
 import { getUserById, getNFTsByAccount, getDonationsByUser } from '@/lib/utils/registry'
+import { coinFromChain } from '@/lib/utils/chain'
+import { localDate } from '@/lib/utils/date'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import StoryCardCompactVert from '@/components/StoryCardCompactVert'
 import {
   Table,
   TableCaption,
@@ -36,28 +38,11 @@ const stories = [
   {"id":"72c491e6-b18f-4217-aafe-03fef8aac090","created":"2023-10-19T18:14:55.075Z","inactive":false,"organizationId":"066509a2-c40d-4f8b-863a-574a39a9953f","initiativeId":"1b773d96-b641-4c7d-a874-afda7f9742f0","name":"Creating shelter for the homeless","description":"Building housing for the disadvantaged with local sustainable practices","amount":0,"image":"https://ipfs.filebase.io/ipfs/QmT7xPsu7aoSRKDxBhoN4AoKTsmKHQkY5DC3cBGrUn66Rw","tokenId":"0x653172208829f3706b4ed049","metadata":"ipfs:QmTLpaeGUEoSeWtAyRUF6HbhMjeJ7ibPKTmce25DGn8c2w","organization":{"id":"066509a2-c40d-4f8b-863a-574a39a9953f","created":"2023-11-29T14:43:35.079Z","inactive":false,"slug":"barichara","EIN":"","country":"Colombia","description":"Our mission is to lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat","image":"https://ipfs.filebase.io/ipfs/QmTWVCp8NewcVfGYUbUaJUcPenKgoZGF8GqtFP948rEJwR","mailingAddress":"","name":"Barichara","phone":"","email":"test@gmail.com","url":"https://example.com/barichara","twitter":null,"facebook":null,"categoryId":"29fafb04-d8b9-4c8d-a3d8-c884c2e94e69","featured":false,"donors":4560,"institutions":35,"donations":45600,"lastmonth":10250,"goal":100000},"initiative":{"id":"1b773d96-b641-4c7d-a874-afda7f9742f0","created":"2023-11-29T15:30:07.574Z","inactive":false,"slug":"feed_indigenous_people","organizationId":"066509a2-c40d-4f8b-863a-574a39a9953f","chapterId":null,"categoryId":null,"title":"Feed indigenous people","description":"Feed indigenous people in the Barichara reservations","defaultAsset":"https://ipfs.filebase.io/ipfs/QmTWVCp8NewcVfGYUbUaJUcPenKgoZGF8GqtFP948rEJwR","imageUri":null,"start":"2023-10-19T00:00:00.000Z","finish":"2024-01-01T00:00:00.000Z","tag":66885521,"contract":"CDHGVKFRG7CFXVKTZGNM7VKEQWZDBLH733FD6AD3SN7JZIRZSHZM5Q2S","wallet":null,"country":"Colombia","donors":54,"institutions":2,"goal":120000,"donations":95000,"lastmonth":2450}},
 ]
 
-function localDate(sdate){
-  return new Date(sdate).toLocaleString()
-}
-
-function coinFromChain(chain){
-  return {
-    'Avalanche':'avax',
-    'Binance'  :'bnb',
-    'Celo'     :'celo',
-    'Ethereum' :'eth',
-    'Flare'    :'flr',
-    'Polygon'  :'matic',
-    'Stellar'  :'xlm',
-    'XRPL'     :'xrp',
-    'XinFin'   :'xdc',
-  }[chain]
-}
-
 export default async function Profile(props: any) {
+  const userid = props?.params?.userId
   const search = props?.searchParams?.tab || 'receipts'
-  // TODO: Get from auth session or pass as url/id
-  const userid = '910a21eb-d9b9-43a2-ada8-127069188d92'
+  //TODO: Get from auth session or pass as url/id
+  //const userid = '910a21eb-d9b9-43a2-ada8-127069188d92'
   const user = await getUserById(userid)
   if(!user){
     return (
@@ -156,78 +141,88 @@ export default async function Profile(props: any) {
         {/* Table */}
         <div className="w-3/4">
           <h1 className="text-2xl font-medium mb-4">Donation Data</h1>
-          <div className="flex flex-row justify-between items-center">
-            <DonationsSwitch />  
-            {/* view icons */}
-            <div className="flex flex-row">
-              <Newspaper size={32} className="pr-2 cursor-pointer" />
-              <LayoutList size={32} className="pr-2 cursor-pointer" />
-              <Picture size={32} className="pr-2 cursor-pointer" />
+          <Tabs className="TabsRoot" defaultValue="tab1">
+            <div className="flex flex-row justify-between items-center">
+              <div className="mb-2">
+                <TabsList className="TabsList" aria-label="Donations data">
+                  <TabsTrigger className="TabsTrigger" value="tab1">
+                    NFTs Receipts
+                  </TabsTrigger>
+                  <TabsTrigger className="TabsTrigger" value="tab2">
+                    My Donations
+                  </TabsTrigger>
+                </TabsList>
+              </div>
+              <div className="flex flex-row">
+                <Newspaper size={32} className="pr-2 cursor-pointer" />
+                <LayoutList size={32} className="pr-2 cursor-pointer" />
+                <Picture size={32} className="pr-2 cursor-pointer" />
+              </div>
             </div>
-          </div>
-          <div className="w-full border rounded-md p-10 bg-white">
-          {search=='receipts' ?
-            (
-            <Table className="w-full">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Image</TableHead>
-                  <TableHead>Initiative</TableHead>
-                  <TableHead>Organization</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Coin</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {receipts.length ? receipts.map(item=>{
-                  const image = item.imageUri.startsWith('ipfs') ? 'https://ipfs.filebase.io/ipfs/'+item.imageUri.substr(5) : item.imageUri
-                  return (
-                    <TableRow key={item.id}>
-                      <TableCell><Image src={image} width={64} height={64} alt="NFT" /></TableCell>
-                      <TableCell>{item.initiative.title}</TableCell>
-                      <TableCell>{item.organization.name}</TableCell>
-                      <TableCell>{item.coinValue}</TableCell>
-                      <TableCell>{item.coinSymbol}</TableCell>
+            <div className="w-full border rounded-md p-10 bg-white">
+              <TabsContent className="TabsContent" value="tab1">
+                <Table className="w-full">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Image</TableHead>
+                      <TableHead>Initiative</TableHead>
+                      <TableHead>Organization</TableHead>
+                      <TableHead>Amount</TableHead>
+                      <TableHead>Coin</TableHead>
                     </TableRow>
-                  )
-                }) : (
-                  <TableRow>
-                    <TableCell className="col-span-5">No receipts found</TableCell>
-                  </TableRow>
-                )}  
-              </TableBody>
-            </Table>
-          ) : (
-            <Table className="w-full">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Initiative</TableHead>
-                  <TableHead>Organization</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Coin</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {donations.length ? donations.map(item=>{
-                  return (
-                    <TableRow key={item.id}>
-                      <TableCell>{localDate(item.created)}</TableCell>
-                      <TableCell>{item.initiative.title}</TableCell>
-                      <TableCell>{item.organization.name}</TableCell>
-                      <TableCell>{item.amount}</TableCell>
-                      <TableCell>{coinFromChain(item.chain).toUpperCase()}</TableCell>
+                  </TableHeader>
+                  <TableBody>
+                    {receipts.length ? receipts.map(item=>{
+                      const image = item.imageUri.startsWith('ipfs') ? 'https://ipfs.filebase.io/ipfs/'+item.imageUri.substr(5) : item.imageUri
+                      return (
+                        <TableRow key={item.id}>
+                          <TableCell><Image src={image} width={64} height={64} alt="NFT" /></TableCell>
+                          <TableCell>{item.initiative.title}</TableCell>
+                          <TableCell>{item.organization.name}</TableCell>
+                          <TableCell>{item.coinValue}</TableCell>
+                          <TableCell>{item.coinSymbol}</TableCell>
+                        </TableRow>
+                      )
+                    }) : (
+                      <TableRow>
+                        <TableCell className="col-span-5">No receipts found</TableCell>
+                      </TableRow>
+                    )}  
+                  </TableBody>
+                </Table>
+              </TabsContent>
+              <TabsContent className="TabsContent" value="tab2">
+                <Table className="w-full">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Date</TableHead>
+                      <TableHead>Initiative</TableHead>
+                      <TableHead>Organization</TableHead>
+                      <TableHead>Amount</TableHead>
+                      <TableHead>Coin</TableHead>
                     </TableRow>
-                  )
-                }) : (
-                  <TableRow>
-                    <TableCell className="col-span-5">No donations found</TableCell>
-                  </TableRow>
-                )}  
-              </TableBody>
-            </Table>
-          )}
-          </div>
+                  </TableHeader>
+                  <TableBody>
+                    {donations.length ? donations.map(item=>{
+                      return (
+                        <TableRow key={item.id}>
+                          <TableCell>{localDate(item.created)}</TableCell>
+                          <TableCell>{item.initiative.title}</TableCell>
+                          <TableCell>{item.organization.name}</TableCell>
+                          <TableCell>{item.amount}</TableCell>
+                          <TableCell>{coinFromChain(item.chain).toUpperCase()}</TableCell>
+                        </TableRow>
+                      )
+                    }) : (
+                      <TableRow>
+                        <TableCell className="col-span-5">No donations found</TableCell>
+                      </TableRow>
+                    )}  
+                  </TableBody>
+                </Table>
+              </TabsContent>
+            </div>
+          </Tabs>
         </div>
       </div>
     </main>
