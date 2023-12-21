@@ -3,6 +3,11 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/shadCnUtil'
+import { useInView } from 'react-intersection-observer'
+
+export interface InstructionImageProps {
+  sourceProperty: string
+}
 
 const InstructionPaneSectionTitle = ({
   className,
@@ -28,7 +33,24 @@ const InstructionPaneSectionContent = ({
 )
 InstructionPaneSectionContent.displayName = 'instruction-pane-section-content'
 
-const InstructionPaneSectionImage = ({
+const InstructionPaneSectionImagePlain = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className="flex h-screen my-12">
+    <div
+      className={cn(
+        'absolute w-full h-screen bg-fixed bg-center bg-cover',
+        className
+      )}
+      {...props}
+    />
+  </div>
+)
+InstructionPaneSectionImagePlain.displayName =
+  'instruction-pane-section-image-plain'
+
+const InstructionPaneSectionImageOverlay = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
@@ -43,11 +65,34 @@ const InstructionPaneSectionImage = ({
     <div className="absolute mix-blend-screen w-full h-screen bg-fixed bg-center bg-cover bg-[url('/ColorOverlay.png')] transition-opacity opacity-0 hover:opacity-100 ease-in-out duration-1000" />
   </div>
 )
-InstructionPaneSectionImage.displayName = 'instruction-pane-section-image'
+InstructionPaneSectionImageOverlay.displayName =
+  'instruction-pane-section-image-overlay'
+
+function InstructionPaneSectionImage(
+  props: InstructionImageProps
+): React.ReactElement {
+  const { ref, inView, entry } = useInView({
+    threshold: 0.5,
+  })
+
+  if (inView) {
+    return (
+      <div ref={ref}>
+        <InstructionPaneSectionImageOverlay className={props.sourceProperty} />
+      </div>
+    )
+  } else {
+    return (
+      <div ref={ref}>
+        <InstructionPaneSectionImagePlain className={props.sourceProperty} />
+      </div>
+    )
+  }
+}
 
 export {
   InstructionPaneSectionTitle,
   InstructionPaneSectionText,
-  InstructionPaneSectionImage,
   InstructionPaneSectionContent,
+  InstructionPaneSectionImage,
 }

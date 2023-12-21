@@ -2,9 +2,9 @@
 
 import {
   InstructionPaneSectionContent,
-  InstructionPaneSectionImage,
   InstructionPaneSectionText,
   InstructionPaneSectionTitle,
+  InstructionPaneSectionImage,
 } from './InstructionPaneSection'
 import Link from 'next/link'
 import RiveAnimation from './RiveAnimation'
@@ -35,7 +35,7 @@ export default function InstructionPanes() {
           </InstructionPaneSectionText>
         </InstructionPaneSectionContent>
       </div>
-      <InstructionPaneSectionImage className='bg-[url("/DonateV2.jpg")]' />
+      <InstructionPaneSectionImage sourceProperty='bg-[url("/DonateV2.jpg")]' />
       <div className="flex flex-row">
       <RiveAnimation number={2} />
         <p className="text-5xl mr-20">2</p>
@@ -49,7 +49,7 @@ export default function InstructionPanes() {
           </InstructionPaneSectionText>
         </InstructionPaneSectionContent>
       </div>
-      <InstructionPaneSectionImage className="bg-[url('/NFTReceiptV2.jpg')]" />
+      <InstructionPaneSectionImage sourceProperty="bg-[url('/NFTReceiptV2.jpg')]" />
       <div className="flex flex-row">
         <RiveAnimation number={3} />
         <p className="text-5xl mr-20">3</p>
@@ -63,7 +63,7 @@ export default function InstructionPanes() {
           </InstructionPaneSectionText>
         </InstructionPaneSectionContent>
       </div>
-      <InstructionPaneSectionImage className="bg-[url('/ReceiveNFTV2.jpg')]" />
+      <InstructionPaneSectionImage sourceProperty="bg-[url('/ReceiveNFTV2.jpg')]" />
     </div>
   )
 }
