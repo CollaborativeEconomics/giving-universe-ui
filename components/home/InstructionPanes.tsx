@@ -7,14 +7,17 @@ import {
   InstructionPaneSectionTitle,
 } from './InstructionPaneSection'
 import Link from 'next/link'
+import RiveAnimation from './RiveAnimation'
+import { useTheme } from 'next-themes'
+import { useEffect, useRef } from 'react'
 
 export default function InstructionPanes() {
   return (
     <div className="relative flex flex-col container pt-20 pl-20 w-full">
       <h2 className="text-5xl font-bold pb-8">How it works</h2>
       <div className="flex flex-row">
-        {/* <RiveAnimation /> */}
-        <p className="text-5xl mr-20">1</p>
+        <RiveAnimation number={1} />
+        {/* <p className="text-5xl mr-20">1</p> */}
         <InstructionPaneSectionContent>
           <InstructionPaneSectionTitle>
             Donate to community causes you care about
@@ -34,7 +37,7 @@ export default function InstructionPanes() {
       </div>
       <InstructionPaneSectionImage className='bg-[url("/DonateV2.jpg")]' />
       <div className="flex flex-row">
-        {/* <RiveAnimation /> */}
+      <RiveAnimation number={2} />
         <p className="text-5xl mr-20">2</p>
         <InstructionPaneSectionContent>
           <InstructionPaneSectionTitle>
@@ -48,7 +51,7 @@ export default function InstructionPanes() {
       </div>
       <InstructionPaneSectionImage className="bg-[url('/NFTReceiptV2.jpg')]" />
       <div className="flex flex-row">
-        {/* <RiveAnimation /> */}
+        <RiveAnimation number={3} />
         <p className="text-5xl mr-20">3</p>
         <InstructionPaneSectionContent>
           <InstructionPaneSectionTitle>

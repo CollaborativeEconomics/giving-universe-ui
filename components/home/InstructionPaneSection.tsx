@@ -33,7 +33,6 @@ const InstructionPaneSectionImage = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div className="flex h-screen my-12">
-    <div className="absolute hover:mix-blend-screen w-full h-screen bg-fixed bg-center bg-cover bg-[url('/ColorOverlay.png')]" />
     <div
       className={cn(
         'absolute hover:mix-blend-screen w-full h-screen bg-fixed bg-center bg-cover',
@@ -41,6 +40,7 @@ const InstructionPaneSectionImage = ({
       )}
       {...props}
     />
+    <div className="absolute mix-blend-screen w-full h-screen bg-fixed bg-center bg-cover bg-[url('/ColorOverlay.png')] transition-opacity opacity-0 hover:opacity-100 ease-in-out duration-1000" />
   </div>
 )
 InstructionPaneSectionImage.displayName = 'instruction-pane-section-image'

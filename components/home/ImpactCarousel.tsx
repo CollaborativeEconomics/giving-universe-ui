@@ -25,6 +25,7 @@ export default function ImpactCarousel() {
           disableOnInteraction: false,
         }}
         modules={[Autoplay, Pagination, Navigation]}
+        speed={800}
         loop
       >
         <SwiperSlide>
