@@ -61,5 +61,6 @@ const DonationFormSelect = React.forwardRef<HTMLInputElement, SelectInputProps>(
     )
   }
 )
+DonationFormSelect.displayName = 'select'
 
 export { DonationFormSelect }
