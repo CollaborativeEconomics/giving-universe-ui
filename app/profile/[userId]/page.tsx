@@ -2,18 +2,17 @@ import Image from 'next/image'
 import { Image as Picture, Newspaper, LayoutList } from 'lucide-react'
 import { ListObject } from '@/components/ui/list-object'
 import { coinFromChain } from '@/lib/utils/chain'
-import { localDate } from '@/lib/utils/date'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 import { getUserById, getNFTsByAccount, getDonationsByUser, getFavoriteOrganizations, getUserBadges, getRecentStories } from '@/lib/utils/registry'
+import TableReceiptsSort from '@/components/TableReceiptsSort'
+import TableDonationsSort from '@/components/TableDonationsSort'
 import StoryCardCompactVert from '@/components/StoryCardCompactVert'
 
+type Dictionary = { [key: string]: any }
 
 export default async function Profile(props: any) {
   const userid = props?.params?.userId
   const search = props?.searchParams?.tab || 'receipts'
-  //TODO: Get from auth session or pass as url/id
-  //const userid = '910a21eb-d9b9-43a2-ada8-127069188d92'
   const user = await getUserById(userid)
   if(!user){
     return (
@@ -22,11 +21,11 @@ export default async function Profile(props: any) {
       </main>
     )
   }
-  const receipts  = await getNFTsByAccount(userid) || []
-  const donations = await getDonationsByUser(userid) || []
-  const favorgs   = await getFavoriteOrganizations(userid) || []
-  const badges    = await getUserBadges(userid) || []
-  const stories   = await getRecentStories(5) || []
+  const receipts:[Dictionary]  = await getNFTsByAccount(userid) || []
+  const donations:[Dictionary] = await getDonationsByUser(userid) || []
+  const favorgs:[Dictionary]   = await getFavoriteOrganizations(userid) || []
+  const badges:[Dictionary]    = await getUserBadges(userid) || []
+  const stories:[Dictionary]   = await getRecentStories(5) || []
 
   return (
     <main className="flex min-h-screen flex-col items-stretch container py-24">
@@ -139,66 +138,13 @@ export default async function Profile(props: any) {
               </div>
             </div>
             <div className="w-full border rounded-md p-10 bg-white">
+              {/* NFTS Receipts */}
               <TabsContent className="TabsContent" value="tab1">
-                <Table className="w-full">
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Image</TableHead>
-                      <TableHead>Initiative</TableHead>
-                      <TableHead>Organization</TableHead>
-                      <TableHead>Amount</TableHead>
-                      <TableHead>Coin</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {receipts.length ? receipts.map((item:any)=>{
-                      const image = item.imageUri.startsWith('ipfs') ? 'https://ipfs.filebase.io/ipfs/'+item.imageUri.substr(5) : item.imageUri
-                      return (
-                        <TableRow key={item.id}>
-                          <TableCell><Image src={image} width={64} height={64} alt="NFT" /></TableCell>
-                          <TableCell>{item.initiative.title}</TableCell>
-                          <TableCell>{item.organization.name}</TableCell>
-                          <TableCell>{item.coinValue}</TableCell>
-                          <TableCell>{item.coinSymbol}</TableCell>
-                        </TableRow>
-                      )
-                    }) : (
-                      <TableRow>
-                        <TableCell className="col-span-5">No receipts found</TableCell>
-                      </TableRow>
-                    )}  
-                  </TableBody>
-                </Table>
+                <TableReceiptsSort receipts={receipts} />
               </TabsContent>
+              {/* Donations */}
               <TabsContent className="TabsContent" value="tab2">
-                <Table className="w-full">
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Initiative</TableHead>
-                      <TableHead>Organization</TableHead>
-                      <TableHead>Amount</TableHead>
-                      <TableHead>Coin</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {donations.length ? donations.map((item:any)=>{
-                      return (
-                        <TableRow key={item.id}>
-                          <TableCell>{localDate(item.created)}</TableCell>
-                          <TableCell>{item.initiative.title}</TableCell>
-                          <TableCell>{item.organization.name}</TableCell>
-                          <TableCell>{item.amount}</TableCell>
-                          <TableCell>{coinFromChain(item.chain).toUpperCase()}</TableCell>
-                        </TableRow>
-                      )
-                    }) : (
-                      <TableRow>
-                        <TableCell className="col-span-5">No donations found</TableCell>
-                      </TableRow>
-                    )}  
-                  </TableBody>
-                </Table>
+                <TableDonationsSort donations={donations} />
               </TabsContent>
             </div>
           </Tabs>
