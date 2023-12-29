@@ -1,8 +1,12 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { InstructionPaneSectionOverlay } from './InstructionPaneSection'
-const OverlayHandler = () => {
+import {
+  InstructionImageProps,
+  InstructionPaneSectionOverlay,
+} from './InstructionPaneSection'
+
+function OverlayHandler(props: InstructionImageProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
   const [opacity, setOpacity] = useState(0)
   console.log('in overlay handler')
@@ -44,7 +48,6 @@ const OverlayHandler = () => {
         if (newOpacity > 1) {
           newOpacity = 2 - newOpacity
         }
-        newOpacity /= 2
         setOpacity(newOpacity)
         console.log(opacity)
       }
@@ -53,21 +56,10 @@ const OverlayHandler = () => {
     }
   }
 
-  // const scrollY = window.scrollY
-  // const height = document.documentElement.scrollHeight - window.innerHeight
-  // const scrolled = scrollY / height
-  // // Calculate opacity
-  // const newOpacity = Math.abs(scrolled * 2 - 1) // Creates a peak at 50% scroll
-  // setOpacity(newOpacity)
-
   console.log(opacity)
   return (
-    <div
-      ref={overlayRef}
-      style={{ opacity: opacity }}
-      // className="transition-opacity ease-in-out duration-1000"
-    >
-      <InstructionPaneSectionOverlay />
+    <div ref={overlayRef} style={{ opacity: opacity }}>
+      <InstructionPaneSectionOverlay className={props.sourceProperty} />
     </div>
   )
 }

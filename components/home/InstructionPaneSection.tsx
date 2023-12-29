@@ -47,10 +47,21 @@ const InstructionPaneSectionImage = ({
 )
 InstructionPaneSectionImage.displayName = 'instruction-pane-section-image'
 
-const InstructionPaneSectionOverlay =
-  ({}: React.HTMLAttributes<HTMLDivElement>) => (
-    <div className="absolute w-full h-screen bg-fixed bg-center bg-cover bg-[url('/ColorOverlay.png')]" />
-  )
+const InstructionPaneSectionOverlay = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div>
+    <div
+      className={cn(
+        'absolute mix-blend-screen w-full h-screen bg-fixed bg-center bg-cover',
+        className
+      )}
+      {...props}
+    />
+    <div className="absolute mix-blend-screen w-full h-screen bg-fixed bg-center bg-cover bg-[url('/ColorOverlay.png')]" />
+  </div>
+)
 InstructionPaneSectionOverlay.displayName = 'instruction-pane-section-overlay'
 
 function InstructionPaneSectionImageBlend(
@@ -59,7 +70,7 @@ function InstructionPaneSectionImageBlend(
   return (
     <div className="flex h-screen my-12">
       <InstructionPaneSectionImage className={props.sourceProperty} />
-      <OverlayHandler />
+      <OverlayHandler sourceProperty={props.sourceProperty} />
     </div>
   )
 }
