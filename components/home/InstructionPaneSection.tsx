@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/shadCnUtil'
-import { useInView } from 'react-intersection-observer'
+import { OverlayHandler } from './OverlayHandler'
 
 export interface InstructionImageProps {
   sourceProperty: string
@@ -33,66 +33,41 @@ const InstructionPaneSectionContent = ({
 )
 InstructionPaneSectionContent.displayName = 'instruction-pane-section-content'
 
-const InstructionPaneSectionImagePlain = ({
+const InstructionPaneSectionImage = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className="flex h-screen my-12">
-    <div
-      className={cn(
-        'absolute w-full h-screen bg-fixed bg-center bg-cover',
-        className
-      )}
-      {...props}
-    />
-  </div>
+  <div
+    className={cn(
+      'absolute w-full h-screen bg-fixed bg-center bg-cover',
+      className
+    )}
+    {...props}
+  />
 )
-InstructionPaneSectionImagePlain.displayName =
-  'instruction-pane-section-image-plain'
+InstructionPaneSectionImage.displayName = 'instruction-pane-section-image'
 
-const InstructionPaneSectionImageOverlay = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className="flex h-screen my-12">
-    <div
-      className={cn(
-        'absolute hover:mix-blend-screen w-full h-screen bg-fixed bg-center bg-cover',
-        className
-      )}
-      {...props}
-    />
-    <div className="absolute mix-blend-screen w-full h-screen bg-fixed bg-center bg-cover bg-[url('/ColorOverlay.png')] transition-opacity opacity-0 hover:opacity-100 ease-in-out duration-1000" />
-  </div>
-)
-InstructionPaneSectionImageOverlay.displayName =
-  'instruction-pane-section-image-overlay'
+const InstructionPaneSectionOverlay =
+  ({}: React.HTMLAttributes<HTMLDivElement>) => (
+    <div className="absolute w-full h-screen bg-fixed bg-center bg-cover bg-[url('/ColorOverlay.png')]" />
+  )
+InstructionPaneSectionOverlay.displayName = 'instruction-pane-section-overlay'
 
-function InstructionPaneSectionImage(
+function InstructionPaneSectionImageBlend(
   props: InstructionImageProps
 ): React.ReactElement {
-  const { ref, inView, entry } = useInView({
-    threshold: 0.5,
-  })
-
-  if (inView) {
-    return (
-      <div ref={ref}>
-        <InstructionPaneSectionImageOverlay className={props.sourceProperty} />
-      </div>
-    )
-  } else {
-    return (
-      <div ref={ref}>
-        <InstructionPaneSectionImagePlain className={props.sourceProperty} />
-      </div>
-    )
-  }
+  return (
+    <div className="flex h-screen my-12">
+      <InstructionPaneSectionImage className={props.sourceProperty} />
+      <OverlayHandler />
+    </div>
+  )
 }
 
 export {
   InstructionPaneSectionTitle,
   InstructionPaneSectionText,
   InstructionPaneSectionContent,
-  InstructionPaneSectionImage,
+  InstructionPaneSectionOverlay,
+  InstructionPaneSectionImageBlend,
 }

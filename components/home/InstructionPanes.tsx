@@ -4,12 +4,10 @@ import {
   InstructionPaneSectionContent,
   InstructionPaneSectionText,
   InstructionPaneSectionTitle,
-  InstructionPaneSectionImage,
+  InstructionPaneSectionImageBlend,
 } from './InstructionPaneSection'
 import Link from 'next/link'
 import RiveAnimation from './RiveAnimation'
-import { useTheme } from 'next-themes'
-import { useEffect, useRef } from 'react'
 
 export default function InstructionPanes() {
   return (
@@ -35,10 +33,9 @@ export default function InstructionPanes() {
           </InstructionPaneSectionText>
         </InstructionPaneSectionContent>
       </div>
-      <InstructionPaneSectionImage sourceProperty='bg-[url("/DonateV2.jpg")]' />
+      <InstructionPaneSectionImageBlend sourceProperty='bg-[url("/DonateV2.jpg")]' />
       <div className="flex flex-row">
-      <RiveAnimation number={2} />
-        <p className="text-5xl mr-20">2</p>
+        <RiveAnimation number={2} />
         <InstructionPaneSectionContent>
           <InstructionPaneSectionTitle>
             Receive personalized, tax-deductible NFT Receipts
@@ -49,10 +46,9 @@ export default function InstructionPanes() {
           </InstructionPaneSectionText>
         </InstructionPaneSectionContent>
       </div>
-      <InstructionPaneSectionImage sourceProperty="bg-[url('/NFTReceiptV2.jpg')]" />
+      <InstructionPaneSectionImageBlend sourceProperty="bg-[url('/NFTReceiptV2.jpg')]" />
       <div className="flex flex-row">
         <RiveAnimation number={3} />
-        <p className="text-5xl mr-20">3</p>
         <InstructionPaneSectionContent>
           <InstructionPaneSectionTitle>
             NFTs tell the story of your impact
@@ -63,7 +59,7 @@ export default function InstructionPanes() {
           </InstructionPaneSectionText>
         </InstructionPaneSectionContent>
       </div>
-      <InstructionPaneSectionImage sourceProperty="bg-[url('/ReceiveNFTV2.jpg')]" />
+      <InstructionPaneSectionImageBlend sourceProperty="bg-[url('/ReceiveNFTV2.jpg')]" />
     </div>
   )
 }

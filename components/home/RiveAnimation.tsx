@@ -81,6 +81,7 @@ export default function RiveAnimation({ number }: { number: 1 | 2 | 3 }) {
       darkModeInput.value = theme !== 'dark'
     }
   }, [progress, theme, progressInput, darkModeInput])
+
   return (
     <div ref={riveRef}>
       <RiveComponent className="w-32 h-32" />

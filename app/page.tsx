@@ -1,8 +1,4 @@
-import Link from 'next/link'
 import Main from '@/components/ui/main'
-
-import { Card } from '@/components/ui/card'
-import SearchBar from '@/components/search/SearchBar'
 import VideoBackground from '@/components/home/VideoBackground'
 import ImpactCarousel from '@/components/home/ImpactCarousel'
 import ActionBar from '@/components/home/ActionBar'
