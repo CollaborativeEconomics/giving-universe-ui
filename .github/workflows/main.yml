@@ -1,0 +1,26 @@
+name: Next.js CI
+
+# This workflow is triggered on pushes and pull requests to the repository.
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 16
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16.x'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Linter
+      run: npm run lint
+
+    - name: Build Project
+      run: npm run build
+
+    # Add any other steps you might need, like tests or deployment
