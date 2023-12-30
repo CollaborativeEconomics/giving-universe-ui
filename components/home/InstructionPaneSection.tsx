@@ -13,7 +13,10 @@ const InstructionPaneSectionTitle = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLHeadingElement>) => (
-  <h3 className={cn('text-3xl font-bold pb-4', className)} {...props} />
+  <h3
+    className={cn('md:mx-20 text-3xl font-bold pb-4', className)}
+    {...props}
+  />
 )
 InstructionPaneSectionTitle.displayName = 'instruction-pane-section-title'
 
@@ -21,7 +24,7 @@ const InstructionPaneSectionText = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLSpanElement>) => (
-  <span className={cn('w-[600px]', className)} {...props} />
+  <span className={cn('max-w-[600px] md:mx-20', className)} {...props} />
 )
 InstructionPaneSectionText.displayName = 'instruction-pane-section-text'
 
@@ -68,7 +71,7 @@ function InstructionPaneSectionImageBlend(
   props: InstructionImageProps
 ): React.ReactElement {
   return (
-    <div className="flex h-screen my-12">
+    <div className="flex h-screen my-8 md:my-12">
       <InstructionPaneSectionImage className={props.sourceProperty} />
       <OverlayHandler sourceProperty={props.sourceProperty} />
     </div>

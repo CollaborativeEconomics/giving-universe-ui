@@ -18,7 +18,7 @@ export default function Handler(props: any) {
             for a transparent world
           </h1>
 
-          <p className="pt-4 w-[60%]">
+          <p className="pt-4 w-[95%] md:w-[60%]">
             With the increased transparency that blockchain donations provide,
             meaningful initiatives combine with donor generosity to to tell the
             story of real world impact.

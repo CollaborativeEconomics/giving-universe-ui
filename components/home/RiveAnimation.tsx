@@ -84,7 +84,7 @@ export default function RiveAnimation({ number }: { number: 1 | 2 | 3 }) {
 
   return (
     <div ref={riveRef}>
-      <RiveComponent className="w-32 h-32" />
+      <RiveComponent className="w-32 h-32 mb-8 md:mb-0" />
     </div>
   )
 }

@@ -5,7 +5,7 @@ import { ActionBarBox, ActionBarButton } from './ActionBarContent'
 
 export default function ActionBar() {
   return (
-    <div className="flex flex-row gap-4 h-auto min-h-[350px] w-full bg-slate-400 bg-opacity-50 mt-8 backdrop-blur-md justify-center">
+    <div className="flex flex-col md:flex-row gap-4 h-auto min-h-[350px] w-full bg-slate-400 bg-opacity-50 mt-8 backdrop-blur-md justify-center">
       <ActionBarBox>
         <h3 className="text-2xl font-semibold">Become a Donor</h3>
         <span className="mx-8">
