@@ -12,7 +12,7 @@ export default function Handler(props: any) {
   return (
     <>
       <div className="absolute h-screen w-full top-0">
-        <div className="container mt-48 mb-16">
+        <div className="container mt-48 mb-16 ml-6 md:ml-auto">
           <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-accent-foreground">
             Blockchain-driven philanthropy <br />
             for a transparent world

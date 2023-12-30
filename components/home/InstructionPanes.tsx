@@ -11,7 +11,7 @@ import RiveAnimation from './RiveAnimation'
 
 export default function InstructionPanes() {
   return (
-    <div className="relative flex flex-col container pt-20 my-auto pl-0 w-full">
+    <div className="relative flex flex-col container pt-20 md:my-auto pl-0 w-[90%]">
       <h2 className="text-5xl font-bold pb-8">How it works</h2>
       <div className="flex flex-col md:flex-row">
         <RiveAnimation number={1} />
@@ -45,7 +45,7 @@ export default function InstructionPanes() {
           </InstructionPaneSectionText>
         </InstructionPaneSectionContent>
       </div>
-      <InstructionPaneSectionImageBlend sourceProperty="bg-[url('/NFTReceiptV2.jpg')]" />
+      <InstructionPaneSectionImageBlend sourceProperty="bg-[url('/NFTReceiptV2-narrow.jpg')] md:bg-[url('/NFTReceiptV2.jpg')]" />
       <div className="flex flex-col md:flex-row">
         <RiveAnimation number={3} />
         <InstructionPaneSectionContent>
