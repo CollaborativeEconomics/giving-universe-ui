@@ -4,6 +4,7 @@ import * as React from 'react'
 
 import { cn } from '@/lib/shadCnUtil'
 import { OverlayHandler } from './OverlayHandler'
+import Parallax from '../Parallax'
 
 export interface InstructionImageProps {
   sourceProperty: string
@@ -40,13 +41,7 @@ const InstructionPaneSectionImage = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      'absolute w-full h-screen bg-fixed bg-center bg-cover',
-      className
-    )}
-    {...props}
-  />
+  <Parallax className={cn('w-full h-full', className)} {...props} />
 )
 InstructionPaneSectionImage.displayName = 'instruction-pane-section-image'
 
@@ -55,14 +50,11 @@ const InstructionPaneSectionOverlay = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div>
-    <div
-      className={cn(
-        'absolute mix-blend-screen w-full h-screen bg-fixed bg-center bg-cover',
-        className
-      )}
+    <Parallax
+      className={cn(`absolute left-0 top-0 right-0 bottom-0`, className)}
       {...props}
     />
-    <div className="absolute mix-blend-screen w-full h-screen bg-fixed bg-center bg-cover bg-[url('/ColorOverlay.png')]" />
+    <Parallax className="mix-blend-screen absolute left-0 top-0 right-0 bottom-0 bg-[url('/home/ColorOverlay.png')]" />
   </div>
 )
 InstructionPaneSectionOverlay.displayName = 'instruction-pane-section-overlay'
@@ -71,9 +63,12 @@ function InstructionPaneSectionImageBlend(
   props: InstructionImageProps
 ): React.ReactElement {
   return (
-    <div className="flex h-screen my-8 md:my-12">
+    <div className={`relative w-full aspect-[1.618] my-8 md:my-12`}>
       <InstructionPaneSectionImage className={props.sourceProperty} />
-      <OverlayHandler sourceProperty={props.sourceProperty} />
+      <OverlayHandler
+        sourceProperty={props.sourceProperty}
+        className="absolute left-0 right-0 bottom-0 top-0"
+      />
     </div>
   )
 }

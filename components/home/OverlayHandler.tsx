@@ -6,7 +6,11 @@ import {
   InstructionPaneSectionOverlay,
 } from './InstructionPaneSection'
 
-function OverlayHandler(props: InstructionImageProps) {
+interface OverlayProps extends InstructionImageProps {
+  className?: string
+}
+
+function OverlayHandler(props: OverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
   const [opacity, setOpacity] = useState(0)
   console.log('in overlay handler')
@@ -58,7 +62,7 @@ function OverlayHandler(props: InstructionImageProps) {
 
   console.log(opacity)
   return (
-    <div ref={overlayRef} style={{ opacity: opacity }}>
+    <div ref={overlayRef} style={{ opacity }} className={props.className}>
       <InstructionPaneSectionOverlay className={props.sourceProperty} />
     </div>
   )
