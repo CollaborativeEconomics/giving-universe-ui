@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { signIn, signOut, useSession } from "next-auth/react"
 
 import { cn } from '@/lib/shadCnUtil'
 import {
@@ -27,6 +28,9 @@ import { DarkModeSwitcher } from './dark-mode-switcher'
 import Link from 'next/link'
 
 export function NavMenu() {
+  const { data: session, status } = useSession()
+  console.log('Header Session', session, status)
+
   return (
     <>
       <div className="flex-row gap-3 items-center hidden md:flex">
@@ -50,9 +54,16 @@ export function NavMenu() {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Sign In
-              </NavigationMenuLink>
+              {status=='authenticated'
+              ?
+                <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/signout">
+                  Sign Out
+                </NavigationMenuLink>
+              :
+                <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/signin">
+                  Sign In
+                </NavigationMenuLink>
+              }
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
