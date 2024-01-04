@@ -45,7 +45,7 @@ export default function InstructionPanes() {
           </InstructionPaneSectionText>
         </InstructionPaneSectionContent>
       </div>
-      <InstructionPaneSectionImageBlend sourceProperty="bg-[url('/home/NFTReceiptV2-narrow.jpg')] md:bg-[url('/home/NFTReceiptV2.jpg')]" />
+      <InstructionPaneSectionImageBlend sourceProperty="bg-[url('/home/NFTReceiptV2.jpg')]" />
       <div className="flex flex-col md:flex-row">
         <RiveAnimation number={3} />
         <InstructionPaneSectionContent>

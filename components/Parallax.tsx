@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef } from 'react'
+import { RefObject, useEffect, useRef, useState } from 'react'
 
 interface ParallaxProps
   extends React.DetailedHTMLProps<
@@ -8,9 +8,11 @@ interface ParallaxProps
   speed?: number
 }
 
+const PARALLAX_SPEED = 0.1
+
 const Parallax = (props: ParallaxProps) => {
   const parallaxRef = useRef(null)
-  useParallax(parallaxRef, props.speed ?? 0.5) // Adjust speed as needed
+  useParallax(parallaxRef, props.speed ?? PARALLAX_SPEED) // Adjust speed as needed
 
   return (
     <div {...props} ref={parallaxRef} className={`parallax ${props.className}`}>
@@ -19,28 +21,36 @@ const Parallax = (props: ParallaxProps) => {
   )
 }
 
-export const useParallax = (ref: RefObject<HTMLDivElement>, speed = 0.5) => {
+export const useParallax = (
+  ref: RefObject<HTMLDivElement>,
+  speed = PARALLAX_SPEED
+) => {
   useEffect(() => {
     const handleScroll = () => {
       if (ref.current) {
-        const elementOffset =
-          ref.current.getBoundingClientRect().top + window.scrollY
-        const scrollPosition = window.scrollY
-        const dynamicOffset = scrollPosition - elementOffset
-        ref.current.style.backgroundPositionY = dynamicOffset * speed + 'px'
-      }
-    }
+        const elementRect = ref.current.getBoundingClientRect()
+        const elementCenter = elementRect.top + elementRect.height / 2
+        const viewportCenter = window.innerHeight / 2
 
-    // Initial call to set up the correct position
-    if (ref.current) {
-      const initialOffset =
-        ref.current.getBoundingClientRect().top + window.scrollY
-      ref.current.style.backgroundPositionY = -initialOffset * speed + 'px'
+        // Calculate the difference between the element center and viewport center
+        const centerDiff = elementCenter - viewportCenter
+
+        // Adjust the background position
+        // When centerDiff is 0 (element center is at viewport center), backgroundPositionY should be centered
+        const backgroundPositionY = -centerDiff * speed
+        ref.current.style.backgroundPositionY = backgroundPositionY + 'px'
+      }
     }
 
     window.addEventListener('scroll', handleScroll)
 
-    return () => window.removeEventListener('scroll', handleScroll)
+    // Trigger an initial adjustment in case the element starts in view
+    handleScroll()
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [ref, speed])
 }
 
