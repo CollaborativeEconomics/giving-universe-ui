@@ -6,6 +6,7 @@ type Callback = (data:Dictionary)=>void
 class CeloSDK{
   chain    = 'Celo'
   symbol   = 'CELO'
+  logo     = 'celo.png'
   network  = process.env.NEXT_PUBLIC_CELO_NETWORK
   provider = null
   mainnet  = {

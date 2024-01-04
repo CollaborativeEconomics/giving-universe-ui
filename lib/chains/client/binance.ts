@@ -6,6 +6,7 @@ type Callback = (data:Dictionary)=>void
 class BinanceSDK{
   chain    = 'Binance'
   symbol   = 'BNB'
+  logo     = 'bnb.png'
   network  = process.env.NEXT_PUBLIC_BINANCE_NETWORK
   provider = null
   mainnet  = {

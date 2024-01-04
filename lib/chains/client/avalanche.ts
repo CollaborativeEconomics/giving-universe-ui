@@ -6,6 +6,7 @@ type Callback = (data:Dictionary)=>void
 class AvalancheSDK{
   chain    = 'Avalanche'
   symbol   = 'AVAX'
+  logo     = 'avax.png'
   network  = process.env.NEXT_PUBLIC_AVALANCHE_NETWORK
   provider = null
   mainnet  = {

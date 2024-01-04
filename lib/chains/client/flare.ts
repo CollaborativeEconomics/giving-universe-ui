@@ -6,6 +6,7 @@ type Callback = (data:Dictionary)=>void
 class FlareSDK{
   chain    = 'Flare'
   symbol   = 'FLR'
+  logo     = 'flr.png'
   network  = process.env.NEXT_PUBLIC_FLARE_NETWORK
   provider = null
   mainnet  = {

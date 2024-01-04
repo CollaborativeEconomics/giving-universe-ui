@@ -7,6 +7,7 @@ type Callback = (data:Dictionary)=>void
 class StellarClass{
   chain    = 'Stellar'
   symbol   = 'XLM'
+  logo     = 'xlm.png'
   network  = process.env.NEXT_PUBLIC_STELLAR_NETWORK
   provider = null
   mainnet  = {

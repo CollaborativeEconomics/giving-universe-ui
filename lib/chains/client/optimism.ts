@@ -6,6 +6,7 @@ type Callback = (data:Dictionary)=>void
 class OptimismSDK{
   chain    = 'Optimism'
   symbol   = 'OP'
+  logo     = 'op.png'
   network  = process.env.NEXT_PUBLIC_OPTIMISM_NETWORK
   provider = null
   mainnet  = {

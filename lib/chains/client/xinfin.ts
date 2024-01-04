@@ -6,6 +6,7 @@ type Callback = (data:Dictionary)=>void
 class XinfinSDK{
   chain    = 'XinFin'
   symbol   = 'XDC'
+  logo     = 'xdc.png'
   network  = process.env.NEXT_PUBLIC_XINFIN_NETWORK
   provider = null
   mainnet  = {

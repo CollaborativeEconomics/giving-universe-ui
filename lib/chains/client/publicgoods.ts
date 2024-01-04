@@ -6,6 +6,7 @@ type Callback = (data:Dictionary)=>void
 class PublicGoodsSDK{
   chain    = 'PublicGoods'
   symbol   = 'PGN'
+  logo     = 'pgn.png'
   network  = process.env.NEXT_PUBLIC_PUBLICGOODS_NETWORK
   provider = null
   mainnet  = {

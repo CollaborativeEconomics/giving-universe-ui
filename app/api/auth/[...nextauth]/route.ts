@@ -1,13 +1,13 @@
 import NextAuth, { NextAuthOptions, User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { getUserByWallet, newUser } from 'utils/registry'
-import { UUID } from 'utils/random'
+import { getUserByWallet, newUser } from '@/lib/utils/registry'
+import { UUID } from '@/lib/utils/random'
 //import { PrismaAdapter } from "@auth/prisma-adapter"
 //import { PrismaClient } from "@prisma/client"
 
 //const prisma = new PrismaClient()
 
-/*
+
 interface User {
   id: string
   name?: string
@@ -19,11 +19,9 @@ interface User {
   network?: string
   currency?: string
 }
-*/
 
-/*
 async function getUserByCredentials(credentials){
-  //console.log('CREDS', credentials)
+  console.log('CREDS', credentials)
   try {
     let user = await getUserByWallet(credentials.address)
     console.log('USER', user)
@@ -72,7 +70,6 @@ async function getUserByCredentials(credentials){
     return null
   }
 }
-*/
 
 const credentials = {
   //id:      {label:'id',     type:'text'},
@@ -91,8 +88,8 @@ const providers = [
     authorize: async (credentials):Promise<User> => {
       try {
         console.log('-Avalanche', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -106,8 +103,8 @@ const providers = [
     authorize: async (credentials):Promise<User> => {
       try {
         console.log('-Binance', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -121,8 +118,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-Celo', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -136,8 +133,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-EOS', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -151,8 +148,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-Ethereum', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -166,8 +163,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-EthereumUSDC', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -181,8 +178,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-EthereumUSDT', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -196,8 +193,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-Filecoin', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -211,8 +208,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-Flare', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -226,8 +223,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-Optimism', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -241,8 +238,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-Polygon', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -256,8 +253,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-PublicGoods', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -271,8 +268,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-Stellar', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -286,8 +283,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-XRPL', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -301,8 +298,8 @@ const providers = [
     authorize: async (credentials) => {
       try {
         console.log('-XinFin', credentials)
-        //const user = await getUserByCredentials(credentials)
-        const user = {id:123, chain:'test'}
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
         return user
         //return {id:credentials.address}
       } catch (e) {
@@ -322,7 +319,6 @@ export const authOptions: NextAuthOptions = {
     signIn: '/signin'
   },
   providers,
-  /*
   callbacks: {
     //async signIn(args) {
     //  console.log('LGN----', args)
@@ -370,14 +366,8 @@ export const authOptions: NextAuthOptions = {
       //console.log('SXN----', session)
       return session
     }
-  },
-  */
+  }
 }
-
-//export default NextAuth(authOptions)
-//export default async function handler(...params: any[]) {
-//  await authHandler(...params)
-//}
 
 const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }

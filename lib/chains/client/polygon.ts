@@ -6,6 +6,7 @@ type Callback = (data:Dictionary)=>void
 class PolygonSDK{
   chain    = 'Polygon'
   symbol   = 'MATIC'
+  logo     = 'matic.png'
   network  = process.env.NEXT_PUBLIC_POLYGON_NETWORK
   provider = null
   mainnet  = {

@@ -5,7 +5,8 @@ type Callback = (data:Dictionary)=>void
 
 class EOSSDK{
   chain    = 'EOS'
-  symbol   = 'ETH'
+  symbol   = 'EOS'
+  logo     = 'eos.png'
   network  = process.env.NEXT_PUBLIC_EOS_NETWORK
   provider = null
   mainnet  = {

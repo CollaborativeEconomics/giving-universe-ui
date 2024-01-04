@@ -17,6 +17,7 @@ const secret = process.env.XUMM_API_SECRET || ''
 class RippleSDK{
   chain    = 'XRPL'
   symbol   = 'XRP'
+  logo     = 'xrp.png'
   network  = process.env.NEXT_PUBLIC_XRPL_NETWORK
   provider = null
   mainnet  = {

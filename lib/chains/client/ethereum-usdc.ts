@@ -6,6 +6,7 @@ type Callback = (data:Dictionary)=>void
 class EthereumUSDCSDK{
   chain    = 'EthereumUSDC'
   symbol   = 'USDC'
+  logo     = 'usdc.png'
   contract = process.env.NEXT_PUBLIC_ETHEREUM_USDC_TOKEN_CONTRACT
   network  = process.env.NEXT_PUBLIC_ETHEREUM_NETWORK
   provider = null

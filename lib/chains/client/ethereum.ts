@@ -6,6 +6,7 @@ type Callback = (data:Dictionary)=>void
 class EthereumSDK{
   chain    = 'Ethereum'
   symbol   = 'ETH'
+  logo     = 'eth.png'
   network  = process.env.NEXT_PUBLIC_ETHEREUM_NETWORK
   provider = null
   mainnet  = {

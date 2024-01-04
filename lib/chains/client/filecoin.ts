@@ -6,6 +6,7 @@ type Callback = (data:Dictionary)=>void
 class FilecoinSDK{
   chain    = 'Filecoin'
   symbol   = 'FIL'
+  logo     = 'fil.png'
   network  = process.env.NEXT_PUBLIC_FILECOIN_NETWORK
   provider = null
   mainnet  = {

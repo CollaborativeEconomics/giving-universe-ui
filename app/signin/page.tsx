@@ -6,11 +6,10 @@ import ButtonChain  from '@/components/ButtonChain'
 import ButtonWallet from '@/components/ButtonWallet'
 import Chains from '@/lib/chains/client/apis'
 
-
 export default async function Signin(props: any) {
-  console.log('PROPS', props)
-  const query = props?.searchParams?.query || ''
-  console.log('SIGNIN', query)
+  //console.log('PROPS', props)
+  //const query = props?.searchParams?.query || ''
+  //console.log('SIGNIN', query)
   const url = '/' // TODO: get from auth/props ?
 
   function login(chain){
@@ -22,6 +21,7 @@ export default async function Signin(props: any) {
       const chainid  = data?.chainid  || ''
       const network  = data?.network  || ''
       const currency = data?.currency || ''
+      //await signIn(chain, {address, chain, chainid, network, currency})
       await signIn(chain, {callbackUrl: url, address, chain, chainid, network, currency})
     })
   }

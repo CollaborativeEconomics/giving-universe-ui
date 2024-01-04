@@ -26,10 +26,13 @@ import {
 } from '@/components/ui/sheet'
 import { DarkModeSwitcher } from './dark-mode-switcher'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export function NavMenu() {
   const { data: session, status } = useSession()
   console.log('Header Session', session, status)
+  const avatar  = session?.user?.image || '/media/nopic.png'
+  const userurl = session?.userid ? '/profile/'+session?.userid : ''
 
   return (
     <>
@@ -56,8 +59,8 @@ export function NavMenu() {
             <NavigationMenuItem>
               {status=='authenticated'
               ?
-                <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/signout">
-                  Sign Out
+                <NavigationMenuLink className={navigationMenuTriggerStyle()} href={userurl}>
+                  <Image src={avatar} width={40} height={40} alt='Avatar' className="rounded-lg" />
                 </NavigationMenuLink>
               :
                 <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/signin">

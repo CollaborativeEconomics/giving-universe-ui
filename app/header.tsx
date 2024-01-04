@@ -8,7 +8,6 @@ import { NavMenu } from './navigation-menu';
 
 export default function Header() {
   const [y, setY] = React.useState(0);
-
   const handleScroll = (e: Event) => {
     const scrollY = (e.currentTarget as Window).scrollY;
     setY(scrollY);
