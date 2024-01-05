@@ -34,7 +34,9 @@ export default async function Signin(props: any) {
             <h2 className="text-left text-base my-4 px-8">Log in with your blockchain wallet</h2>
           </div>
           <div className="grid grid-cols-5 gap-2 px-4 py-8">
+            <ButtonChain text="Arbitrum"     icon="arbitrum.png"    onClick={()=>{login('Arbitrum')}} />
             <ButtonChain text="Avalanche"    icon="avalanche.png"   onClick={()=>{login('Avalanche')}} />
+            <ButtonChain text="Base"         icon="base.png"        onClick={()=>{login('Base')}} />
             <ButtonChain text="Celo"         icon="celo.png"        onClick={()=>{login('Celo')}} />
             <ButtonChain text="Flare"        icon="flare.png"       onClick={()=>{login('Flare')}} />
             <ButtonChain text="Optimism"     icon="optimism.png"    onClick={()=>{login('Optimism')}} />
@@ -49,8 +51,6 @@ export default async function Signin(props: any) {
             <h2 className="text-left text-base mt-8 px-8">Coming soon</h2>
           </div>
           <div className="grid grid-cols-5 gap-2 px-4 py-8 opacity-30 pointer-events-none">
-            <ButtonChain text="Arbitrum"     icon="arbitrum.png"    />
-            <ButtonChain text="Base"         icon="base.png"        />
             <ButtonChain text="Binance"      icon="binance.png"     />
             <ButtonChain text="EOS"          icon="eos.png"         />
             <ButtonChain text="Ethereum"     icon="ethereum.png"    />

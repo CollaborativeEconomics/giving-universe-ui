@@ -82,6 +82,21 @@ const credentials = {
 
 const providers = [
   CredentialsProvider({
+    id: 'Arbitrum',
+    name: 'Arbitrum - Metamask',
+    credentials,
+    authorize: async (credentials):Promise<User> => {
+      try {
+        console.log('-Arbitrum', credentials)
+        const user = await getUserByCredentials(credentials)
+        //const user = {id:123, chain:'test'}
+        return user
+      } catch (e) {
+        return null
+      }
+    },
+  }),
+  CredentialsProvider({
     id: 'Avalanche',
     name: 'Avalanche - Metamask',
     credentials,
@@ -89,7 +104,20 @@ const providers = [
       try {
         console.log('-Avalanche', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
+        return user
+      } catch (e) {
+        return null
+      }
+    },
+  }),
+  CredentialsProvider({
+    id: 'Base',
+    name: 'Base - Metamask',
+    credentials,
+    authorize: async (credentials):Promise<User> => {
+      try {
+        console.log('-Base', credentials)
+        const user = await getUserByCredentials(credentials)
         return user
       } catch (e) {
         return null
@@ -104,7 +132,6 @@ const providers = [
       try {
         console.log('-Binance', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -119,7 +146,6 @@ const providers = [
       try {
         console.log('-Celo', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -134,7 +160,6 @@ const providers = [
       try {
         console.log('-EOS', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -149,7 +174,6 @@ const providers = [
       try {
         console.log('-Ethereum', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -164,7 +188,6 @@ const providers = [
       try {
         console.log('-EthereumUSDC', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -179,7 +202,6 @@ const providers = [
       try {
         console.log('-EthereumUSDT', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -194,7 +216,6 @@ const providers = [
       try {
         console.log('-Filecoin', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -209,7 +230,6 @@ const providers = [
       try {
         console.log('-Flare', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -224,7 +244,6 @@ const providers = [
       try {
         console.log('-Optimism', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -239,7 +258,6 @@ const providers = [
       try {
         console.log('-Polygon', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -254,7 +272,6 @@ const providers = [
       try {
         console.log('-PublicGoods', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -269,7 +286,6 @@ const providers = [
       try {
         console.log('-Stellar', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -284,7 +300,6 @@ const providers = [
       try {
         console.log('-XRPL', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
       } catch (e) {
         return null
@@ -299,7 +314,6 @@ const providers = [
       try {
         console.log('-XinFin', credentials)
         const user = await getUserByCredentials(credentials)
-        //const user = {id:123, chain:'test'}
         return user
         //return {id:credentials.address}
       } catch (e) {
