@@ -80,7 +80,7 @@ export const getFeaturedOrganization = () => fetchRegistry(`organizations?featur
 export const searchOrganizations = (q:string, c:string, l:string) => fetchRegistry(`organizations?search=${q}&category=${c}&location=${l}`)
 
 export const getCategories = () => fetchRegistry('categories')
-export const getCategoriesDistinct = (val) => fetchRegistry('categories?distinct='+val)
+export const getCategoriesDistinct = (val:string) => fetchRegistry('categories?distinct='+val)
 
 export const newInitiative = (body: Dictionary) => postRegistry('initiatives', body)
 export const getInitiativeById = (id: string) => fetchRegistry(`initiatives/${id}`)
@@ -117,10 +117,17 @@ export const getStories = () => fetchRegistry('stories')
 export const getStoryById = (id: string) => fetchRegistry('stories/'+id)
 export const getStoriesByOrganization = (id: string) => fetchRegistry('stories?orgid='+id)
 export const getStoriesByInitiative = (id: string) => fetchRegistry('stories?initid='+id)
+export const getRecentStories = (qty) => fetchRegistry('stories?recent='+qty)
 
 export const newSession = (body: Dictionary) => postRegistry('session', body)
 export const getSession = (id: string) => fetchRegistry('session?token='+id)
 export const deleteSession = (id: string) => deleteRegistry('session?token='+id)
 
 export const getLocations = () => fetchRegistry('locations')
+
+export const getDonations = () => fetchRegistry('donations')
+export const getDonationsByUser = (id) => fetchRegistry('donations?userid='+id)
+export const getFavoriteOrganizations = (userid) => fetchRegistry('donations?favs='+userid)
+export const getUserBadges = (userid) => fetchRegistry('donations?badges='+userid)
+
 // END
