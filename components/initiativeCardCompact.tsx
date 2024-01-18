@@ -4,7 +4,7 @@ import { Progress } from './ui/progress'
 import { Separator } from './ui/separator'
 import { DateDisplay } from './ui/date-posted'
 import { Button } from './ui/button'
-import { OrganizationAvatar } from './OrganizationAvatar'
+import OrganizationAvatar from './OrganizationAvatar'
 
 export default function InitiativeCardCompact({ ...props }) {
   return (
@@ -31,8 +31,8 @@ export default function InitiativeCardCompact({ ...props }) {
           <Progress value={(props.amountRaised / props.amountTarget) * 100} />
         </div>
         <div className="px-6 pb-2 -mt-2 text-sm font-semibold">
-          ${props.amountRaised.toLocaleString()} of $
-          {props.amountTarget.toLocaleString()} raised this month
+          ${props.amountRaised?.toLocaleString()} of $
+          {props.amountTarget?.toLocaleString()} raised this month
         </div>
         <Separator />
         <div className="px-6 pt-6 inline-flex justify-between">

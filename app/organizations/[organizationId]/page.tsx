@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import Image from 'next/image'
 import { OrgStats } from '@/components/ui/org-stats'
 import { OrgSocials } from '@/components/ui/org-socials'
-import { OrganizationAvatar } from '@/components/OrganizationAvatar'
+import OrganizationAvatar from '@/components/OrganizationAvatar'
 import Link from 'next/link'
 import { getOrganizationById } from '@/lib/utils/registry'
 

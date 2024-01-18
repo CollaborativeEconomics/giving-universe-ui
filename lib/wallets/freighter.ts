@@ -6,12 +6,12 @@ export default class Wallet {
   explorer   = ''
   network    = 'testnet'
   chainId    = '0x0'
-  accounts   = null
-  myaccount  = null
-  horizon    = null
-  soroban    = null
-  horizonurl = process.env.NEXT_PUBLIC_STELLAR_HORIZON
-  sorobanurl = process.env.NEXT_PUBLIC_STELLAR_SOROBAN
+  accounts?:[string] = undefined
+  myaccount:string  = ''
+  horizon?:any = null
+  soroban?:any = null
+  horizonurl = process.env.NEXT_PUBLIC_STELLAR_HORIZON || ''
+  sorobanurl = process.env.NEXT_PUBLIC_STELLAR_SOROBAN || ''
   provider   = null
   
   constructor() {
@@ -30,8 +30,8 @@ export default class Wallet {
   async connect() {
     try {
       console.log('CONNECT...')
-      this.soroban = new StellarSDK.Server(this.sorobanurl)
-      this.horizon = new StellarSDK.Server(this.horizonurl)
+      this.soroban = new StellarSDK.Server(this.sorobanurl || '')
+      this.horizon = new StellarSDK.Server(this.horizonurl || '')
       this.myaccount = await getPublicKey()
       return {success:true, account:this.myaccount, network:this.network}
     } catch(ex) {
@@ -42,8 +42,8 @@ export default class Wallet {
 
   async payment(dst:string, amt:string, memo:string) {
     try {
-      let nwk = process.env.NEXT_PUBLIC_STELLAR_NETWORK.toUpperCase()
-      let net = process.env.NEXT_PUBLIC_STELLAR_PASSPHRASE
+      let nwk = (process.env.NEXT_PUBLIC_STELLAR_NETWORK||'').toUpperCase()
+      let net = (process.env.NEXT_PUBLIC_STELLAR_PASSPHRASE||'')
       console.log('NET:', nwk, net)
       //let pub = process.env.NEXT_PUBLIC_NFT_ISSUER
       let pub = this.myaccount
@@ -110,9 +110,9 @@ export default class Wallet {
       let result = await fetch(url, options)
       let data = await result.json()
       return data
-    } catch (ex) {
+    } catch (ex:any) {
       console.error(ex)
-      return { error: ex.message }
+      return { error: ex?.message }
     }
   }
 

@@ -1,4 +1,4 @@
-type Dictionary = { [key:string]:any }
+export type Dictionary = { [key:string]:any }
 
 export function getChainName(currency:string){
   const chains:Dictionary = {
@@ -66,3 +66,22 @@ export function getChainNetwork(chain:string){
   return name
 }
 
+// Temporarily added, will be removed later on
+
+const wallets: Dictionary = {
+  metamask: { value: 'Metamask', image: '/bnb-wallet-logo.png' },
+  lobstr: { value: 'Lobstr', image: '/xlm-wallet-logo.png' },
+  xumm: { value: 'Xumm', image: '/xrp-wallet-logo.png' },
+}
+
+const chainWallets: Dictionary = {
+  bnb: [wallets['metamask']],
+  xlm: [wallets['lobstr']],
+  xrp: [wallets['xumm']],
+}
+
+export function getChainWallets(chain: string) {
+  return chainWallets[chain.toLowerCase()] ?? []
+}
+
+export type { Dictionary }
