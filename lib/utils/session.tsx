@@ -42,7 +42,7 @@ var _session:SessionData = {
     id:    '',
     name:  'Anonymous',
     email: '',
-    image: 'nopic.png'
+    image: '/media/nopic.png'
   }
 }
 
@@ -57,7 +57,7 @@ async function getUserByAddress(address:string){
     id:    '',
     name:  'Anonymous',
     email: '',
-    image: 'nopic.png'
+    image: '/media/nopic.png'
   }
   var user = await getUserByWallet(address)
   if(!user || user?.error){
@@ -89,7 +89,7 @@ async function createUser(token:string, chain:string, address:string){
     action:  'new',
     name:    'Anonymous',
     email:   token+'@example.com',
-    image:   'nopic.png',
+    image:   '/media/nopic.png',
     address: address,
     chain:   chain
   }

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { DateDisplay } from './ui/date-posted';
-import { OrganizationAvatar } from './OrganizationAvatar';
+import OrganizationAvatar from './OrganizationAvatar';
 
 const dummyStory = {
   name: "Food for Pakistan",

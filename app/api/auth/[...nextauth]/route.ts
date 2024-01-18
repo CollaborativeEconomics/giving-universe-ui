@@ -57,7 +57,7 @@ async function getUserByCredentials(credentials){
       id:       user?.id,
       name:     user?.name  || 'Anonymous',
       email:    user?.email || 'test@example.com',
-      image:    user?.image || '/nopic.png',
+      image:    user?.image || '/media/nopic.png',
       address:  credentials.address,
       chain:    credentials.chain,
       chainid:  credentials.chainid,
@@ -357,8 +357,8 @@ export const authOptions: NextAuthOptions = {
       if(trigger=='update' && session){
         token.name    = session?.name  || ''
         token.email   = session?.email || ''
-        token.picture = session?.image || '/nopic.png'
-        //token.image   = session?.image || '/nopic.png'
+        token.picture = session?.image || '/media/nopic.png'
+        //token.image   = session?.image || '/media/nopic.png'
       }
       return token
     },

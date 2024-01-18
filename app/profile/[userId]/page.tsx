@@ -26,6 +26,7 @@ export default async function Profile(props: any) {
   const favorgs:[Dictionary]   = await getFavoriteOrganizations(userid) || []
   const badges:[Dictionary]    = await getUserBadges(userid) || []
   const stories:[Dictionary]   = await getRecentStories(5) || []
+  const nopic = '/media/nopic.png'
 
   return (
     <main className="flex min-h-screen flex-col items-stretch container py-24">
@@ -34,7 +35,7 @@ export default async function Profile(props: any) {
         {/* Avatar */}
         <div className="border rounded-md p-8 w-1/3 bg-white">
           <div className="flex flex-row flex-start items-center rounded-full">
-            <Image className="mr-8 rounded-full" src={user.image} width={100} height={100} alt="Avatar" />
+            <Image className="mr-8 rounded-full" src={user.image||nopic} width={100} height={100} alt="Avatar" />
             <div className="flex flex-col flex-start items-start rounded-full">
               <h1 className="font-bold text-lg">{user.name}</h1>
               <h2 className="">{user.email}</h2>
