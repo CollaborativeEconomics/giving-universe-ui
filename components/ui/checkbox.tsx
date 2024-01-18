@@ -5,7 +5,7 @@ import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import { Check } from 'lucide-react'
 import { cn } from '@/lib/shadCnUtil'
 import { InputProps } from './input'
-import { ModalText } from './modal'
+import { Label } from './label'
 
 export interface CheckboxWithTextProps extends InputProps {
   text: string
@@ -45,10 +45,8 @@ const CheckboxWithText = React.forwardRef<
       {...props}
     >
       <label className="flex flex-row gap-3">
-        <div className="flex pt-[6px]">
-          <Checkbox />
-        </div>
-        <ModalText className="pb-1" text={text} />
+        <Checkbox />
+        <Label>{text}</Label>
       </label>
     </div>
   )

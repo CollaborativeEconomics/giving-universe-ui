@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={
-          inter.className + ' bg-gradient-to-b from-white min-h-screen to-gray-50 pt-8 dark:from-accent dark:to-secondary'
+          inter.className + ' bg-gradient-to-b from-white min-h-screen to-gray-50 dark:from-accent dark:to-secondary'
         }
       >
         <Providers
