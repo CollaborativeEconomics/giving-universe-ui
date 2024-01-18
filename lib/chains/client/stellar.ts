@@ -9,7 +9,7 @@ class StellarClass{
   symbol   = 'XLM'
   logo     = 'xlm.png'
   network  = process.env.NEXT_PUBLIC_STELLAR_NETWORK
-  provider?:any = null
+  provider = null
   mainnet  = {
     id: 0,
     name: 'Stellar Mainnet',
@@ -37,24 +37,24 @@ class StellarClass{
     rpcurl: 'https://horizon-futurenet.stellar.org',
     wssurl: ''
   }
-  wallet?:Wallet = undefined
+  wallet = null
 
   constructor(){
     this.provider = this.network=='mainnet' ? this.mainnet : this.testnet
     this.wallet = new Wallet()
   }
 
-  toWei(num:number){
+  toWei(num){
     const wei = 10**this.provider.decimals
     return num * wei
   }
 
-  fromWei(num:number){
+  fromWei(num){
     const wei = 10**this.provider.decimals
     return num / wei
   }
 
-  async fetchLedger(query:string){
+  async fetchLedger(query){
     try {
       let url = this.provider.rpcurl + query
       console.log('FETCH', url)
@@ -65,7 +65,7 @@ class StellarClass{
       let result = await fetch(url, options)
       let data = await result.json()
       return data
-    } catch (ex:any) {
+    } catch (ex) {
       console.error(ex)
       return { error: ex.message }
     }
@@ -73,7 +73,7 @@ class StellarClass{
 
   async connect(callback:Callback){
     console.log('XLM Connecting...')
-    const result = await this.wallet?.connect()
+    const result = await this.wallet.connect()
     console.log('Freighter session:', result)
     if(result){
       const address = result.account
@@ -116,9 +116,9 @@ class StellarClass{
     return {txid, xdr}
   }
 */
-  async sendPayment(address:string, amount:string, destinTag:string, callback:any){
+  async sendPayment(address, amount, destinTag, callback){
     console.log(this.chain, 'Sending payment to', address, amount)
-    const connect = await this.wallet?.connect()
+    const connect = await this.wallet.connect()
     console.log('Wallet restored...', connect)
     const source = connect?.account
     console.log('SOURCE', source)
@@ -142,7 +142,7 @@ class StellarClass{
     //  console.log('Result', result)
     //  callback({success:true, txid})
     //})
-    const result = await this.wallet?.payment(address, amount, memo)
+    const result = await this.wallet.payment(address, amount, memo)
     callback(result)
   }
 
