@@ -38,6 +38,6 @@ const ActionBarButton = React.forwardRef<
     />
   )
 })
-ActionBarBox.displayName = 'action-bar-box'
+ActionBarButton.displayName = 'action-bar-button'
 
 export { ActionBarBox, ActionBarButton }
