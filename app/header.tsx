@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import React from 'react';
+import { SessionProvider } from "next-auth/react";
 import { NavMenu } from './navigation-menu';
 
 export default function Header() {
   const [y, setY] = React.useState(0);
-
   const handleScroll = (e: Event) => {
     const scrollY = (e.currentTarget as Window).scrollY;
     setY(scrollY);
@@ -39,7 +39,9 @@ export default function Header() {
           />
         </Link>
         <div className="flex flex-row items-center">
-          <NavMenu />
+          <SessionProvider>
+            <NavMenu />
+          </SessionProvider>
         </div>
       </div>
     </header>

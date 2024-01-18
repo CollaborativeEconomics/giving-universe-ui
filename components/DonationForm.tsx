@@ -2,7 +2,8 @@
 
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import { Chains, Dictionary, getChainWallets } from '@/lib/chains/apis'
+import Chains from '@/lib/chains/client/apis'
+import { Dictionary, getChainWallets } from '@/lib/chains/utils'
 import { useRef, useState } from 'react'
 import { InputWithContent } from './ui/input-with-content'
 import { Switch } from './ui/switch'
