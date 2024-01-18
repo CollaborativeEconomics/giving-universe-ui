@@ -38,4 +38,4 @@ const OrganizationAvatar = React.forwardRef<HTMLDivElement, Props>(
 )
 OrganizationAvatar.displayName = 'OrganizationAvatar'
 
-export { OrganizationAvatar }
+export default OrganizationAvatar

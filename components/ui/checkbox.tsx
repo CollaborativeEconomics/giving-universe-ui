@@ -51,6 +51,6 @@ const CheckboxWithText = React.forwardRef<
     </div>
   )
 })
-Checkbox.displayName = 'checkbox'
+CheckboxWithText.displayName = 'checkbox-with-text'
 
 export { Checkbox, CheckboxWithText }

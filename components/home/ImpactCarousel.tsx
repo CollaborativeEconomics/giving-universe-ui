@@ -9,17 +9,20 @@ import 'swiper/css/navigation'
 import InitiativeCardCompactShort from '../initiativeCardCompactShort'
 
 export default function ImpactCarousel() {
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+  const innerWidth = typeof window !== "undefined" ? window.innerWidth : 1366
+  const [screenWidth, setScreenWidth] = useState(innerWidth)
   const setDimension = () => {
-    setScreenWidth(window.innerWidth)
+    setScreenWidth(innerWidth)
   }
-  useEffect(() => {
-    window.addEventListener('resize', setDimension)
+  if(typeof window !== "undefined"){
+    useEffect(() => {
+      window.addEventListener('resize', setDimension)
 
-    return () => {
-      window.removeEventListener('resize', setDimension)
-    }
-  }, [screenWidth])
+      return () => {
+        window.removeEventListener('resize', setDimension)
+      }
+    }, [screenWidth])
+  }
 
   const slideCount = screenWidth / 400
 

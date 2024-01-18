@@ -9,30 +9,30 @@ export default class Wallet {
   explorer  = this.TESTEXP
   network   = 'bsc-testnet'
   chainId   = '0x61'
-  accounts  = null
-  myaccount = null
-  metamask  = null
-  web3      = null
+  accounts?:[any]
+  myaccount = ''
+  metamask?:any = null
+  web3?:any = null
 
   constructor(){
     //console.log('Wallet constructor')
   }
 
-  async init(window) {
+  async init(window:any) {
     //console.log('Wallet starting...')
     if (window.ethereum) {
       //console.log('window.ethereum')
       try {
-        this.metamask = window.ethereum
+        this.metamask = window.ethereum || null
         this.setListeners()
-        this.accounts = await this.metamask.enable()
+        this.accounts = await this.metamask?.enable()
         //console.log('Accounts', this.accounts)
-        this.myaccount = this.accounts[0]
+        this.myaccount = this.accounts ? this.accounts[0] : ''
         //this.myaccount = this.metamask.selectedAddress
         this.setNetwork(window.ethereum.chainId)
         //this.loadWallet(window)
         return {network:this.network, address:this.myaccount}
-      } catch(ex) {
+      } catch(ex:any) {
         console.error('Error', ex.message)
         return {network:null, address:null}
       }
@@ -42,12 +42,12 @@ export default class Wallet {
     }
   }
 
-  isConnected(window){
+  isConnected(window:any){
     return window.ethereum.isConnected() && window.ethereum.selectedAddress
   }
 
   setListeners() {
-    this.metamask.on('connect', (info)=>{
+    this.metamask.on('connect', (info:any)=>{
       console.log('> onConnect', info);
       this.setNetwork(info.chainId);
       //if(restore){
@@ -55,12 +55,12 @@ export default class Wallet {
       //}
       //this.loadWallet();
     });
-    this.metamask.on('disconnect', (info)=>{
+    this.metamask.on('disconnect', (info:any)=>{
       console.log('> onDisconnect', info)
       //
       console.log('Disconnected')
     });
-    this.metamask.on('accountsChanged', (info)=>{
+    this.metamask.on('accountsChanged', (info:any)=>{
       console.log('> onAccounts', info)
       this.accounts = info;
       this.myaccount = info[0];
@@ -70,7 +70,7 @@ export default class Wallet {
       //}
       //this.getBalance(this.myaccount);
     });
-    this.metamask.on('chainChanged', (chainId)=>{
+    this.metamask.on('chainChanged', (chainId:string)=>{
       console.log('> onChain', chainId)
       if(chainId==this.chainId) { console.log('Already on chain', chainId); return; }
       this.setNetwork(chainId)
@@ -81,13 +81,13 @@ export default class Wallet {
       //this.requestAccount();
       //this.getAccounts();
     })
-    this.metamask.on('message', (info)=>{
+    this.metamask.on('message', (info:any)=>{
       console.log('> onMessage', info)
     })
     console.log('Listeners set')
   }
 
-  setNetwork(chainId) {
+  setNetwork(chainId:string) {
     console.log('SetNetwork', chainId)
     if(!chainId){ chainId = this.metamask.chainId; }
     const mainnet = (chainId == '0x38') // 0x61 testnet
@@ -98,7 +98,7 @@ export default class Wallet {
     console.log('Network', this.network, this.chainId)
   }
 
-  async loadWallet(window) {
+  async loadWallet(window:any) {
     console.log('Loading wallet...', this.network);
     this.web3 = new Web3(this.neturl);
     //web3.eth.getChainId().then(id => { console.log('ChainId', id) })
@@ -177,7 +177,7 @@ export default class Wallet {
   */
 
   // Methods
-  getAccountHex(acts) {
+  getAccountHex(acts:[any]) {
     for (var i = 0; i < acts.length; i++) {
       if(acts[i].type=='eth'){ return acts[i].address }
     }
@@ -186,27 +186,27 @@ export default class Wallet {
 
   async getAccounts() {
     console.log('Get accounts...')
-    this.metamask.request({method: 'eth_requestAccounts'}).then(accts=>{
+    this.metamask.request({method: 'eth_requestAccounts'}).then((accts:any)=>{
       this.accounts = accts
       this.myaccount = accts[0]
       console.log('Accounts:', accts)
       console.log('MyAccount:', this.myaccount)
       //onReady(this.myaccount, this.network)
-    }).catch(err => { 
+    }).catch((err:any) => { 
       console.log('Error: User rejected')
       console.error(err) 
       //onReady(null, 'User rejected connection'
     });
   }
 
-  async getAddress(oncall) {
+  async getAddress(oncall:any) {
     console.log('Get address...')
-    this.metamask.request({method: 'eth_requestAccounts'}).then(res=>{
+    this.metamask.request({method: 'eth_requestAccounts'}).then((res:any)=>{
       console.log('Account', res)
       this.myaccount = res[0]
       //$('user-address').innerHTML = this.myaccount.substr(0,10)
       oncall(this.myaccount)
-    }).catch(err => { 
+    }).catch((err:any) => { 
       console.log('Error: Wallet not connected')
       console.error(err) 
       //$('user-address').innerHTML = 'Not connected'
@@ -215,7 +215,7 @@ export default class Wallet {
     });
   }
 
-  async getBalance(adr) {
+  async getBalance(adr:string) {
     console.log('Get balance...')
     const balance = await this.metamask.request({method:'eth_getBalance', params:['0x407d73d8a49eeb85d32cf465507dd71d507100c1','latest']})
     console.log('Balance:', balance)
@@ -234,7 +234,7 @@ export default class Wallet {
     return gas
   }
 
-  async callContract(provider, abi, address, method) {
+  async callContract(provider:any, abi:any, address:string, method:string) {
     console.log('Call', address, method)
     let web = new Web3(provider);
     let ctr = new web.eth.Contract(abi, address);
@@ -243,12 +243,12 @@ export default class Wallet {
     console.log(res);
   }
 
-  async payment(destin, amount){
-    function hex(num) { return '0x'+(num).toString(16); }
+  async payment(destin:string, amount:string){
+    function hex(num:number) { return '0x'+(num).toString(16); }
     console.log(`Sending ${amount} BNB to ${destin}...`)
     const gasPrice = await this.getGasPrice() //hex(20000000000)
     const gas = hex(21000)
-    const wei = hex(amount * 10**18)
+    const wei = hex(parseFloat(amount) * 10**18)
     const method = 'eth_sendTransaction'
     const params = [
       {
@@ -264,7 +264,7 @@ export default class Wallet {
       const result = await this.metamask.request({method,params})
       console.log('TXID:', result)
       return {success:true, txid:result}
-    } catch(ex) {
+    } catch(ex:any) {
       console.error(ex)
       return {success:false, error:ex.message}
     }
