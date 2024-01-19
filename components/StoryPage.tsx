@@ -11,8 +11,8 @@ import ShareModal from './ShareModal'
 export default function StoryPage(props:any) {
   const story = props?.story
   if(!story){ return }
-  const images = story.images.map((it:any)=>it.image) // flatten list
-  images.unshift(story.image) // main image to the top
+  const media = story.media.map((it:any)=>it.media) // flatten list
+  media.unshift(story.image) // main image to the top
   //console.log('IMGS', images)
 
   return (
@@ -22,7 +22,7 @@ export default function StoryPage(props:any) {
         <ShareModal />
       </CardHeader>
       <div className="px-2 -mt-2">
-        <Gallery images={images} />
+        <Gallery images={media} />
       </div>
       <CardContent className="flex flex-col pb-8 pt-3 gap-3 px-6">
         <h1 className="mt-4 text-4xl">{story.name}</h1>

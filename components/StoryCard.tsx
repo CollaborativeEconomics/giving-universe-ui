@@ -4,7 +4,7 @@ import { DateDisplay } from './ui/date-posted'
 import Gallery from './ui/gallery'
 
 export default function StoryCard({ ...props }) {
-  const story = props?.data || {}
+  const story = props?.story || {}
   const organization = props?.organization || {}
   return (
     <Card className="flex flex-col overflow-hidden">
