@@ -66,7 +66,7 @@ export default async function Home(props: any) {
             <div className="mt-4 py-5 px-7 rounded-md bg-white text-black gap-3">
               <TabsContent value="about">{organization.description}</TabsContent>
               <TabsContent value="stats">
-                <OrgStats orgStatProps={{
+                <OrgStats stats={{
                   amountRaised: organization.donations || 0,
                   amountTarget: organization.goal || 0,
                   raisedThisMonth: organization.lastmonth || 0,
