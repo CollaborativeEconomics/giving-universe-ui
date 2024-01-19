@@ -1,4 +1,6 @@
-export async function getUserByWallet(address){
+type Dictionary = { [key: string]: any }
+
+export async function getUserByWallet(address:string){
   const result = await fetch('/api/user?wallet='+address)
   const data   = await result.json()
   console.log('API USER', data)
@@ -8,7 +10,7 @@ export async function getUserByWallet(address){
   return data
 }
 
-export async function newUser(rec){
+export async function newUser(rec:Dictionary){
   console.log('API NEW USER', rec)
   const opts = {
     method: 'POST',
@@ -24,7 +26,7 @@ export async function newUser(rec){
   return info.data
 }
 
-export async function newSession(rec){
+export async function newSession(rec:Dictionary){
   console.log('API NEW SESSION', rec)
   const opts = {
     method: 'POST',
