@@ -1,4 +1,4 @@
-import { OrganizationAvatar } from './OrganizationAvatar'
+import OrganizationAvatar from './OrganizationAvatar'
 import { Card, CardContent, CardHeader } from './ui/card'
 import { DateDisplay } from './ui/date-posted'
 import Gallery from './ui/gallery'

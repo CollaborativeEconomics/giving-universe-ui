@@ -16,13 +16,11 @@ export default async function Organizations(props: any) {
       <Card className="flex">
         <SearchBar />
       </Card>
-      <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 pt-10">
-        {data?.length > 0 ? (
-          data.map((item: any) => (
-            <OrganizationCard key={item.id} data={item} />
-          ))
-        ) : (
-          <h1 className="m-4">No initiatives found</h1>
+      <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 pt-10">
+        { data?.length>0 ? data.map((item:any) => (
+          <OrganizationCard key={item.id} data={item} />
+        )) : (
+          <h1 className="m-4">No organizations found</h1>
         )}
       </div>
     </main>

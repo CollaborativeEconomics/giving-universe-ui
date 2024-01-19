@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext, useContext } from 'react'
 import { setCookie, deleteCookie, getCookie } from 'cookies-next'
-import { getUserByWallet, newUser, newSession } from 'utils/api'
-import { UUID } from 'utils/random'
+import { getUserByWallet, newUser, newSession } from './api'
+import { UUID } from './random'
 
 interface UserData {
   id:       string
@@ -42,7 +42,7 @@ var _session:SessionData = {
     id:    '',
     name:  'Anonymous',
     email: '',
-    image: 'nopic.png'
+    image: '/media/nopic.png'
   }
 }
 
@@ -52,12 +52,12 @@ function getCookieString(text:string){
   return cookie 
 }
 
-async function getUserByAddress(address){
+async function getUserByAddress(address:string){
   const anon:UserData = {
     id:    '',
     name:  'Anonymous',
     email: '',
-    image: 'nopic.png'
+    image: '/media/nopic.png'
   }
   var user = await getUserByWallet(address)
   if(!user || user?.error){
@@ -73,7 +73,7 @@ function nextYear(){
   return new Date(date)
 }
 
-async function createSession(token, userId){
+async function createSession(token:string, userId:string){
   const oneYear = nextYear().toJSON()
   const state = {
     sessionToken: token,
@@ -84,12 +84,12 @@ async function createSession(token, userId){
   return rec
 }
 
-async function createUser(token, chain, address){
+async function createUser(token:string, chain:string, address:string){
   const user = {
     action:  'new',
     name:    'Anonymous',
     email:   token+'@example.com',
-    image:   'nopic.png',
+    image:   '/media/nopic.png',
     address: address,
     chain:   chain
   }
@@ -121,7 +121,9 @@ async function Session(){
 
 const SessionContext = createContext([])
  
-function SessionProvider({children}) {
+/*
+function SessionProvider(props:any) {
+  const children:any = props?.children
   const [session, setSession] = useState(_session)
   useEffect(() => {
     async function getSession(){
@@ -137,13 +139,15 @@ function SessionProvider({children}) {
     </SessionContext.Provider>
   )
 }
+*/
 
+/*
 //const session = SessionManager()
 const SessionManager = ()=>{
   const [session, setSession] = useContext(SessionContext)
   //console.log('Session Manager', session)
 
-  const signIn = async (wallet)=>{
+  const signIn = async (wallet:any)=>{
     const state    = {..._session}
     state.wallet   = wallet.wallet
     state.address  = wallet.address
@@ -155,7 +159,7 @@ const SessionManager = ()=>{
     state.token    = UUID()
     state.topic    = ''
     state.user     = await getUserByAddress(wallet.address)
-    if(!state.user.id){
+    if(!state?.user?.id){
       const created = await createUser(state.token, state.chain, state.address)
       state.user = created
     }
@@ -165,7 +169,7 @@ const SessionManager = ()=>{
     setCookie('currency', state.currency)
     setCookie('network',  state.network)
     setCookie('token',    state.token)
-    const saved = await createSession(state.token, state.user.id)
+    const saved = await createSession(state?.token, state?.user?.id || '')
     setSession(state)
     return state
   }
@@ -195,10 +199,11 @@ const SessionManager = ()=>{
 
   return {session, signIn, signOut}
 }
+*/
 
 export {
   Session,
   SessionContext,
-  SessionProvider,
-  SessionManager
+  //SessionProvider,
+  //SessionManager
 }
