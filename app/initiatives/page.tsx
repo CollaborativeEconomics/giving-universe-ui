@@ -9,7 +9,7 @@ export default async function Initiatives(props: any) {
   const location = props?.searchParams?.location || ''
   console.log('SEARCH', query, category, location)
   const data = (await searchInitiatives(query, category, location)) || []
-  console.log('INITS', data.length)
+  //console.log('INITS', data.length)
 
   return (
     <main className="flex min-h-screen flex-col items-stretch container pt-24">

@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { OrgStats } from '@/components/ui/org-stats';
 import { OrgSocials } from '@/components/ui/org-socials';
-import { OrganizationAvatar } from '@/components/OrganizationAvatar';
+import OrganizationAvatar from '@/components/OrganizationAvatar';
 import { getOrganizationById, getStoriesByOrganization } from '@/lib/utils/registry'
 
 export default async function Home(props: any) {
@@ -84,13 +84,13 @@ export default async function Home(props: any) {
           <div className="flex flex-wrap md:flex-nowrap justify-center gap-9 lg:max-w-screen-lg">
             <div className="flex flex-col gap-5 w-full md:w-2/6 min-w-[350px]">
               <p className="text-3xl font-semibold">Initiatives</p>
-              {initiatives.map(item=>{
+              {initiatives.map((item:any)=>{
                 return <InitiativeCard key={item.id} data={item} />
               })}
             </div>
             <div className="flex flex-col gap-5 md:w-4/6">
               <p className="text-3xl font-semibold">Stories</p>
-              {stories.map(item=>{
+              {stories.map((item:any)=>{
                 return <StoryCard key={item.id} data={item} organization={organization} />
               })}
             </div>

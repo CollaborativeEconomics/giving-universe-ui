@@ -110,10 +110,11 @@ const dummyOrganization = {
 }
 
 export default async function Home(props: any) {
-  console.log('PROPS', props)
+  //console.log('PROPS', props)
   const initid = props?.params?.id || null
-  const data = (await getInitiativeById(initid)) || {}
-  console.log('INIT', data)
+  console.log('INITID', initid)  // TODO: fix why getting coin symbol instead of initiative id?
+  //const data = (await getInitiativeById(initid)) || {}
+  //console.log('INIT', data)
 
   return (
     <main className="w-full bg-gradient-to-t from-slate-200">

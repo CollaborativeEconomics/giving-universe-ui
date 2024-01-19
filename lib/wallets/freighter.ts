@@ -19,7 +19,7 @@ export default class Wallet {
   }
 
   async init() {
-    console.log('INIT...')
+    //console.log('INIT...')
     if(await isConnected()){
       return {success:true}
     } else {
