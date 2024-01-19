@@ -2,6 +2,7 @@
 import React, { HTMLAttributes } from 'react'
 import Image from 'next/image'
 
+
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   text: string
   icon?: string

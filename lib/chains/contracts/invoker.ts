@@ -2,7 +2,7 @@ const SorobanClient = require('soroban-client')
 //import * as SorobanClient from 'soroban-client'
 //import {assembleTransaction, Contract, Keypair, Server, SorobanRpc, TransactionBuilder, TimeoutInfinite} from 'soroban-client'
 
-async function sendTx(tx, secondsToWait, server) {
+async function sendTx(tx:any, secondsToWait:number, server:any) {
   //console.log('SEND', tx)
   //console.log('SERV', server)
   const sendTransactionResponse = await server.sendTransaction(tx);
@@ -35,7 +35,8 @@ async function sendTx(tx, secondsToWait, server) {
   return {raw:getTransactionResponse, txid}
 }
 
-export default async function invoke({ method, args = [], fee = 100, responseType, parseResultXdr, secondsToWait = 10, rpcUrl, networkPassphrase, contractId, wallet, }) {
+export default async function invoke({ method, args = [], fee = 100, responseType, parseResultXdr, secondsToWait = 10, rpcUrl, networkPassphrase, contractId, wallet, }:any) {
+//export default async function invoke(props:any) {
   //console.log('DATA', JSON.stringify({ method, args, fee, responseType, parseResultXdr, secondsToWait, rpcUrl, networkPassphrase, contractId, wallet }, null, 2))
   console.log('ContractId', contractId)
   let parse = parseResultXdr

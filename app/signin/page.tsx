@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { getProviders, signIn } from "next-auth/react"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+//import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import ButtonChain  from '@/components/ButtonChain'
 import ButtonWallet from '@/components/ButtonWallet'
 import Chains from '@/lib/chains/client/apis'
@@ -12,17 +12,18 @@ export default async function Signin(props: any) {
   //console.log('SIGNIN', query)
   const url = '/' // TODO: get from auth/props ?
 
-  function login(chain){
-    console.log('LOGIN', chain)
-    Chains[chain].connect(async (data) => {
+  function login(chainName:any){
+    console.log('LOGIN', chainName)
+    const chain = Chains[chainName]
+    chain.connect(async (data:any) => {
       console.log('SignIn', data)
       console.log('RetUrl', url)
       const address  = data?.address  || ''
       const chainid  = data?.chainid  || ''
       const network  = data?.network  || ''
       const currency = data?.currency || ''
-      //await signIn(chain, {address, chain, chainid, network, currency})
-      await signIn(chain, {callbackUrl: url, address, chain, chainid, network, currency})
+      //await signIn(chainName, {address, chainName, chainid, network, currency})
+      await signIn(chainName, {callbackUrl: url, address, chainName, chainid, network, currency})
     })
   }
 

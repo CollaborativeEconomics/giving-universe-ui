@@ -1,5 +1,6 @@
 import * as StellarSdk from 'stellar-sdk'
 import Wallet from '@/lib/wallets/freighter'
+import { WalletProvider } from '@/types/common'
 
 type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
@@ -8,13 +9,14 @@ class StellarClass{
   chain    = 'Stellar'
   symbol   = 'XLM'
   logo     = 'xlm.png'
-  network  = process.env.NEXT_PUBLIC_STELLAR_NETWORK
-  provider = null
+  network  = process.env.NEXT_PUBLIC_STELLAR_NETWORK || ''
+  provider:WalletProvider
   mainnet  = {
     id: 0,
     name: 'Stellar Mainnet',
     symbol: 'XLM',
     decimals: 6,
+    gasprice: '250000000',
     explorer: '',
     rpcurl: 'https://horizon.stellar.org',
     wssurl: ''
@@ -24,6 +26,7 @@ class StellarClass{
     name: 'Stellar Testnet',
     symbol: 'XLM',
     decimals: 6,
+    gasprice: '250000000',
     explorer: '',
     rpcurl: 'https://horizon-testnet.stellar.org',
     wssurl: ''
@@ -37,24 +40,24 @@ class StellarClass{
     rpcurl: 'https://horizon-futurenet.stellar.org',
     wssurl: ''
   }
-  wallet = null
+  wallet:Wallet
 
   constructor(){
     this.provider = this.network=='mainnet' ? this.mainnet : this.testnet
     this.wallet = new Wallet()
   }
 
-  toWei(num){
+  toWei(num:number){
     const wei = 10**this.provider.decimals
     return num * wei
   }
 
-  fromWei(num){
+  fromWei(num:number){
     const wei = 10**this.provider.decimals
     return num / wei
   }
 
-  async fetchLedger(query){
+  async fetchLedger(query:any){
     try {
       let url = this.provider.rpcurl + query
       console.log('FETCH', url)
@@ -65,7 +68,7 @@ class StellarClass{
       let result = await fetch(url, options)
       let data = await result.json()
       return data
-    } catch (ex) {
+    } catch (ex:any) {
       console.error(ex)
       return { error: ex.message }
     }
@@ -116,7 +119,7 @@ class StellarClass{
     return {txid, xdr}
   }
 */
-  async sendPayment(address, amount, destinTag, callback){
+  async sendPayment(address:string, amount:string, destinTag:string, callback:any){
     console.log(this.chain, 'Sending payment to', address, amount)
     const connect = await this.wallet.connect()
     console.log('Wallet restored...', connect)

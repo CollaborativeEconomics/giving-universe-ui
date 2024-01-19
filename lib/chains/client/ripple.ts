@@ -1,4 +1,5 @@
 import { Wallet, Client, convertStringToHex, NFTokenMintFlags, isoTimeToRippleTime, NFTokenCreateOfferFlags, NFTokenCreateOffer } from 'xrpl'
+import { WalletProvider } from '@/types/common'
 import { Xumm } from 'xumm'
 import type { ResolvedFlow } from 'xumm-oauth2-pkce'
 import type { XummJsonTransaction, XummPostPayloadBodyJson, PayloadAndSubscription } from 'xumm-sdk/dist/src/types'
@@ -18,13 +19,14 @@ class RippleSDK{
   chain    = 'XRPL'
   symbol   = 'XRP'
   logo     = 'xrp.png'
-  network  = process.env.NEXT_PUBLIC_XRPL_NETWORK
-  provider = null
+  network  = process.env.NEXT_PUBLIC_XRPL_NETWORK || ''
+  provider:WalletProvider
   mainnet  = {
     id: 0,
     name: 'XRPL Mainnet',
     symbol: 'XRP',
     decimals: 6,
+    gasprice: '250000000',
     explorer: 'https://livenet.xrpl.org',
     rpcurl: 'https://s1.ripple.com:51234',
     wssurl: 'wss://s1.ripple.com'
@@ -34,18 +36,19 @@ class RippleSDK{
     name: 'XRPL Testnet',
     symbol: 'XRP',
     decimals: 6,
+    gasprice: '250000000',
     explorer: 'https://testnet.xrpl.org',
     rpcurl: 'https://s.altnet.rippletest.net:51234',
     wssurl: 'wss://s.altnet.rippletest.net:51233'
   }
-  wallet = null
+  wallet:Xumm
 
   constructor(){
     this.provider = this.network=='mainnet' ? this.mainnet : this.testnet
     this.wallet = new Xumm(apikey, secret)
   }
 
-  toWei(num){
+  toWei(num:number){
     const sats = 10**this.provider.decimals
     return num / sats
   }
@@ -80,12 +83,12 @@ class RippleSDK{
         console.log('Error', state)
         return
       }
-    }).catch((ex)=>{
+    }).catch((ex:any)=>{
       console.log('Error', ex)
     })
   }
 
-  async fetchLedger(payload){
+  async fetchLedger(payload:any){
     try {
       let url = this.provider.rpcurl
       let options = {
@@ -96,22 +99,23 @@ class RippleSDK{
       let result = await fetch(url, options)
       let data = await result.json()
       return data
-    } catch (ex) {
+    } catch (ex:any) {
       console.error(ex)
       return { error: ex.message }
     }
   }
 
-  async sendPayment(address, amount, destinTag, callback){
+  async sendPayment(address:string, amount:string, destinTag:string, callback:any){
     console.log('XRP Sending payment...', address, amount, destinTag)
     const request:XummJsonTransaction = {
       TransactionType: 'Payment',
       Destination: address,
-      Amount: String(amount*1000000) // one million drops, 1 XRP
+      Amount: String(parseFloat(amount)*1000000) // one million drops, 1 XRP
     }
     if(destinTag) { request.DestinationTag = destinTag }
     //this.sendPayload(request, callback)
-    this.wallet.payload.createAndSubscribe(request, (event) => {
+    if(!this.wallet) { callback({success:false, txid:''}); return }
+    this?.wallet?.payload?.createAndSubscribe(request, (event) => {
       if (Object.keys(event.data).indexOf('opened') > -1) {
         // Update the UI? The payload was opened.
         console.log('OPENED')
@@ -121,7 +125,7 @@ class RippleSDK{
         console.log('SIGNED', event.data.signed)
         return event
       }
-    }).then(payload => {
+    }).then((payload:any) => {
       console.log('CREATED', payload)
       // @ts-ignore: I hate types
       console.log('Payload URL:', payload?.created.next.always)
@@ -129,7 +133,7 @@ class RippleSDK{
       console.log('Payload QR:', payload?.created.refs.qr_png)
       // @ts-ignore: I hate types
       return payload.resolved // Return payload promise for the next `then`
-    }).then((payload) => {
+    }).then((payload:any) => {
       console.log('RESOLVED')
       console.log('Payload resolved', payload)
       if (Object.keys(payload.data).indexOf('signed') > -1) {
@@ -141,7 +145,7 @@ class RippleSDK{
           callback({success:false, txid:''})
         }
       }
-    }).catch((ex) => {
+    }).catch((ex:any) => {
       console.log('ERROR', ex)
       callback({success:false, txid:'', error:'Error sending payment: '+ex})
     })
@@ -149,7 +153,7 @@ class RippleSDK{
     console.log('----DONE')
   }
 
-  async acceptSellOffer(offerId, address, callback) {
+  async acceptSellOffer(offerId:string, address:string, callback:any) {
     console.log('XRP Accept sell offer...', offerId, address)
     const request:XummJsonTransaction = {
       TransactionType: 'NFTokenAcceptOffer',
@@ -159,9 +163,10 @@ class RippleSDK{
     this.sendPayload(request, callback)
   }
 
-  async sendPayload(request, callback){
+  async sendPayload(request:XummJsonTransaction, callback:any){
     console.log('REQUEST', request)
-    this.wallet.payload.createAndSubscribe(request, (event) => {
+    if(!this.wallet) { callback({success:false, txid:''}); return }
+    this?.wallet?.payload?.createAndSubscribe(request, (event) => {
       if (Object.keys(event.data).indexOf('opened') > -1) {
         // Update the UI? The payload was opened.
         console.log('OPENED')
@@ -191,7 +196,7 @@ class RippleSDK{
           callback({success:false, txid:''})
         }
       }
-    }).catch((ex) => {
+    }).catch((ex:any) => {
       console.log('ERROR', ex)
       callback({success:false, txid:'', error:'Error sending payment: '+ex})
     })
@@ -199,7 +204,7 @@ class RippleSDK{
     console.log('----DONE')
   }
 
-  async getTransactionInfo(txid){
+  async getTransactionInfo(txid:string){
     console.log('Get tx info by txid', txid)
     const txResponse = await this.fetchLedger({
       method: 'tx',
@@ -240,13 +245,13 @@ class RippleSDK{
     let client = null
     let sourceTag = parseInt(process.env.RIPPLE_SOURCE_TAG || '77777777')
     try {
-      let wallet = Wallet.fromSeed(process.env.RIPPLE_MINTER_WALLET_SEED)
+      let wallet = Wallet.fromSeed(process.env.RIPPLE_MINTER_WALLET_SEED||'')
       let account = wallet.classicAddress
       console.log('ADDRESS', account)
       let nftUri = convertStringToHex(uri)
       let flags = NFTokenMintFlags.tfBurnable + NFTokenMintFlags.tfOnlyXRP
       if(transfer) { flags += NFTokenMintFlags.tfTransferable }
-      let tx = {
+      let tx:any = {
         TransactionType: 'NFTokenMint',
         Account: account,
         URI: nftUri,          // uri to metadata
@@ -256,7 +261,7 @@ class RippleSDK{
       }
       //if(destinTag){ tx.DestinationTag = destinTag }
       console.log('TX', tx)
-      client = new Client(this.provider.wssurl)
+      client = new Client(this?.provider?.wssurl || '')
       await client.connect()
       let txInfo = await client.submitAndWait(tx, { wallet })
       console.log('Result:', txInfo?.result?.meta?.TransactionResult)
@@ -266,7 +271,7 @@ class RippleSDK{
         console.log('TokenId:', tokenId)
         return {success: true, tokenId}
       }
-    } catch (ex) {
+    } catch (ex:any) {
       console.error(ex)
       return { success: false, error: 'Error minting NFT: '+ex.message }
     } finally {

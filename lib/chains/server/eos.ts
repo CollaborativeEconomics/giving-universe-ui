@@ -1,5 +1,6 @@
 import Web3 from 'web3'
-import Abi721 from 'chains/contracts/erc721-abi.json'
+import { WalletProvider } from '@/types/common'
+import Abi721 from '@/lib/chains/contracts/erc721-abi.json'
 
 type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
@@ -8,7 +9,7 @@ class EOSServer {
   chain    = 'EOS'
   symbol   = 'EOS'
   network  = process.env.NEXT_PUBLIC_EOS_NETWORK
-  provider = null
+  provider:WalletProvider
   mainnet  = {
     id: 17777,
     name: 'EOS Mainnet',
@@ -29,38 +30,38 @@ class EOSServer {
     rpcurl: 'https://api.testnet.evm.eosnetwork.com',
     wssurl: ''
   }
-  web3 = null
+  web3:Web3
 
   constructor(){
     this.provider = this.network=='mainnet' ? this.mainnet : this.testnet
     this.web3 = new Web3(this.provider.rpcurl)
   }
 
-  toHex(str){
+  toHex(str:string){
     return '0x'+parseInt(str).toString(16)
   }
 
-  toWei(num){
+  toWei(num:number){
     const wei = 10**this.provider.decimals
     return num * wei
   }
 
-  fromWei(num){
+  fromWei(num:number){
     const wei = 10**this.provider.decimals
     return num / wei
   }
 
-  strToHex(str) {
+  strToHex(str:string) {
     if(!str){ return '' }
     return '0x'+Buffer.from(str.toString(), 'utf8').toString('hex')
   }
 
-  hexToStr(hex, encoding:BufferEncoding='utf8') {
+  hexToStr(hex:string, encoding:BufferEncoding='utf8') {
     if(!hex){ return '' }
     return Buffer.from(hex.substr(2), 'hex').toString(encoding)
   }
 
-  async fetchLedger(method, params){
+  async fetchLedger(method:string, params:any){
     let data = {id: '1', jsonrpc: '2.0', method, params}
     let body = JSON.stringify(data)
     let opt  = {method:'POST', headers:{'Content-Type':'application/json'}, body}
@@ -68,16 +69,16 @@ class EOSServer {
       let res = await fetch(this.provider.rpcurl, opt)
       let inf = await res.json()
       return inf?.result
-    } catch(ex) {
+    } catch(ex:any) {
       console.error(ex)
       return {error:ex.message}
     }
   }
 
-  async sendPayment(address, amount, destinTag, callback){
+  async sendPayment(address:string, amount:string, destinTag:string, callback:any){
     console.log('BNB Sending payment...')
-    const value = this.toWei(amount)
-    const secret = process.env.EOS_MINTER_WALLET_SEED
+    const value = this.toWei(parseFloat(amount))
+    const secret = process.env.EOS_MINTER_WALLET_SEED || ''
     //const source = process.env.EOS_MINTER_WALLET
     const acct = this.web3.eth.accounts.privateKeyToAccount(secret)
     const source = acct.address
@@ -99,13 +100,13 @@ class EOSServer {
 
   async mintNFT(uri: string, address: string){
     console.log(this.chain, 'server minting NFT to', address, uri)
-    const secret   = process.env.EOS_MINTER_WALLET_SEED
+    const secret   = process.env.EOS_MINTER_WALLET_SEED || ''
     const acct     = this.web3.eth.accounts.privateKeyToAccount(secret)
     const minter   = acct.address
-    const contract = process.env.NEXT_PUBLIC_EOS_MINTER_CONTRACT
+    const contract = process.env.NEXT_PUBLIC_EOS_MINTER_CONTRACT || ''
     const instance = new this.web3.eth.Contract(Abi721, contract)
     const noncex   = await this.web3.eth.getTransactionCount(minter, 'latest')
-    const nonce    = parseInt(noncex)
+    const nonce    = Number(noncex)
     console.log('MINTER', minter)
     console.log('NONCE', nonce)
     const data = instance.methods.safeMint(address, uri).encodeABI()
@@ -135,7 +136,7 @@ class EOSServer {
     if(hasLogs){
       console.log('LOGS.0', JSON.stringify(info?.logs[0].topics,null,2))
       console.log('LOGS.1', JSON.stringify(info?.logs[1].topics,null,2))
-      tokenNum = ' #'+parseInt(info.logs[0].topics[3], 16)
+      tokenNum = ' #'+parseInt((info.logs[0] as any).topics[3] || '0', 16)
     }
     if(info.status==1){
       const tokenId = contract+tokenNum
@@ -146,7 +147,7 @@ class EOSServer {
     return {success:false, error:'Something went wrong'}
   }
 
-  async getTransactionInfo(txid){
+  async getTransactionInfo(txid:string){
     console.log('Get tx info', txid)
     const info = await this.fetchLedger('eth_getTransactionByHash', [txid])
     if(!info || info?.error){ return {success:false, error:'Error fetching tx info'} }

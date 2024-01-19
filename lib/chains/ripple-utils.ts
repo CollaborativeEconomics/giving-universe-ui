@@ -17,7 +17,7 @@ export async function fetchApi<ResponseType>(
   payload: PayloadType
 ): Promise<ResponseType | { error: string }> {
   try {
-    let url = process.env.XRPL_RPC_URI;
+    let url = process.env.XRPL_RPC_URI || ''
     let options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -26,7 +26,7 @@ export async function fetchApi<ResponseType>(
     let result = await fetch(url, options);
     let data = await result.json();
     return data;
-  } catch (ex) {
+  } catch (ex:any) {
     console.error(ex);
     return { error: ex.message };
   }

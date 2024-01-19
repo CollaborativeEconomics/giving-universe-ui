@@ -1,4 +1,4 @@
-function localDate(sdate){
+function localDate(sdate:string){
   return new Date(sdate).toLocaleString()
 }
 

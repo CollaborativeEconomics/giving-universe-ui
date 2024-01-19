@@ -3984,6 +3984,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@stellar/js-xdr@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@stellar/js-xdr@npm:3.0.1"
+  checksum: 2c3780c39e273bd2eabcfe73966aa0303307885964c1ee1b00e2e5035a86823cd24a368002f5cedea9265ed2540e613ba5c7247abb60cdcf8783cbc611283ef8
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-actions@npm:7.6.10":
   version: 7.6.10
   resolution: "@storybook/addon-actions@npm:7.6.10"
@@ -6731,6 +6738,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^1.6.0":
+  version: 1.6.5
+  resolution: "axios@npm:1.6.5"
+  dependencies:
+    follow-redirects: "npm:^1.15.4"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: aeb9acf87590d8aa67946072ced38e01ca71f5dfe043782c0ccea667e5dd5c45830c08afac9be3d7c894f09684b8ab2a458f497d197b73621233bcf202d9d468
+  languageName: node
+  linkType: hard
+
 "axobject-query@npm:^3.2.1":
   version: 3.2.1
   resolution: "axobject-query@npm:3.2.1"
@@ -6885,7 +6903,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bignumber.js@npm:^9.0.0":
+"bignumber.js@npm:^9.0.0, bignumber.js@npm:^9.1.1, bignumber.js@npm:^9.1.2":
   version: 9.1.2
   resolution: "bignumber.js@npm:9.1.2"
   checksum: e17786545433f3110b868725c449fa9625366a6e675cd70eb39b60938d6adbd0158cb4b3ad4f306ce817165d37e63f4aa3098ba4110db1d9a3b9f66abfbaf10d
@@ -9739,7 +9757,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.14.7":
+"follow-redirects@npm:^1.14.7, follow-redirects@npm:^1.15.4":
   version: 1.15.5
   resolution: "follow-redirects@npm:1.15.5"
   peerDependenciesMeta:
@@ -10119,6 +10137,7 @@ __metadata:
     postcss: "npm:^8"
     react: "npm:^18"
     react-dom: "npm:^18"
+    soroban-client: "npm:^1.0.1"
     stellar-sdk: "npm:^10.4.1"
     storybook: "npm:^7.5.3"
     swiper: "npm:^11.0.5"
@@ -12638,7 +12657,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-gyp-build@npm:^4.3.0":
+"node-gyp-build@npm:^4.3.0, node-gyp-build@npm:^4.6.0":
   version: 4.8.0
   resolution: "node-gyp-build@npm:4.8.0"
   bin:
@@ -13840,7 +13859,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"proxy-from-env@npm:^1.0.0":
+"proxy-from-env@npm:^1.0.0, proxy-from-env@npm:^1.1.0":
   version: 1.1.0
   resolution: "proxy-from-env@npm:1.1.0"
   checksum: fe7dd8b1bdbbbea18d1459107729c3e4a2243ca870d26d34c2c1bcd3e4425b7bcc5112362df2d93cc7fb9746f6142b5e272fd1cc5c86ddf8580175186f6ad42b
@@ -15118,6 +15137,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sodium-native@npm:^4.0.1":
+  version: 4.0.5
+  resolution: "sodium-native@npm:4.0.5"
+  dependencies:
+    node-gyp: "npm:latest"
+    node-gyp-build: "npm:^4.6.0"
+  checksum: d2317355d350e483713a95ad3234215e3a665df8f90d8a602b849b4a05bc14cfe58a61393453db288543be704ad73b05531859672281a935c3dcac55788b4f28
+  languageName: node
+  linkType: hard
+
 "sonic-boom@npm:^2.2.1":
   version: 2.8.0
   resolution: "sonic-boom@npm:2.8.0"
@@ -15133,6 +15162,19 @@ __metadata:
   dependencies:
     atomic-sleep: "npm:^1.0.0"
   checksum: f3f61cb3fd5d4aad862dd957f22318ef85bf47d4f12ba27b915112908449f752dbdfc95a4739d2b4a9b2770e1e08d349adae9d1030fdab2a3d86128c6773a7f4
+  languageName: node
+  linkType: hard
+
+"soroban-client@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "soroban-client@npm:1.0.1"
+  dependencies:
+    axios: "npm:^1.6.0"
+    bignumber.js: "npm:^9.1.1"
+    buffer: "npm:^6.0.3"
+    stellar-base: "npm:10.0.0"
+    urijs: "npm:^1.19.1"
+  checksum: 393aaae6f3039fcaf2c50f7fc240ecad4f1b8c21549bb505691ba67bd187bbe5cf3670f015c9ddef3b2ca3da2ed564a683823fa2e20f53c4daeb2c98f57674c9
   languageName: node
   linkType: hard
 
@@ -15263,6 +15305,24 @@ __metadata:
   version: 3.7.0
   resolution: "std-env@npm:3.7.0"
   checksum: 60edf2d130a4feb7002974af3d5a5f3343558d1ccf8d9b9934d225c638606884db4a20d2fe6440a09605bca282af6b042ae8070a10490c0800d69e82e478f41e
+  languageName: node
+  linkType: hard
+
+"stellar-base@npm:10.0.0":
+  version: 10.0.0
+  resolution: "stellar-base@npm:10.0.0"
+  dependencies:
+    "@stellar/js-xdr": "npm:^3.0.1"
+    base32.js: "npm:^0.1.0"
+    bignumber.js: "npm:^9.1.2"
+    buffer: "npm:^6.0.3"
+    sha.js: "npm:^2.3.6"
+    sodium-native: "npm:^4.0.1"
+    tweetnacl: "npm:^1.0.3"
+  dependenciesMeta:
+    sodium-native:
+      optional: true
+  checksum: 8a001d9ef202fb44b9dd432a11b1c2b993db630af5bca57dacdcba5ba3f3a7613fa55af7bc6b747a94096f4d27fce7d7a4de4de06e6eb61a46a48b074b1c3141
   languageName: node
   linkType: hard
 

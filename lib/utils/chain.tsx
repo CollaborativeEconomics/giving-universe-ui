@@ -1,4 +1,4 @@
-function coinFromChain(chain){
+function coinFromChain(chain:string){
   return {
     'Avalanche':'avax',
     'Binance'  :'bnb',
@@ -9,10 +9,10 @@ function coinFromChain(chain){
     'Stellar'  :'xlm',
     'XRPL'     :'xrp',
     'XinFin'   :'xdc'
-  }[chain]
+  }[chain] || ''
 }
 
-function chainFromCoin(coin){
+function chainFromCoin(coin:string){
   return {
     'avax' :'Avalanche',
     'bnb'  :'Binance',
@@ -23,7 +23,7 @@ function chainFromCoin(coin){
     'xlm'  :'Stellar',
     'xrp'  :'XRPL',
     'xdc'  :'XinFin'
-  }[coin]
+  }[coin] || ''
 }
 
 export {

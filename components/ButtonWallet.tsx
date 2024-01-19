@@ -3,7 +3,7 @@ import React, { HTMLAttributes } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-interface ButtonProps extends HTMLAttributes<HTMLDivElement> {
+interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   href: string
   text: string
   icon?: string
@@ -13,7 +13,7 @@ interface ButtonProps extends HTMLAttributes<HTMLDivElement> {
 
 const style = 'flex flex-col justify-center items-center border rounded-md text-xs p-4 text-center'
 
-const ButtonWallet = React.forwardRef<HTMLDivElement, DivProps>(
+const ButtonWallet = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       href,
@@ -22,10 +22,10 @@ const ButtonWallet = React.forwardRef<HTMLDivElement, DivProps>(
       className,
       disabled,
       ...props
-    }: DivProps,
+    }: ButtonProps,
     ref
   ) => (
-    <div 
+    <button 
       disabled={disabled}
       className={`${style} ${className||''}`}
       {...{ ref }}
@@ -35,7 +35,7 @@ const ButtonWallet = React.forwardRef<HTMLDivElement, DivProps>(
         {icon ? (<Image src={'/wallets/'+icon} className="mb-2" width={64} height={64} alt="Chain icon" />) : null}
         {text}
       </Link>
-    </div>
+    </button>
   )
 );
 

@@ -14,15 +14,15 @@ export default function ImpactCarousel() {
   const setDimension = () => {
     setScreenWidth(innerWidth)
   }
-  if(typeof window !== "undefined"){
-    useEffect(() => {
-      window.addEventListener('resize', setDimension)
 
+  useEffect(() => {
+    if(typeof window !== "undefined"){
+      window.addEventListener('resize', setDimension)
       return () => {
         window.removeEventListener('resize', setDimension)
       }
-    }, [screenWidth])
-  }
+    }
+  }, [screenWidth])
 
   const slideCount = screenWidth / 400
 

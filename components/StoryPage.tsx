@@ -8,8 +8,10 @@ import { DateDisplay } from './ui/date-posted'
 import Gallery from './ui/gallery'
 import ShareModal from './ShareModal'
 
-export default function StoryPage({ story }) {
-  const images = story.images.map(it=>it.image) // flatten list
+export default function StoryPage(props:any) {
+  const story = props?.story
+  if(!story){ return }
+  const images = story.images.map((it:any)=>it.image) // flatten list
   images.unshift(story.image) // main image to the top
   //console.log('IMGS', images)
 

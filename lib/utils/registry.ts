@@ -117,7 +117,7 @@ export const getStories = () => fetchRegistry('stories')
 export const getStoryById = (id: string) => fetchRegistry('stories/'+id)
 export const getStoriesByOrganization = (id: string) => fetchRegistry('stories?orgid='+id)
 export const getStoriesByInitiative = (id: string) => fetchRegistry('stories?initid='+id)
-export const getRecentStories = (qty) => fetchRegistry('stories?recent='+qty)
+export const getRecentStories = (qty:number) => fetchRegistry('stories?recent='+qty)
 
 export const newSession = (body: Dictionary) => postRegistry('session', body)
 export const getSession = (id: string) => fetchRegistry('session?token='+id)
@@ -126,8 +126,8 @@ export const deleteSession = (id: string) => deleteRegistry('session?token='+id)
 export const getLocations = () => fetchRegistry('locations')
 
 export const getDonations = () => fetchRegistry('donations')
-export const getDonationsByUser = (id) => fetchRegistry('donations?userid='+id)
-export const getFavoriteOrganizations = (userid) => fetchRegistry('donations?favs='+userid)
-export const getUserBadges = (userid) => fetchRegistry('donations?badges='+userid)
+export const getDonationsByUser = (id: string) => fetchRegistry('donations?userid='+id)
+export const getFavoriteOrganizations = (userid: string) => fetchRegistry('donations?favs='+userid)
+export const getUserBadges = (userid: string) => fetchRegistry('donations?badges='+userid)
 
 // END

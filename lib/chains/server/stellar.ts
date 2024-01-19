@@ -1,5 +1,6 @@
 import * as StellarSdk from 'stellar-sdk'
-import {Contract, Networks} from 'chains/contracts/nft721'
+import { WalletProvider } from '@/types/common'
+import {Contract, Networks} from '@/lib/chains/contracts/nft721'
 
 interface MintResponse {
   success?: boolean;
@@ -14,14 +15,15 @@ class StellarServer {
   chain    = 'Stellar'
   symbol   = 'XLM'
   network  = process.env.NEXT_PUBLIC_STELLAR_NETWORK
-  provider = null
+  provider:WalletProvider
   mainnet  = {
     id: 0,
     name: 'Stellar Mainnet',
     symbol: 'XLM',
     decimals: 6,
+    gasprice: '',
     explorer: '',
-    horizon: 'https://horizon.stellar.org',
+    rpcurl: 'https://horizon.stellar.org',
     soroban: 'https://horizon-futurenet.stellar.org',
     phrase: 'Public Global Stellar Network ; September 2015',
     wssurl: ''
@@ -31,8 +33,9 @@ class StellarServer {
     name: 'Stellar Testnet',
     symbol: 'XLM',
     decimals: 6,
+    gasprice: '',
     explorer: '',
-    horizon: 'https://horizon-testnet.stellar.org',
+    rpcurl: 'https://horizon-testnet.stellar.org',
     soroban: 'https://soroban-testnet.stellar.org',
     phrase: 'Test SDF Network ; September 2015',
     wssurl: ''
@@ -43,7 +46,7 @@ class StellarServer {
     symbol: 'XLM',
     decimals: 6,
     explorer: '',
-    horizon: 'https://horizon-futurenet.stellar.org',
+    rpcurl: 'https://horizon-futurenet.stellar.org',
     soroban: 'https://rpc-futurenet.stellar.org',
     phrase: 'Test SDF Future Network ; October 2022',
     wssurl: ''
@@ -53,19 +56,19 @@ class StellarServer {
     this.provider = this.network=='mainnet' ? this.mainnet : this.testnet
   }
 
-  toWei(num){
+  toWei(num:number){
     const wei = 10**this.provider.decimals
     return num * wei
   }
 
-  fromWei(num){
+  fromWei(num:number){
     const wei = 10**this.provider.decimals
     return num / wei
   }
 
-  async fetchLedger(query){
+  async fetchLedger(query:any){
     try {
-      let url = this.provider.horizon + query
+      let url = this.provider.rpcurl + query
       console.log('FETCH', url)
       let options = {
         method: 'GET',
@@ -74,13 +77,13 @@ class StellarServer {
       let result = await fetch(url, options)
       let data = await result.json()
       return data
-    } catch (ex) {
+    } catch (ex:any) {
       console.error(ex)
       return { error: ex.message }
     }
   }
 
-  async sendPayment(address, amount, destinTag, callback){
+  async sendPayment(address:string, amount:string, destinTag:string, callback:any){
     console.log(this.chain, 'Sending payment to', address, amount)
     console.log('Sending payment from server not allowed')
     return {error:'NOT ALLOWED FROM SERVER'}
@@ -107,7 +110,7 @@ class StellarServer {
   async mintNFT_OLD(uri: string, address:string):Promise<MintResponse>{
     console.log(this.chain, 'minting NFT to', address, uri)
     try {
-      const server  = new StellarSdk.Server(this.provider.horizon)
+      const server  = new StellarSdk.Server(this.provider.rpcurl)
       const minter  = StellarSdk.Keypair.fromSecret(process.env.STELLAR_MINTER_WALLET_SECRET) // GDDMY...
       const issuer  = minter.publicKey()
       const source  = await server.loadAccount(issuer)
@@ -158,7 +161,7 @@ class StellarServer {
     }
   }
 */
-  async getTransactionInfo(txid){
+  async getTransactionInfo(txid:string){
     console.log('Get tx info by txid', txid)
     let txInfo = await this.fetchLedger('/transactions/'+txid)
     if (!txInfo || 'error' in txInfo) {

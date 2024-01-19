@@ -84,4 +84,4 @@ export function getChainWallets(chain: string) {
   return chainWallets[chain.toLowerCase()] ?? []
 }
 
-export type { Dictionary }
+//export type { Dictionary }

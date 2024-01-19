@@ -1,7 +1,9 @@
 'use client'
 
 // CLIENT LIBS
+import Arbitrum     from './arbitrum'
 import Avalanche    from './avalanche'
+import Base         from './base'
 import Binance      from './binance'
 import Celo         from './celo'
 import EOS          from './eos'
@@ -18,8 +20,10 @@ import Stellar      from './stellar'
 import Xinfin       from './xinfin'
 
 
-const Chains = {
+const Chains: Record<string, any> = {
+  'Arbitrum':     Arbitrum,
   'Avalanche':    Avalanche,
+  'Base':         Base,
   'Binance':      Binance,
   'Celo':         Celo,
   'EOS':          EOS,

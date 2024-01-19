@@ -46,7 +46,7 @@ export default function TableDonationsSort(props:any){
   const columns = [
     columnHelper.accessor("created", {
       header: "Date",
-      cell: (info) => localDate(info.getValue()),
+      cell: (info) => localDate(info.getValue().toString()),
     }),
     columnHelper.accessor("initiative", {
       header: "Initiative",

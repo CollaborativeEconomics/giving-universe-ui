@@ -7,8 +7,15 @@ import { UUID } from '@/lib/utils/random'
 
 //const prisma = new PrismaClient()
 
+interface Credentials {
+  address:  string
+  chain:    string
+  chainid:  string
+  network:  string
+  currency: string
+}
 
-interface User {
+interface Users {
   id: string
   name?: string
   email?: string
@@ -20,10 +27,10 @@ interface User {
   currency?: string
 }
 
-async function getUserByCredentials(credentials){
+async function getUserByCredentials(credentials:Credentials){
   console.log('CREDS', credentials)
   try {
-    let user = await getUserByWallet(credentials.address)
+    let user = await getUserByWallet(credentials?.address||'')
     console.log('USER', user)
     if(!user || user?.error){
       const uuid = UUID()
@@ -37,12 +44,12 @@ async function getUserByCredentials(credentials){
         emailVerified: false,
         image:         '',
         inactive:      false,
-        wallet:        credentials.address,
+        wallet:        credentials?.address||'',
         wallets: {
           create: [
             {
-              chain: credentials.chain,
-              address: credentials.address
+              chain: credentials?.chain||'',
+              address: credentials?.address||''
             }
           ]
         }
@@ -58,11 +65,11 @@ async function getUserByCredentials(credentials){
       name:     user?.name  || 'Anonymous',
       email:    user?.email || 'test@example.com',
       image:    user?.image || '/media/nopic.png',
-      address:  credentials.address,
-      chain:    credentials.chain,
-      chainid:  credentials.chainid,
-      network:  credentials.network,
-      currency: credentials.currency
+      address:  credentials?.address||'',
+      chain:    credentials?.chain||'',
+      chainid:  credentials?.chainid||'',
+      network:  credentials?.network||'',
+      currency: credentials?.currency||''
     }
     return info
   } catch(ex) {
@@ -85,7 +92,7 @@ const providers = [
     id: 'Arbitrum',
     name: 'Arbitrum - Metamask',
     credentials,
-    authorize: async (credentials):Promise<User> => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-Arbitrum', credentials)
         const user = await getUserByCredentials(credentials)
@@ -100,7 +107,7 @@ const providers = [
     id: 'Avalanche',
     name: 'Avalanche - Metamask',
     credentials,
-    authorize: async (credentials):Promise<User> => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-Avalanche', credentials)
         const user = await getUserByCredentials(credentials)
@@ -114,7 +121,7 @@ const providers = [
     id: 'Base',
     name: 'Base - Metamask',
     credentials,
-    authorize: async (credentials):Promise<User> => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-Base', credentials)
         const user = await getUserByCredentials(credentials)
@@ -128,7 +135,7 @@ const providers = [
     id: 'Binance',
     name: 'Binance - Metamask',
     credentials,
-    authorize: async (credentials):Promise<User> => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-Binance', credentials)
         const user = await getUserByCredentials(credentials)
@@ -142,7 +149,7 @@ const providers = [
     id: 'Celo',
     name: 'Celo - Metamask',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-Celo', credentials)
         const user = await getUserByCredentials(credentials)
@@ -156,7 +163,7 @@ const providers = [
     id: 'EOS',
     name: 'EOS - Metamask',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-EOS', credentials)
         const user = await getUserByCredentials(credentials)
@@ -170,7 +177,7 @@ const providers = [
     id: 'Ethereum',
     name: 'Ethereum - Metamask',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-Ethereum', credentials)
         const user = await getUserByCredentials(credentials)
@@ -184,7 +191,7 @@ const providers = [
     id: 'EthereumUSDC',
     name: 'Ethereum (USDC) - Metamask',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-EthereumUSDC', credentials)
         const user = await getUserByCredentials(credentials)
@@ -198,7 +205,7 @@ const providers = [
     id: 'EthereumUSDT',
     name: 'Ethereum (USDT)- Metamask',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-EthereumUSDT', credentials)
         const user = await getUserByCredentials(credentials)
@@ -212,7 +219,7 @@ const providers = [
     id: 'Filecoin',
     name: 'Filecoin - Metamask',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-Filecoin', credentials)
         const user = await getUserByCredentials(credentials)
@@ -226,7 +233,7 @@ const providers = [
     id: 'Flare',
     name: 'Flare - Metamask',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-Flare', credentials)
         const user = await getUserByCredentials(credentials)
@@ -240,7 +247,7 @@ const providers = [
     id: 'Optimism',
     name: 'Optimism - Metamask',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-Optimism', credentials)
         const user = await getUserByCredentials(credentials)
@@ -254,7 +261,7 @@ const providers = [
     id: 'Polygon',
     name: 'Polygon - Metamask',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-Polygon', credentials)
         const user = await getUserByCredentials(credentials)
@@ -268,7 +275,7 @@ const providers = [
     id: 'PublicGoods',
     name: 'PublicGoods - Metamask',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-PublicGoods', credentials)
         const user = await getUserByCredentials(credentials)
@@ -282,7 +289,7 @@ const providers = [
     id: 'Stellar',
     name: 'Stellar - Lobstr',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-Stellar', credentials)
         const user = await getUserByCredentials(credentials)
@@ -296,7 +303,7 @@ const providers = [
     id: 'XRPL',
     name: 'XRPL - Xumm',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-XRPL', credentials)
         const user = await getUserByCredentials(credentials)
@@ -310,7 +317,7 @@ const providers = [
     id: 'XinFin',
     name: 'XinFin - Metamask',
     credentials,
-    authorize: async (credentials) => {
+    authorize: async (credentials:any) => {
       try {
         console.log('-XinFin', credentials)
         const user = await getUserByCredentials(credentials)
@@ -326,7 +333,7 @@ const providers = [
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 // https://next-auth.js.org/configuration/providers/oauth
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   //adapter: PrismaAdapter(prisma),
   //adapter: MyAdapter(),
   pages: {
@@ -372,6 +379,7 @@ export const authOptions: NextAuthOptions = {
       session.chainid    = (token?.chainid  as string) || ''
       session.network    = (token?.network  as string) || ''
       session.currency   = (token?.currency as string) || ''
+      if(!session?.user) { session.user = {} }
       session.user.name  = (token?.name     as string) || ''
       session.user.email = (token?.email    as string) || ''
       session.user.image = (token?.picture  as string) || ''

@@ -13,7 +13,7 @@ interface OverlayProps extends InstructionImageProps {
 function OverlayHandler(props: OverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
   const [opacity, setOpacity] = useState(0)
-  console.log('in overlay handler')
+  //console.log('in overlay handler')
 
   // Intersection Observer to detect when overlay is visible
   useEffect(() => {
@@ -53,14 +53,14 @@ function OverlayHandler(props: OverlayProps) {
           newOpacity = 2 - newOpacity
         }
         setOpacity(newOpacity)
-        console.log(opacity)
+        //console.log(opacity)
       }
 
       setOpacity(newOpacity)
     }
   }
 
-  console.log(opacity)
+  //console.log(opacity)
   return (
     <div ref={overlayRef} style={{ opacity }} className={props.className}>
       <InstructionPaneSectionOverlay className={props.sourceProperty} />

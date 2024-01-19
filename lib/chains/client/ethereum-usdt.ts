@@ -1,4 +1,5 @@
 import Wallet from '@/lib/wallets/metamask'
+import { WalletProvider } from '@/types/common'
 
 type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
@@ -7,9 +8,9 @@ class EthereumUSDTSDK{
   chain    = 'EthereumUSDT'
   symbol   = 'USDT'
   logo     = 'usdt.png'
-  contract = process.env.NEXT_PUBLIC_ETHEREUM_USDT_TOKEN_CONTRACT
-  network  = process.env.NEXT_PUBLIC_ETHEREUM_NETWORK
-  provider = null
+  contract = process.env.NEXT_PUBLIC_ETHEREUM_USDT_TOKEN_CONTRACT || ''
+  network  = process.env.NEXT_PUBLIC_ETHEREUM_NETWORK || ''
+  provider:WalletProvider
   mainnet  = {
     id: 1,
     name: 'Ethereum Mainnet',
@@ -30,14 +31,14 @@ class EthereumUSDTSDK{
     rpcurl: 'https://ethereum-goerli.publicnode.com',
     wssurl: ''
   }
-  wallet = null
+  wallet:Wallet
 
   constructor(){
     this.provider = this.network=='mainnet' ? this.mainnet : this.testnet
     this.wallet = new Wallet(this.provider)
   }
 
-  toWei(num){
+  toWei(num:number){
     const sats = 10**this.provider.decimals
     return num / sats
   }
@@ -62,7 +63,7 @@ class EthereumUSDTSDK{
     }
   }
 
-  async sendPayment(address, amount, destinTag, callback){
+  async sendPayment(address:string, amount:string, destinTag:string, callback:any){
     console.log(this.chain, 'Sending payment...')
     this.connect(async (data) => {
       console.log('Pay token', data)
@@ -72,7 +73,7 @@ class EthereumUSDTSDK{
     })
   }
 
-  async sendToken(address, amount, token, contract, destinTag, callback){
+  async sendToken(address:string, amount:string, token:string, contract:string, destinTag:string, callback:any){
     console.log(this.chain, 'Sending token...')
     this.connect(async (data) => {
       console.log('Pay connect', data)
@@ -86,7 +87,7 @@ class EthereumUSDTSDK{
     console.log('Not implemented on the client')
   }
 
-  async getTransactionInfo(txid){
+  async getTransactionInfo(txid:string){
     console.log('Get tx info by txid', txid)
     const info = await this.wallet.getTransactionInfo(txid)
     return info

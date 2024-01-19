@@ -18,7 +18,8 @@ export default function ShareModal() {
   const [open, setOpen] = useState(false)
 
   function copyToClipboard(){
-    var copyText = document.getElementById('copyurl')
+    var copyText = document.getElementById('copyurl') as HTMLInputElement
+    if(!copyText){ return }
     copyText.select()
     copyText.setSelectionRange(0, 99999)
     navigator.clipboard.writeText(copyText.value)
