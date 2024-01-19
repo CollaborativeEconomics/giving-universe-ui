@@ -7,7 +7,7 @@ import { Separator } from './ui/separator'
 import { DateDisplay } from './ui/date-posted'
 import { Button } from './ui/button'
 import { OrgStats } from './ui/org-stats'
-import { OrganizationAvatar } from './OrganizationAvatar'
+import OrganizationAvatar from './OrganizationAvatar'
 
 const dummyImgSrc: string =
   'https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75'
@@ -48,7 +48,7 @@ export default function OrganizationCard({ ...props }) {
         <Separator />
         <div className="px-6 pt-3">
           <OrgStats
-            orgStatProps={{
+            stats={{
               amountTarget: item?.goal || 0,
               amountRaised: item.donations,
               raisedThisMonth: item.lastmonth,
