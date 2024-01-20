@@ -5,6 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class PolygonSDK{
+  enabled  = true
   chain    = 'Polygon'
   symbol   = 'MATIC'
   logo     = 'matic.png'

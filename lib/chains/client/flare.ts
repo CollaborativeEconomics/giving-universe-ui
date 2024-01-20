@@ -5,6 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class FlareSDK{
+  enabled  = true
   chain    = 'Flare'
   symbol   = 'FLR'
   logo     = 'flr.png'

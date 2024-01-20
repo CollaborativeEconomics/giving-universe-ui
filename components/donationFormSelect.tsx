@@ -8,15 +8,18 @@ import {
   SelectItem,
 } from './ui/select'
 
+interface SelectOption {
+  value: string;
+  image: string;
+  symbol?: string,
+  enabled?: boolean
+}
+
 export interface SelectInputProps extends InputProps {
   className?: string
-  currentOption: { value: string; image: string; symbol?: string }
+  currentOption: SelectOption
   handleChange: any
-  options: {
-    value: string
-    image: string
-    symbol?: string
-  }[]
+  options: SelectOption[]
   placeHolderText: string
 }
 
@@ -42,10 +45,10 @@ const DonationFormSelect = React.forwardRef<HTMLInputElement, SelectInputProps>(
             placeholder={placeHolderText}
           />
         </SelectTrigger>
-
+        
         <SelectContent className="bg-white">
           {options.map((option) => {
-            //console.log(option)
+            if(!option?.enabled){ return }
             return (
               <SelectItem
                 className="bg-white text-black"
@@ -53,7 +56,8 @@ const DonationFormSelect = React.forwardRef<HTMLInputElement, SelectInputProps>(
                 key={option.value}
               >
                 <div className="flex flex-row gap-3">
-                  <img src={option.image} width="30px" />
+                  {/* TODO: FIX: IMAGE NOT FOUND IS CAUSING MULTIPLE PAGE RELOADS WITH COIN ID AS INIT ID */}
+                  <img src={'/coins/'+option.image} width="30px" />
                   <div className="my-auto">{option.value}</div>
                 </div>
               </SelectItem>
@@ -64,7 +68,7 @@ const DonationFormSelect = React.forwardRef<HTMLInputElement, SelectInputProps>(
     )
   }
 )
-DonationFormSelect.displayName = 'select'
+//DonationFormSelect.displayName = 'select'
 
 DonationFormSelect.displayName = 'DonationFormSelect'
 

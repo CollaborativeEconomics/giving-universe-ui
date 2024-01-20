@@ -5,6 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class BaseSDK{
+  enabled  = true
   chain    = 'Base'
   symbol   = 'BASE'
   logo     = 'base.png'

@@ -5,9 +5,10 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class ArbitrumSDK{
+  enabled  = true
   chain    = 'Arbitrum'
   symbol   = 'ARB'
-  logo     = 'arbitrum.png'
+  logo     = 'arb.png'
   network  = process.env.NEXT_PUBLIC_ARBITRUM_NETWORK || ''
   provider:WalletProvider
   mainnet  = {

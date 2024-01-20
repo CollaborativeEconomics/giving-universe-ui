@@ -6,6 +6,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class StellarClass{
+  enabled  = true
   chain    = 'Stellar'
   symbol   = 'XLM'
   logo     = 'xlm.png'

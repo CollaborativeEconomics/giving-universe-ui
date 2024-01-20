@@ -5,6 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class OptimismSDK{
+  enabled  = true
   chain    = 'Optimism'
   symbol   = 'OP'
   logo     = 'op.png'

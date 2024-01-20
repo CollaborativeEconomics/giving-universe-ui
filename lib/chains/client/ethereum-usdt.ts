@@ -5,6 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class EthereumUSDTSDK{
+  enabled  = false
   chain    = 'EthereumUSDT'
   symbol   = 'USDT'
   logo     = 'usdt.png'

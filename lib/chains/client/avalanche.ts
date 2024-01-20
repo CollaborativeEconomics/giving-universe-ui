@@ -5,6 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class AvalancheSDK{
+  enabled  = true
   chain    = 'Avalanche'
   symbol   = 'AVAX'
   logo     = 'avax.png'

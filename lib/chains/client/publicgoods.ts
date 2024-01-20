@@ -5,6 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class PublicGoodsSDK{
+  enabled  = false
   chain    = 'PublicGoods'
   symbol   = 'PGN'
   logo     = 'pgn.png'

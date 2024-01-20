@@ -5,6 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class FilecoinSDK{
+  enabled  = false
   chain    = 'Filecoin'
   symbol   = 'FIL'
   logo     = 'fil.png'

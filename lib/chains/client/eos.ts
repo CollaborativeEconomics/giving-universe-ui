@@ -5,6 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class EOSSDK{
+  enabled  = false
   chain    = 'EOS'
   symbol   = 'EOS'
   logo     = 'eos.png'

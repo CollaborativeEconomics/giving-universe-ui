@@ -2,8 +2,8 @@
 
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import Chains from '@/lib/chains/client/apis'
-import { Dictionary, getChainWallets } from '@/lib/chains/utils'
+//import Chains from '@/lib/chains/client/apis'
+import { Dictionary, getChainWallets, getChainsList, getChainsMap } from '@/lib/chains/utils'
 import { useRef, useState } from 'react'
 import { InputWithContent } from './ui/input-with-content'
 import { Switch } from './ui/switch'
@@ -14,22 +14,27 @@ import { Separator } from './ui/separator'
 import { Label } from './ui/label'
 
 export default function NFTReceipt({ ...props }) {
-  let chainLookup: Dictionary = {}
-  const chains = Object.values(Chains).map((chain) => {
-    chainLookup[chain.chain] = { image: chain.logo, symbol: chain.symbol }
-    return {
-      value: chain.chain,
-      image: chain.logo || '/test.png',
-      symbol: chain.symbol,
-    }
-  })
+  const chains = getChainsList()
+  const chainLookup = getChainsMap()
+  const chainWallets = getChainWallets(chains[0].symbol)
+  //let chainLookup: Dictionary = {}
+  //const chains = Object.values(Chains).map((chain) => {
+  //  chainLookup[chain.chain] = { image: chain.logo, symbol: chain.symbol }
+  //  return {
+  //    value: chain.chain,
+  //    image: chain.logo || '/test.png',
+  //    symbol: chain.symbol,
+  //  }
+  //})
+  //console.log({chains})
+  //console.log({chainLookup})
 
   const [showUSD, toggleShowUSD] = useState(false)
   const [currentChain, setCurrentChain] = useState(chains[0].value)
-  const [wallets, setWallets] = useState(getChainWallets(chains[0].symbol))
+  const [wallets, setWallets] = useState(chainWallets)
   const [currentWallet, setCurrentWallet] = useState(wallets[0])
   const amountInputRef = useRef(null)
-
+//console.log({wallets})
   return (
     <div className="flex min-h-full w-full">
       <Card className="py-6 w-full">
@@ -43,8 +48,10 @@ export default function NFTReceipt({ ...props }) {
             options={chains}
             currentOption={currentChain.symbol}
             handleChange={(chain: string) => {
+              const chainSymbol = Object.keys(chainLookup).length>0 ? chainLookup[chain].symbol : ''
+              const listWallets = getChainWallets(chainSymbol)
               setCurrentChain(chain)
-              setWallets(getChainWallets(chainLookup[chain].symbol))
+              setWallets(listWallets)
             }}
             placeHolderText="...select a cryptocurrency"
           />

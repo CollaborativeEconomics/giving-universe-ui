@@ -5,6 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class BinanceSDK{
+  enabled  = false
   chain    = 'Binance'
   symbol   = 'BNB'
   logo     = 'bnb.png'

@@ -5,6 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class XinfinSDK{
+  enabled  = true
   chain    = 'XinFin'
   symbol   = 'XDC'
   logo     = 'xdc.png'

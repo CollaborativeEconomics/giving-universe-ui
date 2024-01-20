@@ -16,6 +16,7 @@ const secret = process.env.XUMM_API_SECRET || ''
 //console.log('XUMM', apikey, secret)
 
 class RippleSDK{
+  enabled  = true
   chain    = 'XRPL'
   symbol   = 'XRP'
   logo     = 'xrp.png'
