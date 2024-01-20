@@ -38,8 +38,14 @@ export default function StoryPage(props:any) {
             <Link href={'/organizations/'+story.organization.id}><OrganizationAvatar name={story.organization.name} image={story.organization.image} /></Link>
           </div>
           <div className="flex flex-col items-center">
-            <h1 className="text-sm">{story.initiative.category.title}</h1>
-            <Image src={story.initiative.category.image} width={96} height={96} alt="Category" />
+            {story.initiative.category ?
+              <>
+                <h1 className="text-sm">{story.initiative.category?.title}</h1>
+                <Image src={story.initiative.category?.image} width={96} height={96} alt="Category" />
+              </>
+            :
+              <></>
+            }
           </div>
         </div>
       </CardContent>
