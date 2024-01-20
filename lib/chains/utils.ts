@@ -75,11 +75,11 @@ export function getChainNetwork(chain:string){
 }
 
 const wallets: Dictionary = {
-  coinbase:  { value: 'Coinbase',  image: '/wallets/coinbase.png', enabled: true },
+  coinbase:  { value: 'Coinbase',  image: '/wallets/coinbase.png',  enabled: true },
   freighter: { value: 'Freighter', image: '/wallets/freighter.png', enabled: true },
-  lobstr:    { value: 'Lobstr',    image: '/wallets/lobstr.png', enabled: false },
-  metamask:  { value: 'Metamask',  image: '/walets/metamask.png', enabled: true },
-  xumm:      { value: 'Xumm',      image: '/wallets/xumm.png', enabled: true },
+  lobstr:    { value: 'Lobstr',    image: '/wallets/lobstr.png',    enabled: false },
+  metamask:  { value: 'Metamask',  image: '/wallets/metamask.png',  enabled: true },
+  xumm:      { value: 'Xumm',      image: '/wallets/xumm.png',      enabled: true },
 }
 
 const chainWallets: Dictionary = {
@@ -109,7 +109,7 @@ export function getChainsList(){
     return {
       value:   chain?.chain,
       symbol:  chain?.symbol  || '???',
-      image:   chain?.logo    || '/chains/none.png',
+      image:   '/coins/' + (chain?.logo || 'none.png'),
       enabled: chain?.enabled || false
     }
   })
@@ -140,7 +140,7 @@ export function getChainsMap(){
   Object.values(Chains).map((chain) => {
     chains[chain.chain] = {
       symbol:  chain?.symbol  || '???',
-      image:   chain?.logo    || '/chains/none.png',
+      image:   '/coins/' + (chain?.logo || 'none.png'),
       enabled: chain?.enabled || false
     }
   })

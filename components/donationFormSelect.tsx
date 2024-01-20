@@ -57,7 +57,7 @@ const DonationFormSelect = React.forwardRef<HTMLInputElement, SelectInputProps>(
               >
                 <div className="flex flex-row gap-3">
                   {/* TODO: FIX: IMAGE NOT FOUND IS CAUSING MULTIPLE PAGE RELOADS WITH COIN ID AS INIT ID */}
-                  <img src={'/coins/'+option.image} width="30px" />
+                  <img src={option.image} width="30px" />
                   <div className="my-auto">{option.value}</div>
                 </div>
               </SelectItem>
