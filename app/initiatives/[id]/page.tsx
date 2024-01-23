@@ -126,7 +126,7 @@ export default async function Home(props: any) {
   const stories = initiative?.stories
   const initiatives = await getInitiativesByOrganization(organization.id)
   //console.log('ORGANIZATION', organization)
-  console.log('STORIES', stories.length, stories[0])
+  //console.log('STORIES', stories.length, stories[0])
   //console.log('INITIATIVES', initiatives)
 
   return (
