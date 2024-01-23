@@ -91,7 +91,7 @@ export default async function Home(props: any) {
             <div className="flex flex-col gap-5 md:w-4/6">
               <p className="text-3xl font-semibold">Stories</p>
               {stories.map((story:any)=>{
-                return <StoryCard key={story.id} story={story} organization={organization} />
+                return <StoryCard key={story.id} story={story} />
               })}
             </div>
           </div>

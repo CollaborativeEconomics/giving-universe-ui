@@ -4,21 +4,26 @@ import { Card, CardContent, CardHeader } from './ui/card'
 import { DateDisplay } from './ui/date-posted'
 import Gallery from './ui/gallery'
 
-export default function StoryCard({ ...props }) {
-  const story = props?.story || {}
-  const organization = props?.organization || {}
+export default function StoryCard(props:any) {
+  const story = props?.story
+  if(!story){ return }
+  const organization = story.organization
+  const initiative = story.initiative
+  const media = story.media.map((it:any)=>it.media) // flatten list
+  media.unshift(story.image) // main image to the top
+  //console.log(media)
   return (
     <Card className="flex flex-col overflow-hidden">
       <CardHeader>
-        <OrganizationAvatar name={organization.name} image={organization.image} avatarProps={{ title: organization.name }} />
+        <OrganizationAvatar name={organization?.name} image={organization?.image} avatarProps={{ title: organization?.name }} />
         <p className="text-sm font-semibold">
-          in <span className="underline"><a href={story.address}>{story.name}</a></span>
+          in <span className="underline"><a href={'/initiatives/'+initiative?.id}>{initiative?.title}</a></span>
         </p>
         <DateDisplay timestamp={story.created} className="py-4" />
       </CardHeader>
       <div className="px-2 -mt-2">
         <Link href={'/stories/'+story.id}>
-          <Gallery images={[story.image]} />
+          <Gallery images={media} />
         </Link>
       </div>
       <CardContent className="flex flex-col pb-8 pt-3 gap-3 px-0">
