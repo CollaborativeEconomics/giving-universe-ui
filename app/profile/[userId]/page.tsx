@@ -109,10 +109,10 @@ export default async function Profile(props: any) {
           {/* Stories */}
           <h1 className="text-2xl font-medium">Recent Stories</h1>
           <div className="">
-            {stories.map((item:any)=>{
+            {stories.map((story:any)=>{
               return (
-                <div className="my-4" key={item.id}>
-                  <StoryCardCompactVert />
+                <div className="my-4" key={story.id}>
+                  <StoryCardCompactVert story={story} />
                 </div>
               )
             })}
