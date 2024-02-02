@@ -8,12 +8,11 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import InitiativeCardCompactShort from '../initiativeCardCompactShort'
 
-export default function ImpactCarousel() {
+export default function ImpactCarousel(props:any) {
+  const initiatives = props.initiatives
   const innerWidth = typeof window !== "undefined" ? window.innerWidth : 1366
   const [screenWidth, setScreenWidth] = useState(innerWidth)
-  const setDimension = () => {
-    setScreenWidth(innerWidth)
-  }
+  const setDimension = () => { setScreenWidth(innerWidth) }
 
   useEffect(() => {
     if(typeof window !== "undefined"){
@@ -31,44 +30,22 @@ export default function ImpactCarousel() {
       <Swiper
         slidesPerView={slideCount}
         spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
+        pagination={{ clickable: true }}
         className="impactCarousel"
         centeredSlides={true}
         navigation={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
+        autoplay={{ delay: 2500, disableOnInteraction: false }}
         modules={[Autoplay, Pagination, Navigation]}
         speed={800}
         loop
       >
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
+      { initiatives.map((initiative:any) => {
+        return (
+          <SwiperSlide key={initiative.id}>
+            <InitiativeCardCompactShort initiative={initiative} />
+          </SwiperSlide>
+        )
+      }) }
       </Swiper>
     </div>
   )
