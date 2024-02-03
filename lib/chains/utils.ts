@@ -15,7 +15,6 @@ export function getChainName(currency:string){
     'flr':   'Flare',
     'matic': 'Polygon',
     'op':    'Optimism',
-    'pgn':   'PublicGoods',
     'usdc':  'EthereumUSDC',
     'usdt':  'EthereumUSDT',
     'xdc':   'XinFin',
@@ -65,7 +64,6 @@ export function getChainNetwork(chain:string){
     'Flare':        process.env.NEXT_PUBLIC_FLARE_NETWORK,
     'Optimism':     process.env.NEXT_PUBLIC_OPTIMISM_NETWORK,
     'Polygon':      process.env.NEXT_PUBLIC_POLYGON_NETWORK,
-    'PublicGoods':  process.env.NEXT_PUBLIC_PUBLICGOODS_NETWORK,
     'Stellar':      process.env.NEXT_PUBLIC_STELLAR_NETWORK,
     'XinFin':       process.env.NEXT_PUBLIC_XINFIN_NETWORK,
     'XRPL':         process.env.NEXT_PUBLIC_XRPL_NETWORK
@@ -128,7 +126,6 @@ export function getChainsList(){
   //  { value: 'Flare', image: 'flr.png', symbol: 'FLR' },
   //  { value: 'Optimism', image: 'op.png', symbol: 'OP' },
   //  { value: 'Polygon', image: 'matic.png', symbol: 'MATIC' },
-  //  { value: 'PublicGoods', image: 'pgn.png', symbol: 'PGN' },
   //  { value: 'Stellar', image: 'xlm.png', symbol: 'XLM' },
   //  { value: 'XinFin', image: 'xdc.png', symbol: 'XDC' },
   //  { value: 'XRPL', image: 'xrp.png', symbol: 'XRP' }
@@ -160,12 +157,9 @@ export function getChainsMap(){
   //  Flare: { image: 'flr.png', symbol: 'FLR' },
   //  Optimism: { image: 'op.png', symbol: 'OP' },
   //  Polygon: { image: 'matic.png', symbol: 'MATIC' },
-  //  PublicGoods: { image: 'pgn.png', symbol: 'PGN' },
   //  Stellar: { image: 'xlm.png', symbol: 'XLM' },
   //  XinFin: { image: 'xdc.png', symbol: 'XDC' },
   //  XRPL: { image: 'xrp.png', symbol: 'XRP' }
   //}
 
 }
-
-//export type { Dictionary }

@@ -56,7 +56,6 @@ export default async function Signin(props: any) {
             <ButtonChain text="EOS"          icon="eos.png"         />
             <ButtonChain text="Ethereum"     icon="ethereum.png"    />
             <ButtonChain text="Filecoin"     icon="filecoin.png"    />
-            <ButtonChain text="Public Goods" icon="publicgoods.png" />
             <ButtonChain text="Starknet"     icon="starknet.png"    />
             <ButtonChain text="USDC"         icon="usdc.png"        />
             <ButtonChain text="USDT"         icon="usdt.png"        />
