@@ -272,20 +272,6 @@ const providers = [
     },
   }),
   CredentialsProvider({
-    id: 'PublicGoods',
-    name: 'PublicGoods - Metamask',
-    credentials,
-    authorize: async (credentials:any) => {
-      try {
-        console.log('-PublicGoods', credentials)
-        const user = await getUserByCredentials(credentials)
-        return user
-      } catch (e) {
-        return null
-      }
-    },
-  }),
-  CredentialsProvider({
     id: 'Stellar',
     name: 'Stellar - Lobstr',
     credentials,

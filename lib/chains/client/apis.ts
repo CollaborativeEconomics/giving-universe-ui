@@ -14,7 +14,6 @@ import Filecoin     from './filecoin'
 import Flare        from './flare'
 import Optimism     from './optimism'
 import Polygon      from './polygon'
-import PublicGoods  from './publicgoods'
 import Ripple       from './ripple'
 import Stellar      from './stellar'
 import Xinfin       from './xinfin'
@@ -34,7 +33,6 @@ const Chains: Record<string, any> = {
   'Flare':        Flare,
   'Optimism':     Optimism,
   'Polygon':      Polygon,
-  'PublicGoods':  PublicGoods,
   'Stellar':      Stellar,
   'XinFin':       Xinfin,
   'XRPL':         Ripple
