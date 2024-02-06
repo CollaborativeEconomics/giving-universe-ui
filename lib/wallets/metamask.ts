@@ -323,7 +323,7 @@ export default class Wallet {
     try {
       const result = await this.metamask.request({method,params})
       console.log('TXID:', result)
-      return {success:true, txid:result}
+      return {success:true, txid:result, address:this.myaccount}
     } catch(ex:any) {
       console.error(ex)
       return {success:false, error:ex.message}
@@ -358,7 +358,7 @@ export default class Wallet {
     try {
       const result = await this.metamask.request({method,params})
       console.log('TXID', result)
-      return {success:true, txid:result}
+      return {success:true, txid:result, address:this.myaccount}
     } catch(ex:any) {
       console.error(ex)
       return {success:false, error:ex.message}

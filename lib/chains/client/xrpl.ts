@@ -3,7 +3,7 @@ import { WalletProvider } from '@/types/common'
 import { Xumm } from 'xumm'
 import type { ResolvedFlow } from 'xumm-oauth2-pkce'
 import type { XummJsonTransaction, XummPostPayloadBodyJson, PayloadAndSubscription } from 'xumm-sdk/dist/src/types'
-import { findOffer, findToken } from '@/lib/chains/ripple-utils'
+import { findOffer, findToken } from '@/lib/chains/xrpl-utils'
 
 
 type Dictionary = { [key:string]:any }
@@ -286,6 +286,6 @@ class RippleSDK{
   }
 }
 
-const Ripple = new RippleSDK()
+const XRPL = new RippleSDK()
 
-export default Ripple
+export default XRPL

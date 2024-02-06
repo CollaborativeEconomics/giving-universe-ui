@@ -1,30 +1,36 @@
 // SERVER LIBS
+import Arbitrum     from './arbitrum'
 import Avalanche   from './avalanche'
-import Binance     from './binance'
+import Base         from './base'
+//import Binance     from './binance'
 import Celo        from './celo'
-import EOS         from './eos'
-import Ethereum    from './ethereum'
-import Filecoin    from './filecoin'
+//import EOS         from './eos'
+//import Ethereum    from './ethereum'
+//import Filecoin    from './filecoin'
 import Flare       from './flare'
 import Optimism    from './optimism'
 import Polygon     from './polygon'
-import Ripple      from './ripple'
 import Stellar     from './stellar'
-import Xinfin      from './xinfin'
+import XinFin      from './xinfin'
+import XRPL        from './xrpl'
 
-const Chains = {
+type Dictionary = { [key:string]:any }
+
+const Chains:Dictionary = {
+  'Arbitrum':    Arbitrum,
   'Avalanche':   Avalanche,
-  'Binance':     Binance,
+  'Base':        Base,
+//  'Binance':     Binance,
   'Celo':        Celo,
-  'EOS':         EOS,
-  'Ethereum':    Ethereum,
-  'Filecoin':    Filecoin,
+//  'EOS':         EOS,
+//  'Ethereum':    Ethereum,
+//  'Filecoin':    Filecoin,
   'Flare':       Flare,
   'Optimism':    Optimism,
   'Polygon':     Polygon,
   'Stellar':     Stellar,
-  'XinFin':      Xinfin,
-  'XRPL':        Ripple
+  'XinFin':      XinFin,
+  'XRPL':        XRPL
 }
 
 export default Chains

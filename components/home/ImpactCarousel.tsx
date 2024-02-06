@@ -6,7 +6,7 @@ import { Pagination, Navigation, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
-import InitiativeCardCompactShort from '../initiativeCardCompactShort'
+import InitiativeCardCompactShort from '../InitiativeCardCompactShort'
 
 export default function ImpactCarousel(props:any) {
   const initiatives = props.initiatives

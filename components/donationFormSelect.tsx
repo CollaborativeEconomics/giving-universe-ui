@@ -17,7 +17,7 @@ interface SelectOption {
 
 export interface SelectInputProps extends InputProps {
   className?: string
-  currentOption: SelectOption
+  currentOption: string
   handleChange: any
   options: SelectOption[]
   placeHolderText: string
@@ -36,7 +36,7 @@ const DonationFormSelect = React.forwardRef<HTMLInputElement, SelectInputProps>(
     ref
   ) => {
     return (
-      <Select onValueChange={handleChange}>
+      <Select onValueChange={handleChange} defaultValue={currentOption}>
         <SelectTrigger
           className={`h-10 text-lg w-full rounded-full border border-2 border-slate-300 bg-white ring-offset-background focus-within:border-blue-700 focus-within:ring-1 ${className || ''}`}
         >
