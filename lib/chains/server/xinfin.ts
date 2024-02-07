@@ -16,7 +16,7 @@ class XinfinServer {
     name: 'Xinfin Mainnet',
     symbol: 'XDC',
     decimals: 18,
-    gasprice: '250000000',
+    gasprice: '12500000000',
     explorer: 'https://explorer.xinfin.network',
     rpcurl: 'https://rpc.xinfin.network',
     wssurl: ''
@@ -26,7 +26,7 @@ class XinfinServer {
     name: 'Xinfin Testnet',
     symbol: 'XDC',
     decimals: 18,
-    gasprice: '250000000',
+    gasprice: '12500000000',
     explorer: 'https://explorer.apothem.network',
     rpcurl: 'https://rpc.apothem.network',
     wssurl: ''
@@ -129,10 +129,12 @@ class XinfinServer {
     console.log('NONCE', nonce)
     const data = instance.methods.safeMint(address, uri).encodeABI()
     console.log('DATA', data)
-    const gasPrice = await this.fetchLedger('eth_gasPrice', [])
-    console.log('GAS', parseInt(gasPrice,16), gasPrice)
+    const gasHex = await this.fetchLedger('eth_gasPrice', [])
+    const gasPrice = parseInt(gasHex,16)
+    console.log('GAS', gasPrice, gasHex)
     const checkGas = await this.fetchLedger('eth_estimateGas', [{from:minter, to:contract, data}])
-    console.log('EST', parseInt(checkGas,16), checkGas)
+    const gasLimit = parseInt(checkGas,16)
+    console.log('EST', gasLimit, checkGas)
     const gas = { gasPrice: this.provider.gasprice, gasLimit: 275000 }
 
     const tx = {

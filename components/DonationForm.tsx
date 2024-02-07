@@ -19,6 +19,8 @@ export default function DonationForm(props:any) {
   //console.log('Props', props)
   const initiative = props.initiative
   const organization = initiative.organization
+  const callback = props.donated
+  console.log('CALLBACK', callback)
 
   function $(id:string){ return document.getElementById(id) as HTMLInputElement }
 
@@ -56,12 +58,12 @@ export default function DonationForm(props:any) {
     }
   }
 
-  async function mintNFT(chain:string, txid:string, address:string, itag:string){
-    console.log('Minting NFT in', chain, txid, itag)
+  async function mintNFT(chain:string, txid:string, address:string, itag:string, rate:number){
+    console.log('Minting NFT in', chain, txid, address, itag, rate)
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({chain, txid, itag})
+      body: JSON.stringify({chain, txid, itag, rate})
     }
     const response = await fetch('/api/nft/mint', options)
     //console.log('Minting response', response)
@@ -181,6 +183,8 @@ export default function DonationForm(props:any) {
       setMessage('Error: '+ chainName+' blockchain not implemented')
       return
     }
+    //console.log({sdk})
+    const network = sdk.network
     const destinationTag = initiative.tag
     // TODO: if amount in USD convert by coin rate
     const rate = await getRates(currency, true) // get from server, CORS sucks 
@@ -208,7 +212,41 @@ export default function DonationForm(props:any) {
       console.log('TXID', result.txid)
       console.log('ADDR', result.address)
       console.log('ORG', organization)
-      // TODO: Save donation to DB
+
+      // Save donation to DB
+      const catId = initiative.categoryId || organization.categoryId 
+      const retx = await fetch('/api/user?wallet='+result.address)
+      const resx = await retx.json()
+      const user = resx.result
+      console.log('USER', user)
+      const donation = {
+        organizationId: organization.id,
+        initiativeId:   initiative.id,
+        categoryId:     catId,
+        userId:         user?.id,
+        paytype:        'crypto',
+        chain:          chainName,
+        network:        network,
+        wallet:         result.address,
+        amount:         coinValue,
+        usdvalue:       usdValue,
+        asset:          currency,
+        status:         1
+      }
+      console.log('DONATION', donation)
+      const opt = {method:'POST', body:JSON.stringify(donation)}
+      const ret = await fetch('/api/donations', opt)
+      const res = await ret.json()
+      console.log('RES', res)
+      if(!res.success){
+       setButtonText('ERROR')
+       setDisabled(true)
+       setMessage('Error saving donation')
+       return
+      }
+      const donationId = res.data?.id
+
+      // Send receipt
       if(receipt){
         console.log('YES receipt...')
         setMessage('Sending receipt, wait a moment...')
@@ -225,10 +263,12 @@ export default function DonationForm(props:any) {
         const rec = await sendReceipt(data)
         console.log('Receipt sent', rec)
       }
+
+      // Mint NFT
       if(mintnft){
         setMessage('Minting NFT, wait a moment...')
         setTimeout(async ()=>{
-          const minted = await mintNFT(chainName, result.txid, result.address, initiative.tag)
+          const minted = await mintNFT(chainName, result.txid, result.address, initiative.tag, rate)
           if(minted?.success){
             setButtonText('DONE')
             setDisabled(true)

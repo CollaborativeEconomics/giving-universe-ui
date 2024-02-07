@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import Chains from '@/lib/chains/server/apis'
 import upload from '@/lib/utils/upload'
-import getRates from '@/lib/utils/rates'
 import { getOrganizationsByWallet, getInitiativeByTag, getUserByWallet, createNFT } from '@/lib/utils/registry'
 
 interface transactionInfo {
@@ -33,10 +32,11 @@ export async function POST(request: Request) {
 
   try {
     const body:any = await request.json()
-    const {chain, txid, itag}:{chain:string, txid:string, itag:string} = body
+    const {chain, txid, itag, rate}:{chain:string, txid:string, itag:string, rate:number} = body
     console.log('CHAIN', chain)
     console.log('TXID', txid)
     console.log('INIT', itag)
+    console.log('USD', rate)
 
     if(!chain || !txid){
       return Response.json({ error: 'Required chain and txid are missing' }, {status:500})
@@ -55,9 +55,8 @@ export async function POST(request: Request) {
     //return Response.json({ success: true, image: 'uriImage', metadata: 'uriMeta', tokenId: '123456', offerId: '123457'})
 
     // Form data
-
     const created = new Date().toJSON().replace('T', ' ').substring(0, 19)
-    const donorAddress = txInfo.account
+    const donorAddress = txInfo.account || ''
     const user = await getUserByWallet(donorAddress)
     const userId = user?.id || ''
 
@@ -99,15 +98,12 @@ export async function POST(request: Request) {
       }
     }
 
-    // Get XXX/USD rate
     const network  = Chains[chain].network
     const currency = Chains[chain].symbol
-    const usdRate  = await getRates(currency)
-    console.log(currency+'/USD', usdRate)
 
     let amount = parseFloat(txInfo.amount) || 0.0
     let amountCUR = amount.toFixed(4)
-    let amountUSD = (amount * usdRate).toFixed(4)
+    let amountUSD = (amount * rate).toFixed(4)
     let coinName = currency
     let coinIssuer = ''
 

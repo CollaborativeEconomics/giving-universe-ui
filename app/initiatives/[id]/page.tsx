@@ -45,6 +45,11 @@ export default async function Home(props: any) {
   //console.log('STORIES', stories.length, stories[0])
   //console.log('INITIATIVES', initiatives)
 
+  // TODO: USE CONTEXT <<<<<<<<
+  const setReceipt = (args:any)=>{
+    console.log('setReceipt',args)
+  }
+
   return (
     <main className="w-full bg-gradient-to-t from-slate-200 mt-12">
       <div className="relative flex flex-col px-[5%] container pt-24 w-full h-full">
