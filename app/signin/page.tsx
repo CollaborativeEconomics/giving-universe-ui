@@ -69,7 +69,7 @@ export default async function Signin(props: any) {
             <ButtonWallet text="Coinbase"    icon="coinbase.png"   href="https://chromewebstore.google.com/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad" />
             <ButtonWallet text="Freighter"   icon="freighter.png"  href="https://freighter.app" />
             <ButtonWallet text="Metamask"    icon="metamask.png"   href="https://metamask.io"   />
-            <ButtonWallet text="Xumm"        icon="xumm.png"       href="https://xumm.app"      />
+            <ButtonWallet text="Xaman"       icon="xaman.png"      href="https://xumm.app"      />
           </div>
         </div>
       </div>

@@ -19,7 +19,6 @@ export default async function Handler(props: any) {
             Blockchain-driven philanthropy <br />
             for a transparent world
           </h1>
-
           <p className="pt-4 w-[95%] md:w-[60%]">
             With the increased transparency that blockchain donations provide,
             meaningful initiatives combine with donor generosity to tell the

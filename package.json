@@ -12,6 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.507.0",
     "@contentful/rich-text-react-renderer": "^15.19.0",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
     "@radix-ui/react-avatar": "^1.0.4",
@@ -40,12 +41,14 @@
     "flowbite": "^2.2.0",
     "images": "^3.2.4",
     "lucide-react": "^0.288.0",
+    "mailgun.js": "^10.1.0",
     "next": "^14.1.0",
     "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
     "pino-pretty": "^10.2.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.50.0",
     "soroban-client": "^1.0.1",
     "stellar-sdk": "^10.4.1",
     "swiper": "^11.0.5",

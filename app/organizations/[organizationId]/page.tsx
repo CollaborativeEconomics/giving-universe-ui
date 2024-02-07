@@ -1,19 +1,20 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import StoryCard from '@/components/StoryCard';
-import InitiativeCard from '@/components/initiativeCard';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { Document } from "@contentful/rich-text-types";
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { OrgStats } from '@/components/ui/org-stats';
 import { OrgSocials } from '@/components/ui/org-socials';
+import StoryCard from '@/components/StoryCard';
+import InitiativeCard from '@/components/InitiativeCard';
 import OrganizationAvatar from '@/components/OrganizationAvatar';
 import { getOrganizationById, getStoriesByOrganization } from '@/lib/utils/registry'
 
 export default async function Home(props: any) {
   //console.log('PROPS', props)
   const orgid = props?.params?.organizationId || null
+  if(!orgid){ return }
   const organization = await getOrganizationById(orgid) || {}
   const initiatives = organization.initiative || []
   const stories = await getStoriesByOrganization(orgid) || []
@@ -80,12 +81,13 @@ export default async function Home(props: any) {
           </Tabs>
         </div>
 
-        <div className="pt-10 flex justify-center w-full">
+        <div className="mb-10 pt-10 flex justify-center w-full">
           <div className="flex flex-wrap md:flex-nowrap justify-center gap-9 lg:max-w-screen-lg">
             <div className="flex flex-col gap-5 w-full md:w-2/6 min-w-[350px]">
               <p className="text-3xl font-semibold">Initiatives</p>
-              {initiatives.map((item:any)=>{
-                return <InitiativeCard key={item.id} data={item} />
+              {initiatives.map((initiative:any)=>{
+                initiative.organization = organization
+                return <InitiativeCard key={initiative.id} data={initiative} />
               })}
             </div>
             <div className="flex flex-col gap-5 md:w-4/6">

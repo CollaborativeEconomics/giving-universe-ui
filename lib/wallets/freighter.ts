@@ -88,7 +88,7 @@ export default class Wallet {
       //console.log("status:", result.status);
       //console.log("errorResultXdr:", result.errorResultXdr)
       if(result?.successful){
-        return {success:true, result, txid}
+        return {success:true, result, txid, address:this.myaccount}
       } else {
         return {success:false, error:'Payment rejected by user', result, txid}
       }

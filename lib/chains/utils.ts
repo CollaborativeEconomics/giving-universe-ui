@@ -43,7 +43,7 @@ export function getChainWallet(currency:string){
     'usdt':  'Metamask',
     'xdc':   'Metamask',
     'xlm':   'Freighter',
-    'xrp':   'Xumm'
+    'xrp':   'Xaman'
   }
   const name = wallets[currency] || 'None'
   return name
@@ -77,7 +77,7 @@ const wallets: Dictionary = {
   freighter: { value: 'Freighter', image: '/wallets/freighter.png', enabled: true },
   lobstr:    { value: 'Lobstr',    image: '/wallets/lobstr.png',    enabled: false },
   metamask:  { value: 'Metamask',  image: '/wallets/metamask.png',  enabled: true },
-  xumm:      { value: 'Xumm',      image: '/wallets/xumm.png',      enabled: true },
+  xaman:     { value: 'Xaman',     image: '/wallets/xaman.png',     enabled: true },
 }
 
 const chainWallets: Dictionary = {
@@ -95,7 +95,7 @@ const chainWallets: Dictionary = {
   pgn:   [wallets['metamask']],
   xdc:   [wallets['metamask']],
   xlm:   [wallets['freighter']],
-  xrp:   [wallets['xumm']],
+  xrp:   [wallets['xaman']],
 }
 
 export function getChainWallets(chain: string) {

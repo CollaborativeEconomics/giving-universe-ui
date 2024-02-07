@@ -1,34 +1,33 @@
 import Web3 from 'web3'
 import { WalletProvider } from '@/types/common'
-import Abi721  from '@/lib/chains/contracts/erc721-abi.json'
-import Abi1155 from '@/lib/chains/contracts/erc1155-abi.json'
+import Abi721 from '@/lib/chains/contracts/erc721-abi.json'
 
 type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
-class XinfinServer {
-  chain    = 'XinFin'
-  symbol   = 'XDC'
-  network  = process.env.NEXT_PUBLIC_XINFIN_NETWORK
+class BaseServer {
+  chain    = 'Base'
+  symbol   = 'BASE'
+  network  = process.env.NEXT_PUBLIC_BASE_NETWORK
   provider:WalletProvider
   mainnet  = {
-    id: 50,
-    name: 'Xinfin Mainnet',
-    symbol: 'XDC',
+    id: 8453,
+    name: 'Base Mainnet',
+    symbol: 'BASE',
     decimals: 18,
-    gasprice: '12500000000',
-    explorer: 'https://explorer.xinfin.network',
-    rpcurl: 'https://rpc.xinfin.network',
+    gasprice: '250000000',
+    explorer: 'https://basescan.org',
+    rpcurl: 'https://mainnet.base.org',
     wssurl: ''
   }
   testnet = {
-    id: 51,
-    name: 'Xinfin Testnet',
-    symbol: 'XDC',
+    id: 84532,
+    name: 'Base Testnet',
+    symbol: 'BASE',
     decimals: 18,
-    gasprice: '12500000000',
-    explorer: 'https://explorer.apothem.network',
-    rpcurl: 'https://rpc.apothem.network',
+    gasprice: '250000000',
+    explorer: 'https://sepolia-explorer.base.org',
+    rpcurl: 'https://sepolia.base.org',
     wssurl: ''
   }
   web3:Web3
@@ -52,13 +51,6 @@ class XinfinServer {
     return num / wei
   }
 
-  strToBytes(str:string) {
-    if(!str){ return '' }
-    const hex = Buffer.from(str.toString(), 'utf8')
-    //const hex = '0x'+Buffer.from(str.toString(), 'utf8').toString('hex')
-    return hex
-  }
-
   strToHex(str:string) {
     if(!str){ return '' }
     return '0x'+Buffer.from(str.toString(), 'utf8').toString('hex')
@@ -67,16 +59,6 @@ class XinfinServer {
   hexToStr(hex:string, encoding:BufferEncoding='utf8') {
     if(!hex){ return '' }
     return Buffer.from(hex.substr(2), 'hex').toString(encoding)
-  }
-
-  addressToHex(adr:string){
-    if(!adr) return null
-    return '0x'+adr.substr(3)
-  }
-
-  addressToXdc(adr:string){
-    if(!adr) return null
-    return 'xdc'+adr.substr(2)
   }
 
   async fetchLedger(method:string, params:any){
@@ -96,8 +78,8 @@ class XinfinServer {
   async sendPayment(address:string, amount:string, destinTag:string, callback:any){
     console.log('BNB Sending payment...')
     const value = this.toWei(parseFloat(amount))
-    const secret = process.env.XINFIN_MINTER_WALLET_SEED || ''
-    //const source = process.env.XINFIN_MINTER_WALLET
+    const secret = process.env.BASE_MINTER_WALLET_SEED || ''
+    //const source = process.env.BASE_MINTER_WALLET
     const acct = this.web3.eth.accounts.privateKeyToAccount(secret)
     const source = acct.address
     const nonce = await this.web3.eth.getTransactionCount(source, 'latest')
@@ -118,71 +100,16 @@ class XinfinServer {
 
   async mintNFT(uri: string, address: string){
     console.log(this.chain, 'server minting NFT to', address, uri)
-    const secret   = process.env.XINFIN_MINTER_WALLET_SEED || ''
+    const secret   = process.env.BASE_MINTER_WALLET_SEED || ''
     const acct     = this.web3.eth.accounts.privateKeyToAccount(secret)
     const minter   = acct.address
-    const contract = process.env.NEXT_PUBLIC_XINFIN_MINTER_CONTRACT || ''
+    const contract = process.env.NEXT_PUBLIC_BASE_MINTER_CONTRACT || ''
     const instance = new this.web3.eth.Contract(Abi721, contract)
     const noncex   = await this.web3.eth.getTransactionCount(minter, 'latest')
     const nonce    = Number(noncex)
     console.log('MINTER', minter)
     console.log('NONCE', nonce)
     const data = instance.methods.safeMint(address, uri).encodeABI()
-    console.log('DATA', data)
-    const gasHex = await this.fetchLedger('eth_gasPrice', [])
-    const gasPrice = parseInt(gasHex,16)
-    console.log('GAS', gasPrice, gasHex)
-    const checkGas = await this.fetchLedger('eth_estimateGas', [{from:minter, to:contract, data}])
-    const gasLimit = parseInt(checkGas,16)
-    console.log('EST', gasLimit, checkGas)
-    const gas = { gasPrice: this.provider.gasprice, gasLimit: 275000 }
-
-    const tx = {
-      from: minter, // minter wallet
-      to: contract, // contract address
-      value: '0',   // this is the value in wei to send
-      data: data,   // encoded method and params
-      gas: gas.gasLimit,
-      gasPrice: gas.gasPrice,
-      nonce
-    }
-    console.log('TX', tx)
-
-    const sign = await this.web3.eth.accounts.signTransaction(tx, secret)
-    const info = await this.web3.eth.sendSignedTransaction(sign.rawTransaction)
-    console.log('INFO', info)
-    const hasLogs = info.logs.length>0
-    let tokenNum = ''
-    if(hasLogs){
-      console.log('LOGS.0', JSON.stringify(info?.logs[0].topics,null,2))
-      console.log('LOGS.1', JSON.stringify(info?.logs[1].topics,null,2))
-      tokenNum = ' #'+parseInt((info.logs[0] as any).topics[3] || '0', 16)
-    }
-    if(info.status==1){
-      const tokenId = contract+tokenNum
-      const result = {success:true, txid:info?.transactionHash, tokenId}
-      console.log('RESULT', result)
-      return result
-    }
-    return {success:false, error:'Something went wrong'}
-  }
-
-  // address is receiver, tokenid is db impact id, uri is ipfs:metadata
-  async mintNFT1155(address: string, tokenid: string, uri: string){
-    console.log(this.chain, 'server minting NFT to', address, uri)
-    const secret   = process.env.XINFIN_MINTER_WALLET_SEED || ''
-    const acct     = this.web3.eth.accounts.privateKeyToAccount(secret)
-    const minter   = acct.address
-    const contract = process.env.NEXT_PUBLIC_XINFIN_IMPACT_CONTRACT || ''
-    const instance = new this.web3.eth.Contract(Abi1155, contract)
-    const noncex   = await this.web3.eth.getTransactionCount(minter, 'latest')
-    const nonce    = Number(noncex)
-    console.log('MINTER', minter)
-    console.log('NONCE', nonce)
-    //contract.mint(address account, uint256 id, uint256 amount, bytes memory data)
-    //const bytes = Buffer.from(uri, 'utf8')
-    const bytes = this.web3.utils.toHex(uri)
-    const data = instance.methods.mint(address, tokenid, 1, bytes).encodeABI()
     console.log('DATA', data)
     const gasPrice = await this.fetchLedger('eth_gasPrice', [])
     console.log('GAS', parseInt(gasPrice,16), gasPrice)
@@ -208,16 +135,12 @@ class XinfinServer {
     let tokenNum = ''
     if(hasLogs){
       //console.log('LOGS.0', JSON.stringify(info?.logs[0].topics,null,2))
-      //console.log('LOGS.0.data', info?.logs[0].data)
-      const num = (info?.logs[0] as any).data?.substr(0,66) || ''
-      //const num = info?.logs[0].data.substr(66)
-      //const int = num.replace(/^0+/,'')
-      const txt = '0x'+BigInt(num).toString(16)
-      tokenNum = contract + ' #' + txt
-      //tokenNum = contract + ' #'+parseInt(num)
+      //console.log('LOGS.1', JSON.stringify(info?.logs[1].topics,null,2))
+      tokenNum = ' #'+parseInt((info.logs[0] as any).topics[3] || '0', 16)
     }
     if(info.status==1){
-      const result = {success:true, txid:info?.transactionHash, tokenId:tokenNum}
+      const tokenId = contract+tokenNum
+      const result = {success:true, txid:info?.transactionHash, tokenId}
       console.log('RESULT', result)
       return result
     }
@@ -230,8 +153,8 @@ class XinfinServer {
     if(!info || info?.error){ return {success:false, error:'Error fetching tx info'} }
     const result = {
       success: true,
-      account: this.addressToHex(info?.from),
-      destination: this.addressToHex(info?.to),
+      account: info?.from,
+      destination: info?.to,
       destinationTag: this.hexToStr(info?.input),
       amount: this.fromWei(info?.value)
     }
@@ -239,6 +162,6 @@ class XinfinServer {
   }
 }
 
-const Xinfin = new XinfinServer()
+const Base = new BaseServer()
 
-export default Xinfin
+export default Base

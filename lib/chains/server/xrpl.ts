@@ -1,8 +1,8 @@
 import { WalletProvider } from '@/types/common'
 import { Wallet, Client, convertStringToHex, NFTokenMintFlags, isoTimeToRippleTime, NFTokenCreateOfferFlags, NFTokenCreateOffer, Transaction, TransactionMetadata } from 'xrpl'
-import { Xumm } from 'xumm'
-import type { ResolvedFlow } from 'xumm-oauth2-pkce'
-import type { XummJsonTransaction, XummPostPayloadBodyJson, PayloadAndSubscription } from 'xumm-sdk/dist/src/types'
+//import { Xumm } from 'xumm'
+//import type { ResolvedFlow } from 'xumm-oauth2-pkce'
+//import type { XummJsonTransaction, XummPostPayloadBodyJson, PayloadAndSubscription } from 'xumm-sdk/dist/src/types'
 
 type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
@@ -307,6 +307,6 @@ class RippleServer {
 */
 }
 
-const Ripple = new RippleServer()
+const XRPL = new RippleServer()
 
-export default Ripple
+export default XRPL

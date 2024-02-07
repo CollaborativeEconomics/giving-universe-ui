@@ -125,8 +125,10 @@ export const deleteSession = (id: string) => deleteRegistry('session?token='+id)
 
 export const getLocations = () => fetchRegistry('locations')
 
+export const newDonation = (body: Dictionary) => postRegistry('donations', body)
 export const getDonations = () => fetchRegistry('donations')
 export const getDonationsByUser = (id: string) => fetchRegistry('donations?userid='+id)
+
 export const getFavoriteOrganizations = (userid: string) => fetchRegistry('donations?favs='+userid)
 export const getUserBadges = (userid: string) => fetchRegistry('donations?badges='+userid)
 

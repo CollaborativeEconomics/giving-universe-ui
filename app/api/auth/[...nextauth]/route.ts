@@ -287,7 +287,7 @@ const providers = [
   }),
   CredentialsProvider({
     id: 'XRPL',
-    name: 'XRPL - Xumm',
+    name: 'XRPL - Xaman',
     credentials,
     authorize: async (credentials:any) => {
       try {
