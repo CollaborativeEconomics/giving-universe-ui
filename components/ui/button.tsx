@@ -72,24 +72,26 @@ const ClaimButton = React.forwardRef<HTMLDivElement, ClaimButtonProps>(
 ClaimButton.displayName = 'claim-button'
 
 function createClaimButton(status: string): React.JSX.Element {
-  const claimText = <p className="text-white text-center w-full">Claim</p>
+  let claimText = 'Claim'
   //'minted' value should instead refer to enum type/property
   if (status == Status.minted) {
+    claimText = 'Minted'
     return (
       <button
         type="button"
         className="inline-flex rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold w-[200px] hover:bg-blue-500"
       >
-        {claimText}
+        <p className="text-white text-center w-full">{claimText}</p>
       </button>
     )
   } else {
+    claimText = 'Pending'
     return (
       <button
         type="button"
         className="inline-flex rounded-md bg-gray-400 px-3 py-2 text-sm font-semibold w-[200px]"
       >
-        {claimText}
+        <p className="text-slate-200 text-center w-full">{claimText}</p>
       </button>
     )
   }

@@ -1,6 +1,5 @@
 'use client'
-
-import { useRef, useState } from 'react'
+import { useRef, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Card } from './ui/card'
 import { Input } from './ui/input'
@@ -14,13 +13,13 @@ import { Separator } from './ui/separator'
 import { Dictionary, getChainWallets, getChainsList, getChainsMap } from '@/lib/chains/utils'
 import Chains from '@/lib/chains/client/apis'
 import getRates from '@/lib/utils/rates'
+import { DonationContext } from '@/components/DonationView'
 
 export default function DonationForm(props:any) {
   //console.log('Props', props)
   const initiative = props.initiative
   const organization = initiative.organization
-  const callback = props.donated
-  console.log('CALLBACK', callback)
+  const {donation, setDonation} = useContext(DonationContext)
 
   function $(id:string){ return document.getElementById(id) as HTMLInputElement }
 
@@ -68,7 +67,7 @@ export default function DonationForm(props:any) {
     const response = await fetch('/api/nft/mint', options)
     //console.log('Minting response', response)
     const result = await response.json()
-    console.log('>>>Result', result)
+    console.log('>Result', result)
     if (!result.success) {
       console.error('Error', result.error)
       setMessage('Error minting NFT')
@@ -156,7 +155,8 @@ export default function DonationForm(props:any) {
       return
     }
 
-    // TODO: Donate and mint
+
+    // Donate and mint
     //setButtonText('WAIT')
     //setDisabled(true)
     setMessage('Sending payment, wait a moment...')
@@ -264,18 +264,46 @@ export default function DonationForm(props:any) {
         console.log('Receipt sent', rec)
       }
 
+      const NFTData = {
+        status: 'Minted',
+        organization: {
+          name: organization.name,
+          address: organization.mailingAddress,
+          ein: organization.EIN
+        },
+        image: initiative.defaultAsset,
+        date: new Date(),
+        amount: coinValue,
+        ticker: currency,
+        amountFiat: usdValue,
+        fiatCurrencyCode: 'USD',
+        donor: {
+          name: name || user?.name || 'Anonymous'
+        }
+      }
+
       // Mint NFT
       if(mintnft){
         setMessage('Minting NFT, wait a moment...')
         setTimeout(async ()=>{
           const minted = await mintNFT(chainName, result.txid, result.address, initiative.tag, rate)
           if(minted?.success){
+            NFTData.status = 'Minted'
+            setDonation(NFTData)
             setButtonText('DONE')
             setDisabled(true)
             setMessage('Thank you for your donation!')
+          } else {
+            NFTData.status = 'Failed'
+            setDonation(NFTData)
+            setButtonText('ERROR')
+            setDisabled(true)
+            setMessage('Donation received, NFT failed!')
           }
         }, 2000)
       } else {
+        NFTData.status = 'Pending'
+        setDonation(NFTData)
         //setButtonText('DONE')
         //setDisabled(true)
         setMessage('Thank you for your donation!')
