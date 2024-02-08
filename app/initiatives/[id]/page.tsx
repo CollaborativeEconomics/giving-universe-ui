@@ -1,3 +1,4 @@
+import { useState, createContext } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import StoryCard from '@/components/StoryCard'
@@ -6,29 +7,11 @@ import { Document } from '@contentful/rich-text-types'
 import { Separator } from '@/components/ui/separator'
 import { getInitiativeById, getInitiativesByOrganization } from '@/lib/utils/registry'
 import OrganizationAvatar from '@/components/OrganizationAvatar'
-import NFTReceipt, { Status } from '@/components/NFTReceipt'
-import DonationForm from '@/components/DonationForm'
+import DonationView from '@/components/DonationView'
+//import DonationForm from '@/components/DonationForm'
+import { Status } from '@/components/NFTReceipt'
 import InitiativeCardCompact from '@/components/InitiativeCardCompact'
 import NotFound  from '@/components/NotFound'
-
-// TODO: Connect this data from models
-const dummyNFTReceiptProps = {
-  status: Status.failed,
-  image: 'https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75',
-  organization: {
-    name: 'Food not bombs',
-    ein: '45-5yu62340u',
-    address: '123 Fake St \nBuffalo, NZ 12345',
-  },
-  date: 1706047165000, //timestamp
-  amount: 233.6,
-  ticker: ['XRP', 'XDC'],
-  amountFiat: 112.3,
-  fiatCurrencyCode: 'USD',
-  donor: {
-    name: 'Evan Hudson',
-  },
-}
 
 export default async function Home(props: any) {
   //console.log('PROPS', props)
@@ -45,9 +28,22 @@ export default async function Home(props: any) {
   //console.log('STORIES', stories.length, stories[0])
   //console.log('INITIATIVES', initiatives)
 
-  // TODO: USE CONTEXT <<<<<<<<
-  const setReceipt = (args:any)=>{
-    console.log('setReceipt',args)
+  const receipt = {
+    status: Status.pending,
+    image: initiative.defaultAsset,
+    organization: {
+      name: organization.name,
+      ein: organization.EIN || 'n/a',
+      address: organization.mailingAddress,
+    },
+    date: new Date(),
+    amount: 0,
+    ticker: 'USD',
+    amountFiat: 0,
+    fiatCurrencyCode: 'USD',
+    donor: {
+      name: 'Anonymous',
+    },
   }
 
   return (
@@ -78,12 +74,7 @@ export default async function Home(props: any) {
             </h1>
             <div className="flex mx-[5%] pb-3 overflow-hidden h-max-[40px]">
               <span className="text-sm overflow-hidden line-clamp-6">
-              {initiative.description}
-              {/*
-                {documentToReactComponents(
-                  dummyOrganization.descriptionJsonRtf as Document
-                )}
-              */}
+                {initiative.description}
               </span>
             </div>
             {initiatives.length>1 &&
@@ -102,14 +93,7 @@ export default async function Home(props: any) {
         <Separator className='mb-6' />
 
         <div className="md:flex md:flex-col items-center">
-          <div className="flex flex-wrap lg:flex-nowrap gap-12 items-start">
-            <div className="w-full lg:w-[60%]">
-              <DonationForm initiative={initiative} />
-            </div>
-            <div className="lg:w-[40%]">
-              <NFTReceipt data={dummyNFTReceiptProps} />
-            </div>
-          </div>
+          <DonationView initiative={initiative} receipt={receipt} />
         </div>
 
         <div className="mb-10 pt-10 flex justify-center w-full">
