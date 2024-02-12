@@ -6,14 +6,14 @@ import Abi1155 from '@/lib/chains/contracts/erc1155-abi.json'
 type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
-class XinfinServer {
-  chain    = 'XinFin'
+class XDCServer {
+  chain    = 'XDC'
   symbol   = 'XDC'
-  network  = process.env.NEXT_PUBLIC_XINFIN_NETWORK
+  network  = process.env.NEXT_PUBLIC_XDC_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 50,
-    name: 'Xinfin Mainnet',
+    name: 'XDC Mainnet',
     symbol: 'XDC',
     decimals: 18,
     gasprice: '12500000000',
@@ -23,7 +23,7 @@ class XinfinServer {
   }
   testnet = {
     id: 51,
-    name: 'Xinfin Testnet',
+    name: 'XDC Testnet',
     symbol: 'XDC',
     decimals: 18,
     gasprice: '12500000000',
@@ -96,8 +96,8 @@ class XinfinServer {
   async sendPayment(address:string, amount:string, destinTag:string, callback:any){
     console.log('BNB Sending payment...')
     const value = this.toWei(parseFloat(amount))
-    const secret = process.env.XINFIN_MINTER_WALLET_SEED || ''
-    //const source = process.env.XINFIN_MINTER_WALLET
+    const secret = process.env.XDC_MINTER_WALLET_SEED || ''
+    //const source = process.env.XDC_MINTER_WALLET
     const acct = this.web3.eth.accounts.privateKeyToAccount(secret)
     const source = acct.address
     const nonce = await this.web3.eth.getTransactionCount(source, 'latest')
@@ -118,10 +118,10 @@ class XinfinServer {
 
   async mintNFT(uri: string, address: string){
     console.log(this.chain, 'server minting NFT to', address, uri)
-    const secret   = process.env.XINFIN_MINTER_WALLET_SEED || ''
+    const secret   = process.env.XDC_MINTER_WALLET_SEED || ''
     const acct     = this.web3.eth.accounts.privateKeyToAccount(secret)
     const minter   = acct.address
-    const contract = process.env.NEXT_PUBLIC_XINFIN_MINTER_CONTRACT || ''
+    const contract = process.env.NEXT_PUBLIC_XDC_MINTER_CONTRACT || ''
     const instance = new this.web3.eth.Contract(Abi721, contract)
     const noncex   = await this.web3.eth.getTransactionCount(minter, 'latest')
     const nonce    = Number(noncex)
@@ -170,10 +170,10 @@ class XinfinServer {
   // address is receiver, tokenid is db impact id, uri is ipfs:metadata
   async mintNFT1155(address: string, tokenid: string, uri: string){
     console.log(this.chain, 'server minting NFT to', address, uri)
-    const secret   = process.env.XINFIN_MINTER_WALLET_SEED || ''
+    const secret   = process.env.XDC_MINTER_WALLET_SEED || ''
     const acct     = this.web3.eth.accounts.privateKeyToAccount(secret)
     const minter   = acct.address
-    const contract = process.env.NEXT_PUBLIC_XINFIN_IMPACT_CONTRACT || ''
+    const contract = process.env.NEXT_PUBLIC_XDC_IMPACT_CONTRACT || ''
     const instance = new this.web3.eth.Contract(Abi1155, contract)
     const noncex   = await this.web3.eth.getTransactionCount(minter, 'latest')
     const nonce    = Number(noncex)
@@ -239,6 +239,6 @@ class XinfinServer {
   }
 }
 
-const Xinfin = new XinfinServer()
+const XDC = new XDCServer()
 
-export default Xinfin
+export default XDC

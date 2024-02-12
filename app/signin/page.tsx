@@ -35,15 +35,9 @@ export default async function Signin(props: any) {
             <h2 className="text-left text-base my-4 px-8">Log in with your blockchain wallet</h2>
           </div>
           <div className="grid grid-cols-5 gap-2 px-4 py-8">
-            <ButtonChain text="Arbitrum"     icon="arbitrum.png"    onClick={()=>{login('Arbitrum')}} />
-            <ButtonChain text="Avalanche"    icon="avalanche.png"   onClick={()=>{login('Avalanche')}} />
-            <ButtonChain text="Base"         icon="base.png"        onClick={()=>{login('Base')}} />
-            <ButtonChain text="Celo"         icon="celo.png"        onClick={()=>{login('Celo')}} />
-            <ButtonChain text="Flare"        icon="flare.png"       onClick={()=>{login('Flare')}} />
-            <ButtonChain text="Optimism"     icon="optimism.png"    onClick={()=>{login('Optimism')}} />
             <ButtonChain text="Polygon"      icon="polygon.png"     onClick={()=>{login('Polygon')}} />
             <ButtonChain text="Stellar"      icon="stellar.png"     onClick={()=>{login('Stellar')}} />
-            <ButtonChain text="XinFin"       icon="xinfin.png"      onClick={()=>{login('XinFin')}} />
+            <ButtonChain text="XDC"          icon="xdc.png"         onClick={()=>{login('XDC')}} />
             <ButtonChain text="XRPL"         icon="xrpl.png"        onClick={()=>{login('XRPL')}} />
           </div>
         </div>
@@ -52,13 +46,19 @@ export default async function Signin(props: any) {
             <h2 className="text-left text-base mt-8 px-8">Coming soon</h2>
           </div>
           <div className="grid grid-cols-5 gap-2 px-4 py-8 opacity-30 pointer-events-none">
-            <ButtonChain text="Binance"      icon="binance.png"     />
-            <ButtonChain text="EOS"          icon="eos.png"         />
-            <ButtonChain text="Ethereum"     icon="ethereum.png"    />
-            <ButtonChain text="Filecoin"     icon="filecoin.png"    />
-            <ButtonChain text="Starknet"     icon="starknet.png"    />
-            <ButtonChain text="USDC"         icon="usdc.png"        />
-            <ButtonChain text="USDT"         icon="usdt.png"        />
+            <ButtonChain text="Arbitrum"     icon="arbitrum.png"  />
+            <ButtonChain text="Avalanche"    icon="avalanche.png" />
+            <ButtonChain text="Base"         icon="base.png"      />
+            <ButtonChain text="Binance"      icon="binance.png"   />
+            <ButtonChain text="Celo"         icon="celo.png"      />
+            <ButtonChain text="EOS"          icon="eos.png"       />
+            <ButtonChain text="Ethereum"     icon="ethereum.png"  />
+            <ButtonChain text="Filecoin"     icon="filecoin.png"  />
+            <ButtonChain text="Flare"        icon="flare.png"     />
+            <ButtonChain text="Optimism"     icon="optimism.png"  />
+            <ButtonChain text="Starknet"     icon="starknet.png"  />
+            <ButtonChain text="USDC"         icon="usdc.png"      />
+            <ButtonChain text="USDT"         icon="usdt.png"      />
           </div>
         </div>
         <div className="flex flex-col text-base">

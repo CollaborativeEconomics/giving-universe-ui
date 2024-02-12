@@ -5,7 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class CeloSDK{
-  enabled  = true
+  enabled  = false
   chain    = 'Celo'
   symbol   = 'CELO'
   logo     = 'celo.png'

@@ -1,28 +1,42 @@
 function coinFromChain(chain:string){
   return {
-    'Avalanche':'avax',
-    'Binance'  :'bnb',
-    'Celo'     :'celo',
-    'Ethereum' :'eth',
-    'Flare'    :'flr',
-    'Polygon'  :'matic',
-    'Stellar'  :'xlm',
-    'XRPL'     :'xrp',
-    'XinFin'   :'xdc'
+  'Arbitrum':     'arb',
+  'Avalanche':    'avax',
+  'Base':         'base',
+  'Binance':      'bnb',
+  'Celo':         'celo',
+  'EOS':          'eos',
+  'Ethereum':     'eth',
+  'EthereumUSDC': 'usdc',
+  'EthereumUSDT': 'usdt',
+  'Filecoin':     'fil',
+  'Flare':        'flr',
+  'Optimism':     'op',
+  'Polygon':      'matic',
+  'Stellar':      'xlm',
+  'XRPL':         'xrp',
+  'XDC':          'xdc'
   }[chain] || ''
 }
 
 function chainFromCoin(coin:string){
   return {
-    'avax' :'Avalanche',
-    'bnb'  :'Binance',
-    'celo' :'Celo',
-    'eth'  :'Ethereum',
-    'flr'  :'Flare',
-    'matic':'Polygon',
-    'xlm'  :'Stellar',
-    'xrp'  :'XRPL',
-    'xdc'  :'XinFin'
+  'arb':   'Arbitrum',
+  'avax':  'Avalanche',
+  'base':  'Base',
+  'bnb':   'Binance',
+  'celo':  'Celo',
+  'eos':   'EOS',
+  'eth':   'Ethereum',
+  'fil':   'Filecoin',
+  'flr':   'Flare',
+  'matic': 'Polygon',
+  'op':    'Optimism',
+  'usdc':  'EthereumUSDC',
+  'usdt':  'EthereumUSDT',
+  'xdc':   'XDC',
+  'xlm':   'Stellar',
+  'xrp':   'XRPL'
   }[coin] || ''
 }
 

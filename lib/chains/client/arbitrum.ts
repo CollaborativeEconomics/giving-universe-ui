@@ -5,7 +5,7 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class ArbitrumSDK{
-  enabled  = true
+  enabled  = false
   chain    = 'Arbitrum'
   symbol   = 'ARB'
   logo     = 'arb.png'

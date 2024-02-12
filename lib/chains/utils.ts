@@ -17,7 +17,7 @@ export function getChainName(currency:string){
     'op':    'Optimism',
     'usdc':  'EthereumUSDC',
     'usdt':  'EthereumUSDT',
-    'xdc':   'XinFin',
+    'xdc':   'XDC',
     'xlm':   'Stellar',
     'xrp':   'XRPL'
   }
@@ -65,7 +65,7 @@ export function getChainNetwork(chain:string){
     'Optimism':     process.env.NEXT_PUBLIC_OPTIMISM_NETWORK,
     'Polygon':      process.env.NEXT_PUBLIC_POLYGON_NETWORK,
     'Stellar':      process.env.NEXT_PUBLIC_STELLAR_NETWORK,
-    'XinFin':       process.env.NEXT_PUBLIC_XINFIN_NETWORK,
+    'XDC':          process.env.NEXT_PUBLIC_XDC_NETWORK,
     'XRPL':         process.env.NEXT_PUBLIC_XRPL_NETWORK
   }
   const name = networks[chain] || 'testnet'
@@ -127,7 +127,7 @@ export function getChainsList(){
   //  { value: 'Optimism', image: 'op.png', symbol: 'OP' },
   //  { value: 'Polygon', image: 'matic.png', symbol: 'MATIC' },
   //  { value: 'Stellar', image: 'xlm.png', symbol: 'XLM' },
-  //  { value: 'XinFin', image: 'xdc.png', symbol: 'XDC' },
+  //  { value: 'XDC', image: 'xdc.png', symbol: 'XDC' },
   //  { value: 'XRPL', image: 'xrp.png', symbol: 'XRP' }
   //]
 }
@@ -158,7 +158,7 @@ export function getChainsMap(){
   //  Optimism: { image: 'op.png', symbol: 'OP' },
   //  Polygon: { image: 'matic.png', symbol: 'MATIC' },
   //  Stellar: { image: 'xlm.png', symbol: 'XLM' },
-  //  XinFin: { image: 'xdc.png', symbol: 'XDC' },
+  //  XDC: { image: 'xdc.png', symbol: 'XDC' },
   //  XRPL: { image: 'xrp.png', symbol: 'XRP' }
   //}
 
