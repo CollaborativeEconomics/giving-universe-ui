@@ -300,12 +300,12 @@ const providers = [
     },
   }),
   CredentialsProvider({
-    id: 'XinFin',
-    name: 'XinFin - Metamask',
+    id: 'XDC',
+    name: 'XDC - Metamask',
     credentials,
     authorize: async (credentials:any) => {
       try {
-        console.log('-XinFin', credentials)
+        console.log('-XDC', credentials)
         const user = await getUserByCredentials(credentials)
         return user
         //return {id:credentials.address}

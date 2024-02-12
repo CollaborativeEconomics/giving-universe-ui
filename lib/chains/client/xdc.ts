@@ -4,16 +4,16 @@ import { WalletProvider } from '@/types/common'
 type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
-class XinfinSDK{
+class XDC_SDK{
   enabled  = true
-  chain    = 'XinFin'
+  chain    = 'XDC'
   symbol   = 'XDC'
   logo     = 'xdc.png'
-  network  = process.env.NEXT_PUBLIC_XINFIN_NETWORK || ''
+  network  = process.env.NEXT_PUBLIC_XDC_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 50,
-    name: 'Xinfin Mainnet',
+    name: 'XDC Mainnet',
     symbol: 'XDC',
     decimals: 18,
     gasprice: '250000000',
@@ -23,7 +23,7 @@ class XinfinSDK{
   }
   testnet = {
     id: 51,
-    name: 'Xinfin Testnet',
+    name: 'XDC Testnet',
     symbol: 'XDC',
     decimals: 18,
     gasprice: '250000000',
@@ -84,6 +84,6 @@ class XinfinSDK{
   }
 }
 
-const Xinfin = new XinfinSDK()
+const XDC = new XDC_SDK()
 
-export default Xinfin
+export default XDC
