@@ -8,3 +8,14 @@ export interface WalletProvider {
   rpcurl: string
   wssurl?: string
 }
+
+
+export const ReceiptStatus = {
+  claim:    'Claim',
+  failed:   'Failed',
+  minted:   'Minted',
+  minting:  'Minting',
+  pending:  'Pending',
+  rejected: 'Rejected'
+}
+

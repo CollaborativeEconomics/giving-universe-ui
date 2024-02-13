@@ -9,7 +9,7 @@ import { getInitiativeById, getInitiativesByOrganization } from '@/lib/utils/reg
 import OrganizationAvatar from '@/components/OrganizationAvatar'
 import DonationView from '@/components/DonationView'
 //import DonationForm from '@/components/DonationForm'
-import { Status } from '@/components/NFTReceipt'
+import { ReceiptStatus } from '@/types/common'
 import InitiativeCardCompact from '@/components/InitiativeCardCompact'
 import NotFound  from '@/components/NotFound'
 
@@ -29,7 +29,7 @@ export default async function Home(props: any) {
   //console.log('INITIATIVES', initiatives)
 
   const receipt = {
-    status: Status.pending,
+    status: ReceiptStatus.pending,
     image: initiative.defaultAsset,
     organization: {
       name: organization.name,

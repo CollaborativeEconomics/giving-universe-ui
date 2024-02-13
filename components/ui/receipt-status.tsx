@@ -28,8 +28,16 @@ interface WrapperProps {
 }
 
 function ReceiptBodyBuilder(status: string): React.JSX.Element {
-  console.log('BStatus', status)
   switch (status) {
+    case 'Claim':
+      return (
+        <ReceiptStatusBody
+          className="bg-blue-500"
+          Icon={CheckCircle}
+          text="Claim your NFT"
+          subtext="Thank you for your donation"
+        />
+      )
     case 'Pending':
       return (
         <ReceiptStatusBody
@@ -55,7 +63,16 @@ function ReceiptBodyBuilder(status: string): React.JSX.Element {
           className="bg-green-400"
           Icon={CheckCircle}
           text="Minted!"
-          subtext="Claim your NFT"
+          subtext="NFT has been sent to your wallet"
+        />
+      )
+    case 'Rejected':
+      return (
+        <ReceiptStatusBody
+          className="bg-gray-400" //
+          Icon={Hourglass}
+          text="Not Claimed"
+          subtext="Donor did not claim NFT"
         />
       )
     default:
@@ -72,7 +89,6 @@ function ReceiptBodyBuilder(status: string): React.JSX.Element {
 
 const ReceiptStatus = React.forwardRef<HTMLDivElement, Props>(
   ({ className, status, ...props }, ref) => {
-    console.log('RStatus', status)
     return (
       <div
         ref={ref}

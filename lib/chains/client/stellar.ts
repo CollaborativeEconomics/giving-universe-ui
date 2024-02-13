@@ -1,4 +1,5 @@
-import * as StellarSdk from 'stellar-sdk'
+//import * as StellarSdk from '@stellar/stellar-sdk'
+//import * as StellarSdk from 'stellar-sdk'
 import Wallet from '@/lib/wallets/freighter'
 import { WalletProvider } from '@/types/common'
 
