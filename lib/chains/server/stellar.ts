@@ -1,6 +1,6 @@
-import * as StellarSdk from 'stellar-sdk'
+//import * as StellarSdk from '@stellar/stellar-sdk'
 import { WalletProvider } from '@/types/common'
-import {Contract, Networks} from '@/lib/chains/contracts/nft721'
+import { Contract, Networks } from '@/lib/chains/contracts/nft721'
 
 interface MintResponse {
   success?: boolean;

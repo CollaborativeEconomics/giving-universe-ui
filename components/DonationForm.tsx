@@ -11,9 +11,9 @@ import { CheckboxWithText } from './ui/checkbox'
 import { DonationFormSelect } from './DonationFormSelect'
 import { Separator } from './ui/separator'
 import { Dictionary, getChainWallets, getChainsList, getChainsMap } from '@/lib/chains/utils'
+import { DonationContext } from '@/components/DonationView'
 import Chains from '@/lib/chains/client/apis'
 import getRates from '@/lib/utils/rates'
-import { DonationContext } from '@/components/DonationView'
 
 export default function DonationForm(props:any) {
   //console.log('Props', props)
@@ -57,73 +57,6 @@ export default function DonationForm(props:any) {
     }
   }
 
-  async function mintNFT(chain:string, txid:string, address:string, itag:string, rate:number){
-    console.log('Minting NFT in', chain, txid, address, itag, rate)
-    const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({chain, txid, itag, rate})
-    }
-    const response = await fetch('/api/nft/mint', options)
-    //console.log('Minting response', response)
-    const result = await response.json()
-    console.log('>Result', result)
-    if (!result.success) {
-      console.error('Error', result.error)
-      setMessage('Error minting NFT')
-      return {success:false, error:'Error minting NFT'}
-    }
-
-    // Offer only for XRPL
-    if(chain=='XRPL'){
-      const offer = await createOffer(result.tokenId, address)
-      if(offer.success){
-        acceptOffer(offer.offerId, address, txid, result.tokenId, result.image, result.metadata)
-      }
-    } else {
-      setMessage(`NFT minted successfully • <a href="${result.image}" target="_blank">Image</a> • <a href="${result.metadata}" target="_blank">Meta</a>`)
-      return result
-    }
-  }
-
-  // Offer only for XRPL
-  async function createOffer(tokenid:string, address:string){
-    setMessage('Generating NFT offer, wait a moment...')
-    const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({chain:'XRPL', tokenid, address})
-    }
-    const response = await fetch('/api/nft/offer', options)
-    //console.log('Offer response', response)
-    if (!response) {
-      console.log('No offer response')
-      return { success:false, error: 'Error creating sell offer' }
-    }
-    const result = await response.json()
-    console.log('Offer result', result)
-    return result
-  }
-
-  async function acceptOffer(offerid:string, address:string, txid:string, tokenId:string, image:string, metadata:string){
-    setMessage('Check your Xaman wallet events for NFT offer and sign it')
-    Chains['XRPL'].acceptSellOffer(offerid, address, (result:any)=>{
-      console.log('RESULT', result)
-      if(result?.error){
-        console.log('Error accepting offer', result.error)
-        setMessage('Error accepting offer')
-        return {success:false, error:'Error accepting offer'}
-      }
-      if(result?.success==false){
-        console.log('Offer rejected')
-        setMessage('Offer rejected by user')
-        return {success:false, error:'Offer rejected by user'}
-      }
-      setMessage('NFT minted successfully')
-      //setMessage(`NFT minted successfully • <a href="${result.image}" target="_blank">Image</a> • <a href="${result.metadata}" target="_blank">Meta</a>`)
-      //router.push(`/donation_confirmation?ok=true&chain=${chain}&txid=${txid}&nft=true&nftid=${encodeURIComponent(tokenId)}&urinft=${encodeURIComponent(image)}&urimeta=${encodeURIComponent(metadata)}`)
-    })
-  }
 
   async function donate(){
     const chainName = currentChain
@@ -134,7 +67,7 @@ export default function DonationForm(props:any) {
     const name      = $('name-input')?.value || ''
     const email     = $('email-input')?.value || ''
     const receipt   = $('receipt-check')?.dataset.state=='checked'
-    const mintnft   = $('mintnft-check')?.dataset.state=='checked'
+    //const mintnft   = $('mintnft-check')?.dataset.state=='checked'
     console.log('FORM --------')
     console.log('Chain:',    chainName)
     console.log('Currency:', currency)
@@ -143,7 +76,7 @@ export default function DonationForm(props:any) {
     console.log('Name:',     name)
     console.log('Email:',    email)
     console.log('Receipt:',  receipt)
-    console.log('MintNFT:',  mintnft)
+    //console.log('MintNFT:',  mintnft)
     
     // Validate required data
     if(!parseInt(amount)){
@@ -157,8 +90,8 @@ export default function DonationForm(props:any) {
 
 
     // Donate and mint
-    //setButtonText('WAIT')
-    //setDisabled(true)
+    setButtonText('WAIT')
+    setDisabled(true)
     setMessage('Sending payment, wait a moment...')
     if(chainName=='XRPL'){
       setMessage('Sign payment in your Xaman wallet events')
@@ -183,12 +116,10 @@ export default function DonationForm(props:any) {
       setMessage('Error: '+ chainName+' blockchain not implemented')
       return
     }
-    //console.log({sdk})
     const network = sdk.network
     const destinationTag = initiative.tag
     // TODO: if amount in USD convert by coin rate
     const rate = await getRates(currency, true) // get from server, CORS sucks 
-    //const rate = 0.1 // TODO: get rate by coin
     const amountNum = parseInt(amount)
     const coinValue = showUSD ? amountNum : (amountNum / rate)
     const usdValue  = showUSD ? (amountNum * rate) : amountNum
@@ -265,12 +196,13 @@ export default function DonationForm(props:any) {
       }
 
       const NFTData = {
-        status: 'Minted',
+        status: 'Claim',
         organization: {
           name: organization.name,
           address: organization.mailingAddress,
           ein: organization.EIN
         },
+        tag: initiative.tag,
         image: initiative.defaultAsset,
         date: new Date(),
         amount: coinValue,
@@ -278,36 +210,18 @@ export default function DonationForm(props:any) {
         amountFiat: usdValue,
         fiatCurrencyCode: 'USD',
         donor: {
-          name: name || user?.name || 'Anonymous'
-        }
+          name: name || user?.name || 'Anonymous',
+          address
+        },
+        chainName,
+        rate,
+        txid: result.txid
       }
-
-      // Mint NFT
-      if(mintnft){
-        setMessage('Minting NFT, wait a moment...')
-        setTimeout(async ()=>{
-          const minted = await mintNFT(chainName, result.txid, result.address, initiative.tag, rate)
-          if(minted?.success){
-            NFTData.status = 'Minted'
-            setDonation(NFTData)
-            setButtonText('DONE')
-            setDisabled(true)
-            setMessage('Thank you for your donation!')
-          } else {
-            NFTData.status = 'Failed'
-            setDonation(NFTData)
-            setButtonText('ERROR')
-            setDisabled(true)
-            setMessage('Donation received, NFT failed!')
-          }
-        }, 2000)
-      } else {
-        NFTData.status = 'Pending'
-        setDonation(NFTData)
-        //setButtonText('DONE')
-        //setDisabled(true)
-        setMessage('Thank you for your donation!')
-      }
+      //if(!mintnft){ NFTData.status = 'Rejected' }
+      setDonation(NFTData)
+      setButtonText('DONE')
+      setDisabled(true)
+      setMessage('Thank you for your donation!')
     })
   }
 
@@ -412,11 +326,11 @@ export default function DonationForm(props:any) {
             text="I'd like to receive an emailed receipt"
             className="mb-2"
           />
-          <CheckboxWithText
+          {/*<CheckboxWithText
             id="mintnft-check"
             text="I'd like to receive an NFT receipt"
             className="mb-6"
-          />
+          />*/}
         </div>
         <Separator />
         <div className="flex flex-col items-center justify-center">
