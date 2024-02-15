@@ -57,6 +57,9 @@ class RippleClient extends Ripple {
     }
     if (destinTag) { request.DestinationTag = destinTag }
     //this.sendPayload(request, callback)
+    if (!this.wallet.payload) {
+      throw new Error('Xumm wallet not initialized');
+    }
     this.wallet.payload.createAndSubscribe(request, (event) => {
       if (Object.keys(event.data).indexOf('opened') > -1) {
         // Update the UI? The payload was opened.

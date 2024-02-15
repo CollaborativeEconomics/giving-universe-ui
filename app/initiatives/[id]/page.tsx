@@ -10,7 +10,7 @@ import OrganizationAvatar from '@/components/OrganizationAvatar'
 import DonationView from '@/components/DonationView'
 //import DonationForm from '@/components/DonationForm'
 import { Status } from '@/components/NFTReceipt'
-import InitiativeCardCompact from '@/components/InitiativeCardCompact'
+import InitiativeCardCompact from '@/components/initiativeCardCompact'
 import NotFound  from '@/components/NotFound'
 
 export default async function Home(props: any) {

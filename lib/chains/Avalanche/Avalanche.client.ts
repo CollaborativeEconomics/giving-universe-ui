@@ -33,7 +33,7 @@ class AvalancheClient extends Avalanche {
     console.log(this.chain, 'Sending payment...')
     this.connect(async (data) => {
       console.log('Pay connect', data)
-      const result = await this.wallet.payment(address, amount, destinTag)
+      const result = await this.wallet.payment(address, `${amount}`, destinTag)
       callback(result)
     })
   }

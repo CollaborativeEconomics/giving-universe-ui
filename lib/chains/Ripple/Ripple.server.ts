@@ -1,5 +1,5 @@
 import Ripple from "./Ripple";
-import { Client, NFTokenCreateOffer, NFTokenCreateOfferFlags, NFTokenMintFlags, Wallet, convertStringToHex } from "xrpl";
+import { Client, NFTokenCreateOffer, NFTokenCreateOfferFlags, NFTokenMintFlags, Wallet, convertStringToHex, isoTimeToRippleTime } from "xrpl";
 
 class RippleServer extends Ripple {
 
@@ -12,7 +12,7 @@ class RippleServer extends Ripple {
     let sourceTag = parseInt(process.env.XRPL_SOURCE_TAG || '77777777')
     if (!taxon) { taxon = 123456000 }
     try {
-      let wallet = Wallet.fromSeed(process.env.XRPL_MINTER_WALLET_SEED)
+      let wallet = Wallet.fromSeed(process.env.XRPL_MINTER_WALLET_SEED!)
       let account = wallet.classicAddress
       console.log('ADDRESS', account)
       let flags = NFTokenMintFlags.tfBurnable + NFTokenMintFlags.tfOnlyXRP
@@ -28,7 +28,7 @@ class RippleServer extends Ripple {
       }
       //if(destinTag){ tx.DestinationTag = destinTag }
       console.log('TX', tx)
-      client = new Client(this.provider.wssurl)
+      client = new Client(this.provider.wssurl) as any // TODO: get xrpl types, why don't they have?
       await client.connect()
       let txInfo = await client.submitAndWait(tx, { wallet })
       console.log('Result:', txInfo?.result?.meta?.TransactionResult)
@@ -39,8 +39,9 @@ class RippleServer extends Ripple {
         return { success: true, tokenId }
       }
     } catch (ex) {
+      const message = ex instanceof Error ? ex.message : JSON.stringify(ex)
       console.error(ex)
-      return { success: false, error: 'Error minting NFT: ' + ex.message }
+      return { success: false, error: 'Error minting NFT: ' + message }
     } finally {
       client?.disconnect()
     }
@@ -55,7 +56,7 @@ class RippleServer extends Ripple {
     let client = null
     try {
       console.log('SEED', process.env.XRPL_MINTER_WALLET_SEED)
-      let wallet = Wallet.fromSeed(process.env.XRPL_MINTER_WALLET_SEED)
+      let wallet = Wallet.fromSeed(process.env.XRPL_MINTER_WALLET_SEED!)
       let account = wallet.classicAddress
       console.log('ACT', account)
       let tx = {

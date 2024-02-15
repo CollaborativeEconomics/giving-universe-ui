@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { OrgStats } from '@/components/ui/org-stats';
 import { OrgSocials } from '@/components/ui/org-socials';
 import StoryCard from '@/components/StoryCard';
-import InitiativeCard from '@/components/InitiativeCard';
+import InitiativeCard from '@/components/initiativeCard';
 import OrganizationAvatar from '@/components/OrganizationAvatar';
 import { getOrganizationById, getStoriesByOrganization } from '@/lib/utils/registry'
 
