@@ -1,5 +1,6 @@
-'use client'
+// 'use client'
 
+import Link from 'next/link'
 import { ActionBarBox, ActionBarButton } from './ActionBarContent'
 
 export default function ActionBar() {
@@ -15,9 +16,11 @@ export default function ActionBar() {
         </span>
         <div className="flex flex-row gap-3">
           <ActionBarButton className="h-auto">
-            Find Organizations
+            <Link href="/organizations">Find Organizations</Link>
           </ActionBarButton>
-          <ActionBarButton className="h-auto">Find Initiatives</ActionBarButton>
+          <ActionBarButton className="h-auto">
+            <Link href="/initiatives">Find Initiatives</Link>
+          </ActionBarButton>
         </div>
       </ActionBarBox>
       <ActionBarBox>
@@ -31,7 +34,9 @@ export default function ActionBar() {
           your non-profits.
         </span>
         <div className="flex flex-row gap-3">
-          <ActionBarButton>Sign Up</ActionBarButton>
+          <ActionBarButton>
+            <Link href="/signin">Sign Up</Link>
+          </ActionBarButton>
         </div>
       </ActionBarBox>
     </div>

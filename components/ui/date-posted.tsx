@@ -5,7 +5,7 @@ import { CalendarDays } from 'lucide-react'
 import * as React from 'react'
 
 interface Props {
-  timestamp: number
+  timestamp: Date | number
   className?: string
 }
 
@@ -35,7 +35,7 @@ const DateStyle = React.forwardRef<
 ))
 DateStyle.displayName = 'DateDisplay'
 
-function convertTimestampToDateString(timestamp: number): string {
+function convertTimestampToDateString(timestamp: Date | number): string {
   const timestampDate = new Date(timestamp)
   return timestampDate.toLocaleString('default', {
     month: 'long',

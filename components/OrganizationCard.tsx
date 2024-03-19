@@ -7,27 +7,27 @@ import { Separator } from './ui/separator'
 import { DateDisplay } from './ui/date-posted'
 import { Button } from './ui/button'
 import { OrgStats } from './ui/org-stats'
-import { OrganizationAvatar } from './OrganizationAvatar'
+import OrganizationAvatar from './OrganizationAvatar'
 
-const dummyImgSrc: string =
-  'https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75'
+const dummyImgSrc: string = 'https://partners.cfce.io/_next/image?url=https%3A%2F%2Fipfs.filebase.io%2Fipfs%2FQmcS3rZdEzNkYxSd79AJVgjkDpK7sBd1ej99i4sBXD1mkQ&w=256&q=75'
 
-export default function InitiativeCard({ ...props }) {
-  const item = props?.data || {}
-  const initurl = '/initiatives/' + (item?.id || 0)
+export default function OrganizationCard({ ...props }) {
+  const organization = props?.data || {}
+  if(!organization.id){ return }
+  const orgurl = '/organizations/' + organization.id
   let image = dummyImgSrc
-  if (item?.imageUri) {
-    image = item?.imageUri.startsWith('ipfs')
-      ? 'https://ipfs.filebase.io/ipfs/' + item.imageUri.substr(5)
-      : item.imageUri
+  if (organization.image) {
+    image = organization.image.startsWith('ipfs')
+      ? 'https://ipfs.filebase.io/ipfs/' + organization.image.substr(5)
+      : organization.image
   }
-  const startDate = new Date(item?.start).getTime()
-  const progress = (item.donations / item.goal) * 100
+  //const startDate = new Date(organization?.start).getTime()
+  const progress = (organization.donations / organization.goal) * 100
 
   return (
     <Card className="flex flex-col overflow-hidden h-auto">
-      <CardHeader className="relative h-72">
-        <Link href={initurl}>
+      <CardHeader className="relative w-full aspect-[8/5]">
+        <Link href={orgurl}>
           <Image
             src={image}
             alt="IMG BG"
@@ -39,35 +39,32 @@ export default function InitiativeCard({ ...props }) {
         </Link>
       </CardHeader>
       <CardContent className="flex flex-col pb-8 pt-3 gap-3 px-0">
-        <Link href={initurl}>
-          <h3 className="px-6 pt-2 text-xl font-semibold uppercase text-ellipsis overflow-scroll">
-            {item.title ?? 'no title'}
+        <Link href={orgurl}>
+          <h3 className="h-[2rem] min-h-[2rem] px-6 pt-2 text-xl font-semibold uppercase text-ellipsis whitespace-nowrap overflow-hidden">
+            {organization.name}
           </h3>
         </Link>
-        <DateDisplay className="pl-6" timestamp={startDate} />
-        <p className="px-6">{item.description}</p>
+        <p className="block h-[8-rem] min-h-[8rem] max-h-[8rem] px-6 py-2 text-ellipsis overflow-scroll">{organization.description}</p>
         <Separator />
         <div className="px-6 pt-3">
-          <Progress value={progress} />
-        </div>
-        <OrgStats
-          stats={{
-            amountRaised: item.lastmonth,
-            amountTarget: item.goal,
-            donorCount: item.donors,
-            institutionalDonorCount: item.institutions,
-          }}
-        />
-        <Separator />
-        <div className="px-6 pt-6 inline-flex justify-between">
-          <OrganizationAvatar
-            name={item?.organization?.name}
-            image={item?.organization?.image}
-            avatarProps={{ title: item?.organization?.name }}
+          <OrgStats
+            stats={{
+              amountTarget: organization?.goal || 0,
+              amountRaised: organization.donations,
+              raisedThisMonth: organization.lastmonth,
+              initiativeCount: organization.initiative?.length || 0,
+              donorCount: organization.donors,
+              institutionalDonorCount: organization.institutions,
+            }}
           />
-          <Button className="mx-6 bg-transparent text-black dark:text-white outline outline-slate-300 outline-1">
-            Donate
-          </Button>
+        </div>
+        <Separator />
+        <div className="pt-4 inline-flex justify-between box-border w-full">
+          <Link href={orgurl} className="box-border w-full mx-6">
+            <Button className="py-6 w-full bg-blue-600 text-white text-lg rounded-lg outline outline-slate-300 outline-1 hover:bg-blue-700 hover:shadow-inner">
+              Donate
+            </Button>
+          </Link>
         </div>
       </CardContent>
     </Card>

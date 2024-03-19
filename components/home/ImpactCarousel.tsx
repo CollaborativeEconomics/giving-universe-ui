@@ -6,18 +6,26 @@ import { Pagination, Navigation, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
-import InitiativeCardCompactShort from '../initiativeCardCompactShort'
+import InitiativeCardCompactShort from '../InitiativeCardCompactShort'
+import { Initiative } from '@/types/common'
 
-export default function ImpactCarousel() {
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+interface Props {
+  initiatives: Initiative[]
+}
+
+export default function ImpactCarousel({ initiatives }: Props) {
+  const innerWidth = typeof window !== 'undefined' ? window.innerWidth : 1366
+  const [screenWidth, setScreenWidth] = useState(innerWidth)
   const setDimension = () => {
-    setScreenWidth(window.innerWidth)
+    setScreenWidth(innerWidth)
   }
-  useEffect(() => {
-    window.addEventListener('resize', setDimension)
 
-    return () => {
-      window.removeEventListener('resize', setDimension)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', setDimension)
+      return () => {
+        window.removeEventListener('resize', setDimension)
+      }
     }
   }, [screenWidth])
 
@@ -28,44 +36,22 @@ export default function ImpactCarousel() {
       <Swiper
         slidesPerView={slideCount}
         spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
+        pagination={{ clickable: true }}
         className="impactCarousel"
         centeredSlides={true}
         navigation={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
+        autoplay={{ delay: 2500, disableOnInteraction: false }}
         modules={[Autoplay, Pagination, Navigation]}
         speed={800}
         loop
       >
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
-        <SwiperSlide>
-          <InitiativeCardCompactShort />
-        </SwiperSlide>
+        {initiatives.map((initiative) => {
+          return (
+            <SwiperSlide key={initiative.id}>
+              <InitiativeCardCompactShort {...initiative} />
+            </SwiperSlide>
+          )
+        })}
       </Swiper>
     </div>
   )

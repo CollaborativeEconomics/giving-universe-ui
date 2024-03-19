@@ -14,8 +14,9 @@ export interface CheckboxWithTextProps extends InputProps {
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
->(({ className, ...props }, ref) => (
+>(({ id, className, ...props }, ref) => (
   <CheckboxPrimitive.Root
+    id={id}
     ref={ref}
     className={cn(
       'peer h-4 w-4 shrink-0 rounded-[2px] border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground',
@@ -45,12 +46,12 @@ const CheckboxWithText = React.forwardRef<
       {...props}
     >
       <label className="flex flex-row gap-3">
-        <Checkbox />
+        <Checkbox id={id} />
         <Label>{text}</Label>
       </label>
     </div>
   )
 })
-Checkbox.displayName = 'checkbox'
+CheckboxWithText.displayName = 'checkbox-with-text'
 
 export { Checkbox, CheckboxWithText }
