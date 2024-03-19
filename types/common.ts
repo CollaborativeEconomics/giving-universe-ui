@@ -1,7 +1,7 @@
 export interface WalletProvider {
   id: number
   name: string
-  symbol: string
+  coinSymbol: string
   decimals: number
   gasprice: string
   explorer: string
@@ -21,6 +21,7 @@ export interface Organization {
 export interface Initiative {
   id?: string;
   title: string;
+  created: Date
   description: string;
   defaultAsset: string;
   start: Date;

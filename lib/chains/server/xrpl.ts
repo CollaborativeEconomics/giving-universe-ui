@@ -9,13 +9,13 @@ type Callback = (data:Dictionary)=>void
 
 class RippleServer {
   chain    = 'XRPL'
-  symbol   = 'XRP'
+  coinSymbol   = 'XRP'
   network  = process.env.NEXT_PUBLIC_XRPL_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 0,
     name: 'XRPL Mainnet',
-    symbol: 'XRP',
+    coinSymbol: 'XRP',
     decimals: 6,
     gasprice: '250000000',
     explorer: 'https://livenet.xrpl.org',
@@ -25,7 +25,7 @@ class RippleServer {
   testnet  = {
     id: 0,
     name: 'XRPL Testnet',
-    symbol: 'XRP',
+    coinSymbol: 'XRP',
     decimals: 6,
     gasprice: '250000000',
     explorer: 'https://testnet.xrpl.org',

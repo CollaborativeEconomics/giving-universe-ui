@@ -16,16 +16,16 @@ const secret = process.env.XUMM_API_SECRET || ''
 //console.log('XUMM', apikey, secret)
 
 class RippleSDK{
-  enabled  = true
+  chainEnabled  = true
   chain    = 'XRPL'
-  symbol   = 'XRP'
+  coinSymbol   = 'XRP'
   logo     = 'xrp.png'
   network  = process.env.NEXT_PUBLIC_XRPL_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 0,
     name: 'XRPL Mainnet',
-    symbol: 'XRP',
+    coinSymbol: 'XRP',
     decimals: 6,
     gasprice: '250000000',
     explorer: 'https://livenet.xrpl.org',
@@ -35,7 +35,7 @@ class RippleSDK{
   testnet  = {
     id: 0,
     name: 'XRPL Testnet',
-    symbol: 'XRP',
+    coinSymbol: 'XRP',
     decimals: 6,
     gasprice: '250000000',
     explorer: 'https://testnet.xrpl.org',
@@ -74,7 +74,7 @@ class RippleSDK{
           address:  address,
           chain:    this.chain,
           chaindid: '',
-          currency: this.symbol,
+          currency: this.coinSymbol,
           network:  network,
           token:    token,
           topic:    ''

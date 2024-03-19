@@ -7,13 +7,13 @@ type Callback = (data:Dictionary)=>void
 
 class PolygonServer {
   chain    = 'Polygon'
-  symbol   = 'MATIC'
+  coinSymbol   = 'MATIC'
   network  = process.env.NEXT_PUBLIC_POLYGON_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 137,
     name: 'Polygon Mainnet',
-    symbol: 'MATIC',
+    coinSymbol: 'MATIC',
     decimals: 18,
     gasprice: '2050000000',
     explorer: 'https://polygonscan.com',
@@ -23,7 +23,7 @@ class PolygonServer {
   testnet  = {
     id: 80001,
     name: 'Poligon Testnet',
-    symbol: 'MATIC',
+    coinSymbol: 'MATIC',
     decimals: 18,
     gasprice: '2050000000',
     explorer: 'https://mumbai.polygonscan.com',

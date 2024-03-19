@@ -5,16 +5,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class ArbitrumSDK{
-  enabled  = false
+  chainEnabled  = false
   chain    = 'Arbitrum'
-  symbol   = 'ARB'
+  coinSymbol   = 'ARB'
   logo     = 'arb.png'
   network  = process.env.NEXT_PUBLIC_ARBITRUM_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 42161,
     name: 'Arbitrum Mainnet',
-    symbol: 'ETH',
+    coinSymbol: 'ETH',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://arbiscan.io',
@@ -24,7 +24,7 @@ class ArbitrumSDK{
   testnet = {
     id: 421614,
     name: 'Arbitrum Testnet', // Sepolia
-    symbol: 'ETH',
+    coinSymbol: 'ETH',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://sepolia.arbiscan.io',
@@ -53,7 +53,7 @@ class ArbitrumSDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',

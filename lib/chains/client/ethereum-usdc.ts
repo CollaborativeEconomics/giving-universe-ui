@@ -5,9 +5,9 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class EthereumUSDCSDK{
-  enabled  = false
+  chainEnabled  = false
   chain    = 'EthereumUSDC'
-  symbol   = 'USDC'
+  coinSymbol   = 'USDC'
   logo     = 'usdc.png'
   contract = process.env.NEXT_PUBLIC_ETHEREUM_USDC_TOKEN_CONTRACT || ''
   network  = process.env.NEXT_PUBLIC_ETHEREUM_NETWORK || ''
@@ -15,7 +15,7 @@ class EthereumUSDCSDK{
   mainnet  = {
     id: 1,
     name: 'Ethereum USDC Mainnet',
-    symbol: 'USDC',
+    coinSymbol: 'USDC',
     decimals: 6,
     gasprice: '250000000',
     explorer: 'https://etherscan.io',
@@ -25,7 +25,7 @@ class EthereumUSDCSDK{
   testnet = {
     id: 5,
     name: 'Ethereum USDC Testnet', // Goerli
-    symbol: 'USDC',
+    coinSymbol: 'USDC',
     decimals: 6,
     gasprice: '250000000',
     explorer: 'https://goerli.etherscan.io',
@@ -54,7 +54,7 @@ class EthereumUSDCSDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',
@@ -69,7 +69,7 @@ class EthereumUSDCSDK{
     this.connect(async (data) => {
       console.log('Pay token', data)
       //const result = await this.wallet.payment(address, amount, destinTag)
-      const result = await this.wallet.paytoken(address, amount, this.symbol, this.contract, destinTag)
+      const result = await this.wallet.paytoken(address, amount, this.coinSymbol, this.contract, destinTag)
       callback(result)
     })
   }

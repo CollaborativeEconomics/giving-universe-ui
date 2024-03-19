@@ -5,16 +5,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class AvalancheSDK{
-  enabled  = false
+  chainEnabled  = false
   chain    = 'Avalanche'
-  symbol   = 'AVAX'
+  coinSymbol   = 'AVAX'
   logo     = 'avax.png'
   network  = process.env.NEXT_PUBLIC_AVALANCHE_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 43114,
     name: 'Avalanche Mainnet',
-    symbol: 'AVAX',
+    coinSymbol: 'AVAX',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://snowtrace.io', //https://cchain.explorer.avax.network
@@ -24,7 +24,7 @@ class AvalancheSDK{
   testnet = {
     id: 43113,
     name: 'Avalanche Testnet',
-    symbol: 'AVAX',
+    coinSymbol: 'AVAX',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://testnet.snowtrace.io',
@@ -53,7 +53,7 @@ class AvalancheSDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',

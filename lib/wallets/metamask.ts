@@ -127,7 +127,7 @@ export default class Wallet {
               {
                 chainId: chainHex,
                 chainName: provider.name,
-                nativeCurrency: { name: provider.symbol, decimals: provider.decimals, symbol: provider.symbol },
+                nativeCurrency: { name: provider.coinSymbol, decimals: provider.decimals, coinSymbol: provider.coinSymbol },
                 rpcUrls: [provider.rpcurl],
                 blockExplorerUrls: [provider.explorer]
               }

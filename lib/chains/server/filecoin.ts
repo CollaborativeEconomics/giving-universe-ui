@@ -7,13 +7,13 @@ type Callback = (data:Dictionary)=>void
 
 class FilecoinServer {
   chain    = 'Filecoin'
-  symbol   = 'FIL'
+  coinSymbol   = 'FIL'
   network  = process.env.NEXT_PUBLIC_FILECOIN_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 43114,
     name: 'Filecoin Mainnet',
-    symbol: 'FIL',
+    coinSymbol: 'FIL',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://filscan.io',
@@ -23,7 +23,7 @@ class FilecoinServer {
   testnet = {
     id: 314159,
     name: 'Filecoin Testnet',
-    symbol: 'FIL',
+    coinSymbol: 'FIL',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://calibration.filscan.io',
@@ -33,7 +33,7 @@ class FilecoinServer {
   hyperspace = {
     id: 43113,
     name: 'Filecoin Hyperspace',
-    symbol: 'FIL',
+    coinSymbol: 'FIL',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://hyperspace.filscan.io',

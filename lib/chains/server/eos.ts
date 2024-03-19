@@ -7,13 +7,13 @@ type Callback = (data:Dictionary)=>void
 
 class EOSServer {
   chain    = 'EOS'
-  symbol   = 'EOS'
+  coinSymbol   = 'EOS'
   network  = process.env.NEXT_PUBLIC_EOS_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 17777,
     name: 'EOS Mainnet',
-    symbol: 'EOS',
+    coinSymbol: 'EOS',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://explorer.evm.eosnetwork.com',
@@ -23,7 +23,7 @@ class EOSServer {
   testnet = {
     id: 15557,
     name: 'EOS Testnet Goerli',
-    symbol: 'EOS',
+    coinSymbol: 'EOS',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://explorer.testnet.evm.eosnetwork.com',

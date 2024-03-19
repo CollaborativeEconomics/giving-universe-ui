@@ -7,13 +7,13 @@ type Callback = (data:Dictionary)=>void
 
 class CeloServer {
   chain    = 'Celo'
-  symbol   = 'CELO'
+  coinSymbol   = 'CELO'
   network  = process.env.NEXT_PUBLIC_CELO_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 42220,
     name: 'Celo Mainnet',
-    symbol: 'CELO',
+    coinSymbol: 'CELO',
     decimals: 18,
     gasprice: '10000000000',
     explorer: 'https://explorer.celo.org',
@@ -23,7 +23,7 @@ class CeloServer {
   testnet = {
     id: 44787,
     name: 'Celo Testnet',
-    symbol: 'CELO',
+    coinSymbol: 'CELO',
     decimals: 18,
     gasprice: '10000000000',
     explorer: 'https://alfajores-blockscout.celo-testnet.org',

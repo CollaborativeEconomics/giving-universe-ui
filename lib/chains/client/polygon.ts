@@ -5,16 +5,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class PolygonSDK{
-  enabled  = true
+  chainEnabled  = true
   chain    = 'Polygon'
-  symbol   = 'MATIC'
+  coinSymbol   = 'MATIC'
   logo     = 'matic.png'
   network  = process.env.NEXT_PUBLIC_POLYGON_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 137,
     name: 'Polygon Mainnet',
-    symbol: 'MATIC',
+    coinSymbol: 'MATIC',
     decimals: 18,
     gasprice: '2050000000',
     explorer: 'https://polygonscan.com',
@@ -24,7 +24,7 @@ class PolygonSDK{
   testnet  = {
     id: 80001,
     name: 'Poligon Testnet',
-    symbol: 'MATIC',
+    coinSymbol: 'MATIC',
     decimals: 18,
     gasprice: '2050000000',
     explorer: 'https://mumbai.polygonscan.com',
@@ -53,7 +53,7 @@ class PolygonSDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',

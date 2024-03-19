@@ -5,16 +5,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class BinanceSDK{
-  enabled  = false
+  chainEnabled  = false
   chain    = 'Binance'
-  symbol   = 'BNB'
+  coinSymbol   = 'BNB'
   logo     = 'bnb.png'
   network  = process.env.NEXT_PUBLIC_BINANCE_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 56,
     name: 'Binance Mainnet',
-    symbol: 'BNB',
+    coinSymbol: 'BNB',
     decimals: 18,
     gasprice: '9000000000',
     explorer: 'https://bscscan.com',
@@ -24,7 +24,7 @@ class BinanceSDK{
   testnet = {
     id: 97,
     name: 'Binance Testnet',
-    symbol: 'BNB',
+    coinSymbol: 'BNB',
     decimals: 18,
     gasprice: '9000000000',
     explorer: 'https://testnet.bscscan.com',
@@ -53,7 +53,7 @@ class BinanceSDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',

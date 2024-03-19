@@ -7,13 +7,13 @@ type Callback = (data:Dictionary)=>void
 
 class AvalancheServer {
   chain    = 'Avalanche'
-  symbol   = 'AVAX'
+  coinSymbol   = 'AVAX'
   network  = process.env.NEXT_PUBLIC_AVALANCHE_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 43114,
     name: 'Avalanche Mainnet',
-    symbol: 'AVAX',
+    coinSymbol: 'AVAX',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://snowtrace.io', //https://cchain.explorer.avax.network
@@ -23,7 +23,7 @@ class AvalancheServer {
   testnet = {
     id: 43113,
     name: 'Avalanche Testnet',
-    symbol: 'AVAX',
+    coinSymbol: 'AVAX',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://testnet.snowtrace.io',

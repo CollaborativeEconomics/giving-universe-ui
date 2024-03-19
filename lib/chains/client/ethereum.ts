@@ -5,16 +5,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class EthereumSDK{
-  enabled  = false
+  chainEnabled  = false
   chain    = 'Ethereum'
-  symbol   = 'ETH'
+  coinSymbol   = 'ETH'
   logo     = 'eth.png'
   network  = process.env.NEXT_PUBLIC_ETHEREUM_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 1,
     name: 'Ethereum Mainnet',
-    symbol: 'ETH',
+    coinSymbol: 'ETH',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://etherscan.io',
@@ -24,7 +24,7 @@ class EthereumSDK{
   testnet = {
     id: 5,
     name: 'Ethereum Testnet', // Goerli
-    symbol: 'ETH',
+    coinSymbol: 'ETH',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://goerli.etherscan.io',
@@ -53,7 +53,7 @@ class EthereumSDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',

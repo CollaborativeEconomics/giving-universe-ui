@@ -13,13 +13,13 @@ type Callback = (data:Dictionary)=>void
 
 class StellarServer {
   chain    = 'Stellar'
-  symbol   = 'XLM'
+  coinSymbol   = 'XLM'
   network  = process.env.NEXT_PUBLIC_STELLAR_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 0,
     name: 'Stellar Mainnet',
-    symbol: 'XLM',
+    coinSymbol: 'XLM',
     decimals: 6,
     gasprice: '',
     explorer: '',
@@ -31,7 +31,7 @@ class StellarServer {
   testnet  = {
     id: 0,
     name: 'Stellar Testnet',
-    symbol: 'XLM',
+    coinSymbol: 'XLM',
     decimals: 6,
     gasprice: '',
     explorer: '',
@@ -43,7 +43,7 @@ class StellarServer {
   futurenet  = {
     id: 0,
     name: 'Stellar Futurenet',
-    symbol: 'XLM',
+    coinSymbol: 'XLM',
     decimals: 6,
     explorer: '',
     rpcurl: 'https://horizon-futurenet.stellar.org',

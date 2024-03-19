@@ -5,16 +5,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class BaseSDK{
-  enabled  = false
+  chainEnabled  = false
   chain    = 'Base'
-  symbol   = 'BASE'
+  coinSymbol   = 'BASE'
   logo     = 'base.png'
   network  = process.env.NEXT_PUBLIC_BASE_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 8453,
     name: 'Base Mainnet',
-    symbol: 'ETH',
+    coinSymbol: 'ETH',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://basescan.org',
@@ -24,7 +24,7 @@ class BaseSDK{
   testnet = {
     id: 84532,
     name: 'Base Testnet', // Sepolia
-    symbol: 'ETH',
+    coinSymbol: 'ETH',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://sepolia-explorer.base.org',
@@ -53,7 +53,7 @@ class BaseSDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',

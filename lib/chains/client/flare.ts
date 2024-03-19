@@ -5,16 +5,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class FlareSDK{
-  enabled  = false
+  chainEnabled  = false
   chain    = 'Flare'
-  symbol   = 'FLR'
+  coinSymbol   = 'FLR'
   logo     = 'flr.png'
   network  = process.env.NEXT_PUBLIC_FLARE_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 14,
     name: 'Flare Mainnet',
-    symbol: 'FLR',
+    coinSymbol: 'FLR',
     decimals: 18,
     gasprice: '25000000000',
     explorer: 'https://flare-explorer.flare.net',
@@ -24,7 +24,7 @@ class FlareSDK{
   testnet = {
     id: 16,
     name: 'Flare Testnet',
-    symbol: 'FLR',
+    coinSymbol: 'FLR',
     decimals: 18,
     gasprice: '25000000000',
     explorer: 'https://coston-explorer.flare.network',
@@ -53,7 +53,7 @@ class FlareSDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',

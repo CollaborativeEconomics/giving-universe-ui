@@ -7,16 +7,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class StellarClass{
-  enabled  = true
+  chainEnabled  = true
   chain    = 'Stellar'
-  symbol   = 'XLM'
+  coinSymbol   = 'XLM'
   logo     = 'xlm.png'
   network  = process.env.NEXT_PUBLIC_STELLAR_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 0,
     name: 'Stellar Mainnet',
-    symbol: 'XLM',
+    coinSymbol: 'XLM',
     decimals: 6,
     gasprice: '250000000',
     explorer: '',
@@ -26,7 +26,7 @@ class StellarClass{
   testnet  = {
     id: 0,
     name: 'Stellar Testnet',
-    symbol: 'XLM',
+    coinSymbol: 'XLM',
     decimals: 6,
     gasprice: '250000000',
     explorer: '',
@@ -36,7 +36,7 @@ class StellarClass{
   futurenet  = {
     id: 0,
     name: 'Stellar Futurenet',
-    symbol: 'XLM',
+    coinSymbol: 'XLM',
     decimals: 6,
     explorer: '',
     rpcurl: 'https://horizon-futurenet.stellar.org',
@@ -89,7 +89,7 @@ class StellarClass{
         address:  address,
         chain:    this.chain,
         chaindid: '',
-        currency: this.symbol,
+        currency: this.coinSymbol,
         network:  network,
         token:    '',
         topic:    topic
@@ -132,7 +132,7 @@ class StellarClass{
       callback({success:false, error:'Signature rejected by user'})
       return
     }
-    const currency = this.symbol
+    const currency = this.coinSymbol
     const issuer = ''
     const memo = destinTag ? 'tag:'+destinTag : ''
     //const {txid, xdr} = await this.paymentXDR(source, address, amount, currency, issuer, memo)

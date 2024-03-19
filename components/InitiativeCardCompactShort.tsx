@@ -4,14 +4,11 @@ import { Card, CardContent } from './ui/card'
 import { DateDisplay } from './ui/date-posted'
 import { Initiative } from '@/types/common'
 
-export default function InitiativeCardCompact(initiative: Initiative) {
-  if (!initiative) {
-    return
-  }
+export default function InitiativeCardCompactShort(initiative: Initiative) {
   return (
     <Card className="flex flex-col overflow-hidden h-56">
       <CardContent className="flex flex-col pb-8 pt-3 gap-3 px-0">
-        <Link href={'/initiatives/' + initiative.id}>
+        <Link href={`/initiatives/${initiative.id}`}>
           <div className="inline-flex">
             <Image
               className="mt-3 ml-6"

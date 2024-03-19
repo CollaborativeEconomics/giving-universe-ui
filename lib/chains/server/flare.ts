@@ -7,13 +7,13 @@ type Callback = (data:Dictionary)=>void
 
 class FlareServer {
   chain    = 'Flare'
-  symbol   = 'FLR'
+  coinSymbol   = 'FLR'
   network  = process.env.NEXT_PUBLIC_FLARE_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 14,
     name: 'Flare Mainnet',
-    symbol: 'FLR',
+    coinSymbol: 'FLR',
     decimals: 18,
     gasprice: '25000000000',
     explorer: 'https://flare-explorer.flare.net',
@@ -23,7 +23,7 @@ class FlareServer {
   testnet = {
     id: 16,
     name: 'Flare Testnet',
-    symbol: 'FLR',
+    coinSymbol: 'FLR',
     decimals: 18,
     gasprice: '25000000000',
     explorer: 'https://coston-explorer.flare.network',

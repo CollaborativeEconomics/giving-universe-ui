@@ -7,13 +7,13 @@ type Callback = (data:Dictionary)=>void
 
 class BinanceServer {
   chain    = 'Binance'
-  symbol   = 'BNB'
+  coinSymbol   = 'BNB'
   network  = process.env.NEXT_PUBLIC_BINANCE_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 56,
     name: 'Binance Mainnet',
-    symbol: 'BNB',
+    coinSymbol: 'BNB',
     decimals: 18,
     gasprice: '9000000000',
     explorer: 'https://bscscan.com',
@@ -23,7 +23,7 @@ class BinanceServer {
   testnet = {
     id: 97,
     name: 'Binance Testnet',
-    symbol: 'BNB',
+    coinSymbol: 'BNB',
     decimals: 18,
     gasprice: '9000000000',
     explorer: 'https://testnet.bscscan.com',

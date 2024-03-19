@@ -5,16 +5,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class CeloSDK{
-  enabled  = false
+  chainEnabled  = false
   chain    = 'Celo'
-  symbol   = 'CELO'
+  coinSymbol   = 'CELO'
   logo     = 'celo.png'
   network  = process.env.NEXT_PUBLIC_CELO_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 42220,
     name: 'Celo Mainnet',
-    symbol: 'CELO',
+    coinSymbol: 'CELO',
     decimals: 18,
     gasprice: '10000000000',
     explorer: 'https://explorer.celo.org',
@@ -24,7 +24,7 @@ class CeloSDK{
   testnet = {
     id: 44787,
     name: 'Celo Testnet',
-    symbol: 'CELO',
+    coinSymbol: 'CELO',
     decimals: 18,
     gasprice: '10000000000',
     explorer: 'https://alfajores-blockscout.celo-testnet.org',
@@ -53,7 +53,7 @@ class CeloSDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',

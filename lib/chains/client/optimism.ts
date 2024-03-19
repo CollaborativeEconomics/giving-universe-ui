@@ -5,16 +5,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class OptimismSDK{
-  enabled  = false
+  chainEnabled  = false
   chain    = 'Optimism'
-  symbol   = 'OP'
+  coinSymbol   = 'OP'
   logo     = 'op.png'
   network  = process.env.NEXT_PUBLIC_OPTIMISM_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 10,
     name: 'Optimism Mainnet',
-    symbol: 'OP',
+    coinSymbol: 'OP',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://optimistic.etherscan.io/',
@@ -24,7 +24,7 @@ class OptimismSDK{
   testnet = {
     id: 11155420,
     name: 'Optimism Testnet', // Sepolia
-    symbol: 'OP',
+    coinSymbol: 'OP',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://optimism-sepolia.blockscout.com',
@@ -53,7 +53,7 @@ class OptimismSDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',

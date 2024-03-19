@@ -62,7 +62,7 @@ export default function DonationForm(props:any) {
     const chainName = currentChain
     const chainInfo = chainLookup[chainName]
     const wallet    = currentWallet.value
-    const currency  = chainInfo?.symbol || ''
+    const currency  = chainInfo?.coinSymbol || ''
     const amount    = $('amount')?.value || '0'
     const name      = $('name-input')?.value || ''
     const email     = $('email-input')?.value || ''
@@ -227,7 +227,7 @@ export default function DonationForm(props:any) {
 
   const chains = getChainsList()
   const chainLookup = getChainsMap()
-  const chainWallets = getChainWallets(chains[0].symbol)
+  const chainWallets = getChainWallets(chains[0].coinSymbol)
 
   // TODO: Get rate after chain selected?
   // TODO: currentChain should be currently selected chain in wallet instead of first one
@@ -264,8 +264,8 @@ export default function DonationForm(props:any) {
             options={chains}
             currentOption={currentChain ?? ''}
             handleChange={(chain: string) => {
-              const chainSymbol = Object.keys(chainLookup).length>0 ? chainLookup[chain].symbol : ''
-              const listWallets = getChainWallets(chainSymbol)
+              const coinSymbol = Object.keys(chainLookup).length>0 ? chainLookup[chain].coinSymbol : ''
+              const listWallets = getChainWallets(coinSymbol)
               setCurrentChain(chain)
               setWallets(listWallets)
             }}
@@ -299,7 +299,7 @@ export default function DonationForm(props:any) {
                     toggleShowUSD(!showUSD)
                   }}
                 />
-                <Label>{chainLookup[currentChain].symbol}</Label>
+                <Label>{chainLookup[currentChain].coinSymbol}</Label>
               </div>
             </div>
             <div className="my-auto">
@@ -307,7 +307,7 @@ export default function DonationForm(props:any) {
                 className="pl-4"
                 type="text"
                 id="amount"
-                text={ showUSD ? '| ' + chainLookup[currentChain].symbol : '| USD' }
+                text={ showUSD ? '| ' + chainLookup[currentChain].coinSymbol : '| USD' }
                 divRef={amountInputRef}
               />
             </div>

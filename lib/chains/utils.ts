@@ -73,11 +73,11 @@ export function getChainNetwork(chain:string){
 }
 
 const wallets: Dictionary = {
-  coinbase:  { value: 'Coinbase',  image: '/wallets/coinbase.png',  enabled: true },
-  freighter: { value: 'Freighter', image: '/wallets/freighter.png', enabled: true },
-  lobstr:    { value: 'Lobstr',    image: '/wallets/lobstr.png',    enabled: false },
-  metamask:  { value: 'Metamask',  image: '/wallets/metamask.png',  enabled: true },
-  xaman:     { value: 'Xaman',     image: '/wallets/xaman.png',     enabled: true },
+  coinbase:  { value: 'Coinbase',  image: '/wallets/coinbase.png',  chainEnabled: true },
+  freighter: { value: 'Freighter', image: '/wallets/freighter.png', chainEnabled: true },
+  lobstr:    { value: 'Lobstr',    image: '/wallets/lobstr.png',    chainEnabled: false },
+  metamask:  { value: 'Metamask',  image: '/wallets/metamask.png',  chainEnabled: true },
+  xaman:     { value: 'Xaman',     image: '/wallets/xaman.png',     chainEnabled: true },
 }
 
 const chainWallets: Dictionary = {
@@ -106,29 +106,29 @@ export function getChainsList(){
   const chains = Object.values(Chains).map((chain) => {
     return {
       value:   chain?.chain,
-      symbol:  chain?.symbol  || '???',
+      coinSymbol:  chain?.coinSymbol  || '???',
       image:   '/coins/' + (chain?.logo || 'none.png'),
-      enabled: chain?.enabled || false
+      chainEnabled: chain?.chainEnabled || false
     }
   })
   return chains
   //return [
-  //  { value: 'Arbitrum', image: 'arbitrum.png', symbol: 'ARB' },
-  //  { value: 'Avalanche', image: 'avax.png', symbol: 'AVAX' },
-  //  { value: 'Base', image: 'base.png', symbol: 'BASE' },
-  //  { value: 'Binance', image: 'bnb.png', symbol: 'BNB' },
-  //  { value: 'Celo', image: 'celo.png', symbol: 'CELO' },
-  //  { value: 'EOS', image: 'eos.png', symbol: 'EOS' },
-  //  { value: 'Ethereum', image: 'eth.png', symbol: 'ETH' },
-  //  { value: 'EthereumUSDC', image: 'usdc.png', symbol: 'USDC' },
-  //  { value: 'EthereumUSDT', image: 'usdt.png', symbol: 'USDT' },
-  //  { value: 'Filecoin', image: 'fil.png', symbol: 'FIL' },
-  //  { value: 'Flare', image: 'flr.png', symbol: 'FLR' },
-  //  { value: 'Optimism', image: 'op.png', symbol: 'OP' },
-  //  { value: 'Polygon', image: 'matic.png', symbol: 'MATIC' },
-  //  { value: 'Stellar', image: 'xlm.png', symbol: 'XLM' },
-  //  { value: 'XDC', image: 'xdc.png', symbol: 'XDC' },
-  //  { value: 'XRPL', image: 'xrp.png', symbol: 'XRP' }
+  //  { value: 'Arbitrum', image: 'arbitrum.png', coinSymbol: 'ARB' },
+  //  { value: 'Avalanche', image: 'avax.png', coinSymbol: 'AVAX' },
+  //  { value: 'Base', image: 'base.png', coinSymbol: 'BASE' },
+  //  { value: 'Binance', image: 'bnb.png', coinSymbol: 'BNB' },
+  //  { value: 'Celo', image: 'celo.png', coinSymbol: 'CELO' },
+  //  { value: 'EOS', image: 'eos.png', coinSymbol: 'EOS' },
+  //  { value: 'Ethereum', image: 'eth.png', coinSymbol: 'ETH' },
+  //  { value: 'EthereumUSDC', image: 'usdc.png', coinSymbol: 'USDC' },
+  //  { value: 'EthereumUSDT', image: 'usdt.png', coinSymbol: 'USDT' },
+  //  { value: 'Filecoin', image: 'fil.png', coinSymbol: 'FIL' },
+  //  { value: 'Flare', image: 'flr.png', coinSymbol: 'FLR' },
+  //  { value: 'Optimism', image: 'op.png', coinSymbol: 'OP' },
+  //  { value: 'Polygon', image: 'matic.png', coinSymbol: 'MATIC' },
+  //  { value: 'Stellar', image: 'xlm.png', coinSymbol: 'XLM' },
+  //  { value: 'XDC', image: 'xdc.png', coinSymbol: 'XDC' },
+  //  { value: 'XRPL', image: 'xrp.png', coinSymbol: 'XRP' }
   //]
 }
 
@@ -136,30 +136,30 @@ export function getChainsMap(){
   let chains:Dictionary = {}
   Object.values(Chains).map((chain) => {
     chains[chain.chain] = {
-      symbol:  chain?.symbol  || '???',
+      coinSymbol:  chain?.coinSymbol  || '???',
       image:   '/coins/' + (chain?.logo || 'none.png'),
-      enabled: chain?.enabled || false
+      chainEnabled: chain?.chainEnabled || false
     }
   })
   return chains
   
   //return {
-  //  Arbitrum: { image: 'arbitrum.png', symbol: 'ARB' },
-  //  Avalanche: { image: 'avax.png', symbol: 'AVAX' },
-  //  Base: { image: 'base.png', symbol: 'BASE' },
-  //  Binance: { image: 'bnb.png', symbol: 'BNB' },
-  //  Celo: { image: 'celo.png', symbol: 'CELO' },
-  //  EOS: { image: 'eos.png', symbol: 'EOS' },
-  //  Ethereum: { image: 'eth.png', symbol: 'ETH' },
-  //  EthereumUSDC: { image: 'usdc.png', symbol: 'USDC' },
-  //  EthereumUSDT: { image: 'usdt.png', symbol: 'USDT' },
-  //  Filecoin: { image: 'fil.png', symbol: 'FIL' },
-  //  Flare: { image: 'flr.png', symbol: 'FLR' },
-  //  Optimism: { image: 'op.png', symbol: 'OP' },
-  //  Polygon: { image: 'matic.png', symbol: 'MATIC' },
-  //  Stellar: { image: 'xlm.png', symbol: 'XLM' },
-  //  XDC: { image: 'xdc.png', symbol: 'XDC' },
-  //  XRPL: { image: 'xrp.png', symbol: 'XRP' }
+  //  Arbitrum: { image: 'arbitrum.png', coinSymbol: 'ARB' },
+  //  Avalanche: { image: 'avax.png', coinSymbol: 'AVAX' },
+  //  Base: { image: 'base.png', coinSymbol: 'BASE' },
+  //  Binance: { image: 'bnb.png', coinSymbol: 'BNB' },
+  //  Celo: { image: 'celo.png', coinSymbol: 'CELO' },
+  //  EOS: { image: 'eos.png', coinSymbol: 'EOS' },
+  //  Ethereum: { image: 'eth.png', coinSymbol: 'ETH' },
+  //  EthereumUSDC: { image: 'usdc.png', coinSymbol: 'USDC' },
+  //  EthereumUSDT: { image: 'usdt.png', coinSymbol: 'USDT' },
+  //  Filecoin: { image: 'fil.png', coinSymbol: 'FIL' },
+  //  Flare: { image: 'flr.png', coinSymbol: 'FLR' },
+  //  Optimism: { image: 'op.png', coinSymbol: 'OP' },
+  //  Polygon: { image: 'matic.png', coinSymbol: 'MATIC' },
+  //  Stellar: { image: 'xlm.png', coinSymbol: 'XLM' },
+  //  XDC: { image: 'xdc.png', coinSymbol: 'XDC' },
+  //  XRPL: { image: 'xrp.png', coinSymbol: 'XRP' }
   //}
 
 }

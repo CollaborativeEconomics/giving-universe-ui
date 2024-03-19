@@ -8,13 +8,13 @@ type Callback = (data:Dictionary)=>void
 
 class XDCServer {
   chain    = 'XDC'
-  symbol   = 'XDC'
+  coinSymbol   = 'XDC'
   network  = process.env.NEXT_PUBLIC_XDC_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 50,
     name: 'XDC Mainnet',
-    symbol: 'XDC',
+    coinSymbol: 'XDC',
     decimals: 18,
     gasprice: '12500000000',
     explorer: 'https://explorer.xinfin.network',
@@ -24,7 +24,7 @@ class XDCServer {
   testnet = {
     id: 51,
     name: 'XDC Testnet',
-    symbol: 'XDC',
+    coinSymbol: 'XDC',
     decimals: 18,
     gasprice: '12500000000',
     explorer: 'https://explorer.apothem.network',

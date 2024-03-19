@@ -5,16 +5,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class EOSSDK{
-  enabled  = false
+  chainEnabled  = false
   chain    = 'EOS'
-  symbol   = 'EOS'
+  coinSymbol   = 'EOS'
   logo     = 'eos.png'
   network  = process.env.NEXT_PUBLIC_EOS_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 17777,
     name: 'EOS Mainnet',
-    symbol: 'EOS',
+    coinSymbol: 'EOS',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://explorer.evm.eosnetwork.com',
@@ -24,7 +24,7 @@ class EOSSDK{
   testnet = {
     id: 15557,
     name: 'EOS Testnet Goerli',
-    symbol: 'EOS',
+    coinSymbol: 'EOS',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://explorer.testnet.evm.eosnetwork.com',
@@ -53,7 +53,7 @@ class EOSSDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',

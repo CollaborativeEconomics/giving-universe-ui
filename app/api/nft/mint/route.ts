@@ -99,7 +99,7 @@ export async function POST(request: Request) {
     }
 
     const network  = Chains[chain].network
-    const currency = Chains[chain].symbol
+    const currency = Chains[chain].coinSymbol
 
     let amount = parseFloat(txInfo.amount) || 0.0
     let amountCUR = amount.toFixed(4)

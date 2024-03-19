@@ -7,13 +7,13 @@ type Callback = (data:Dictionary)=>void
 
 class EthereumServer {
   chain    = 'Ethereum'
-  symbol   = 'ETH'
+  coinSymbol   = 'ETH'
   network  = process.env.NEXT_PUBLIC_ETHEREUM_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 1,
     name: 'Ethereum Mainnet',
-    symbol: 'ETH',
+    coinSymbol: 'ETH',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://etherscan.io',
@@ -23,7 +23,7 @@ class EthereumServer {
   testnet = {
     id: 5,
     name: 'Ethereum Testnet Goerli',
-    symbol: 'ETH',
+    coinSymbol: 'ETH',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://goerli.etherscan.io',

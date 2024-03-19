@@ -1,10 +1,10 @@
 export async function GET(request: Request) {
   const requrl = new URL(request.url)
-  const symbol = (requrl.searchParams.get('coin') || '').toUpperCase()
-  console.warn('Getting CMC ticker for symbol', symbol)
+  const coinSymbol = (requrl.searchParams.get('coin') || '').toUpperCase()
+  console.warn('Getting CMC ticker for symbol', coinSymbol)
   let url, opt, res, tkr, usd
   try {
-    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol='+symbol
+    url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol='+coinSymbol
     opt = {
       method: 'GET', 
       headers: {
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     }
     res = await fetch(url, opt)
     tkr = await res.json()
-    usd = tkr?.data[symbol]?.quote?.USD?.price
+    usd = tkr?.data[coinSymbol]?.quote?.USD?.price
     console.warn('Ticker:', usd)
   } catch(ex) {
     console.error('Error in CMC ticker:', ex)

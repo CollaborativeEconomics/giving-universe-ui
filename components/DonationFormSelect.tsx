@@ -11,8 +11,8 @@ import {
 interface SelectOption {
   value: string;
   image: string;
-  symbol?: string,
-  enabled?: boolean
+  coinSymbol?: string,
+  chainEnabled?: boolean
 }
 
 export interface SelectInputProps extends InputProps {
@@ -48,7 +48,7 @@ const DonationFormSelect = React.forwardRef<HTMLInputElement, SelectInputProps>(
         
         <SelectContent className="bg-white">
           {options.map((option) => {
-            if(!option?.enabled){ return }
+            if(!option?.chainEnabled){ return }
             return (
               <SelectItem
                 className="bg-white text-black"

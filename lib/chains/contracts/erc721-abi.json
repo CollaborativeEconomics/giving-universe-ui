@@ -8,7 +8,7 @@
       },
       {
         "internalType": "string",
-        "name": "symbol",
+        "name": "coinSymbol",
         "type": "string"
       }
     ],
@@ -394,7 +394,7 @@
   },
   {
     "inputs": [],
-    "name": "symbol",
+    "name": "coinSymbol",
     "outputs": [
       {
         "internalType": "string",

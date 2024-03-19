@@ -7,13 +7,13 @@ type Callback = (data:Dictionary)=>void
 
 class ArbitrumServer {
   chain    = 'Arbitrum'
-  symbol   = 'ARB'
+  coinSymbol   = 'ARB'
   network  = process.env.NEXT_PUBLIC_ARBITRUM_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 42161,
     name: 'Arbitrum Mainnet',
-    symbol: 'AVAX',
+    coinSymbol: 'AVAX',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://arbiscan.io',
@@ -23,7 +23,7 @@ class ArbitrumServer {
   testnet = {
     id: 421614,
     name: 'Arbitrum Testnet',
-    symbol: 'AVAX',
+    coinSymbol: 'AVAX',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://sepolia.arbiscan.io',

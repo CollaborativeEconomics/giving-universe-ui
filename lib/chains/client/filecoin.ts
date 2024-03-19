@@ -5,16 +5,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class FilecoinSDK{
-  enabled  = false
+  chainEnabled  = false
   chain    = 'Filecoin'
-  symbol   = 'FIL'
+  coinSymbol   = 'FIL'
   logo     = 'fil.png'
   network  = process.env.NEXT_PUBLIC_FILECOIN_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 43114,
     name: 'Filecoin Mainnet',
-    symbol: 'FIL',
+    coinSymbol: 'FIL',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://filscan.io',
@@ -24,7 +24,7 @@ class FilecoinSDK{
   testnet = {
     id: 314159,
     name: 'Filecoin Testnet',
-    symbol: 'FIL',
+    coinSymbol: 'FIL',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://calibration.filscan.io',
@@ -34,7 +34,7 @@ class FilecoinSDK{
   hyperspace = {
     id: 43113,
     name: 'Filecoin Hyperspace',
-    symbol: 'FIL',
+    coinSymbol: 'FIL',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://hyperspace.filscan.io',
@@ -63,7 +63,7 @@ class FilecoinSDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',

@@ -7,13 +7,13 @@ type Callback = (data:Dictionary)=>void
 
 class OptimismServer {
   chain    = 'Optimism'
-  symbol   = 'OP'
+  coinSymbol   = 'OP'
   network  = process.env.NEXT_PUBLIC_OPTIMISM_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 1,
     name: 'Optimism Mainnet',
-    symbol: 'OP',
+    coinSymbol: 'OP',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://etherscan.io',
@@ -23,7 +23,7 @@ class OptimismServer {
   testnet = {
     id: 5,
     name: 'Optimism Testnet', // sepolia
-    symbol: 'OP',
+    coinSymbol: 'OP',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://goerli.etherscan.io',

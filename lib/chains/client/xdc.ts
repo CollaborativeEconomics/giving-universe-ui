@@ -5,16 +5,16 @@ type Dictionary = { [key:string]:any }
 type Callback = (data:Dictionary)=>void
 
 class XDC_SDK{
-  enabled  = true
+  chainEnabled  = true
   chain    = 'XDC'
-  symbol   = 'XDC'
+  coinSymbol   = 'XDC'
   logo     = 'xdc.png'
   network  = process.env.NEXT_PUBLIC_XDC_NETWORK || ''
   provider:WalletProvider
   mainnet  = {
     id: 50,
     name: 'XDC Mainnet',
-    symbol: 'XDC',
+    coinSymbol: 'XDC',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://explorer.xinfin.network',
@@ -24,7 +24,7 @@ class XDC_SDK{
   testnet = {
     id: 51,
     name: 'XDC Testnet',
-    symbol: 'XDC',
+    coinSymbol: 'XDC',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://explorer.apothem.network',
@@ -53,7 +53,7 @@ class XDC_SDK{
         address:  result.address,
         chainid:  this.provider.id,
         chain:    this.chain,
-        currency: this.provider.symbol,
+        currency: this.provider.coinSymbol,
         decimals: this.provider.decimals,
         network:  this.network,
         token:    '',

@@ -7,13 +7,13 @@ type Callback = (data:Dictionary)=>void
 
 class BaseServer {
   chain    = 'Base'
-  symbol   = 'BASE'
+  coinSymbol   = 'BASE'
   network  = process.env.NEXT_PUBLIC_BASE_NETWORK
   provider:WalletProvider
   mainnet  = {
     id: 8453,
     name: 'Base Mainnet',
-    symbol: 'BASE',
+    coinSymbol: 'BASE',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://basescan.org',
@@ -23,7 +23,7 @@ class BaseServer {
   testnet = {
     id: 84532,
     name: 'Base Testnet',
-    symbol: 'BASE',
+    coinSymbol: 'BASE',
     decimals: 18,
     gasprice: '250000000',
     explorer: 'https://sepolia-explorer.base.org',
