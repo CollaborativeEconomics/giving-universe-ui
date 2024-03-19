@@ -5,7 +5,7 @@ import { CalendarDays } from 'lucide-react'
 import * as React from 'react'
 
 interface Props {
-  timestamp: Date
+  timestamp: Date | number
   className?: string
 }
 
