@@ -7,15 +7,21 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import InitiativeCardCompactShort from '../InitiativeCardCompactShort'
+import { Initiative } from '@/types/common'
 
-export default function ImpactCarousel(props:any) {
-  const initiatives = props.initiatives
-  const innerWidth = typeof window !== "undefined" ? window.innerWidth : 1366
+interface Props {
+  initiatives: Initiative[]
+}
+
+export default function ImpactCarousel({ initiatives }: Props) {
+  const innerWidth = typeof window !== 'undefined' ? window.innerWidth : 1366
   const [screenWidth, setScreenWidth] = useState(innerWidth)
-  const setDimension = () => { setScreenWidth(innerWidth) }
+  const setDimension = () => {
+    setScreenWidth(innerWidth)
+  }
 
   useEffect(() => {
-    if(typeof window !== "undefined"){
+    if (typeof window !== 'undefined') {
       window.addEventListener('resize', setDimension)
       return () => {
         window.removeEventListener('resize', setDimension)
@@ -39,13 +45,13 @@ export default function ImpactCarousel(props:any) {
         speed={800}
         loop
       >
-      { initiatives.map((initiative:any) => {
-        return (
-          <SwiperSlide key={initiative.id}>
-            <InitiativeCardCompactShort initiative={initiative} />
-          </SwiperSlide>
-        )
-      }) }
+        {initiatives.map((initiative) => {
+          return (
+            <SwiperSlide key={initiative.id}>
+              <InitiativeCardCompactShort {...initiative} />
+            </SwiperSlide>
+          )
+        })}
       </Swiper>
     </div>
   )
